@@ -10,10 +10,10 @@ const PortfolioPage = () => {
   return (
     <WideLayout>
       <>
-        <h1 className="text-center text-wood text-3xl font-semibold pt-8 px-4">
+        <h1 className="px-4 pt-16 text-center text-wood text-4xl font-semibold">
           Portfolio
         </h1>
-        <hr className="border-wood mt-4 mb-6" />
+        <hr className="mt-4 mb-8 border-wood" />
 
         {showcaseIsLoading && (
           <p className="text-center text-wood">Loading...</p>

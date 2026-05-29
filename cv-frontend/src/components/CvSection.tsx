@@ -2,12 +2,11 @@ import type { FC } from "react";
 
 const CvSection: FC = () => {
   return (
-    <section className="max-w-6xl mx-auto md:py-4 xl:py-27 px-4">
+    <section className="w-full max-w-[620px] px-0 pt-0 pb-12 xl:pt-16">
       <iframe
-        src="http://localhost:5110/api/Cv"
-        width="600"
-        height="800"
-        title="Example Site"
+        src="/api/Cv"
+        className="h-[760px] w-full rounded shadow-lg"
+        title="CV"
       ></iframe>
     </section>
   );

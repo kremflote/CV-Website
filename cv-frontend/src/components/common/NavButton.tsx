@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext, type FC } from "react";
+import type { FC } from "react";
 import type { INavButtonProps } from "../../interfaces/components/INavButtonProps";
 
 const NavButton: FC<INavButtonProps> = ({ destination }) => {
@@ -9,17 +9,11 @@ const NavButton: FC<INavButtonProps> = ({ destination }) => {
     case "/":
       displayTitle = "FRONTPAGE";
       break;
-    case "/admin":
-      displayTitle = "MANAGE FIGHTERS";
+    case "/portfolio":
+      displayTitle = "PORTFOLIO";
       break;
-    case "/finances":
-      displayTitle = "SIGN FIGHTERS";
-      break;
-    case "/venues":
-      displayTitle = "SEE VENUES";
-      break;
-    case "/register":
-      displayTitle = "REGISTER NEW FIGHTER";
+    case "/cv":
+      displayTitle = "CV";
       break;
   }
 

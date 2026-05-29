@@ -1,4 +1,5 @@
 import AboutMe from "../components/AboutMe";
+import TenureTimeline from "../components/TenureTimeline";
 import { WideLayout } from "../components/common/WideLayout";
 
 const HomePage = () => {
@@ -6,6 +7,7 @@ const HomePage = () => {
     <WideLayout>
       <>
         <AboutMe />
+        <TenureTimeline />
       </>
     </WideLayout>
   );

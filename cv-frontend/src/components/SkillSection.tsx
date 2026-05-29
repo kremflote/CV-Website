@@ -63,11 +63,11 @@ const SkillSection: FC = () => {
     return <p className="text-center mt-12 text-red-500">{initError}</p>;
 
   return (
-    <section className="max-w-6xl mx-auto py-12 px-4">
-      <h1 className="text-center text-wood text-3xl font-semibold mb-6">
+    <section className="mx-auto max-w-6xl px-4 pt-16 pb-12">
+      <h1 className="mb-6 text-center text-wood text-4xl font-semibold">
         IT Kompetanse
       </h1>
-      <hr className="border-wood mt-4 mb-6" />
+      <hr className="mt-4 mb-8 border-wood" />
 
       <div className="space-y-4">
         <div>

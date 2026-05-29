@@ -1,10 +1,16 @@
 import type { IShowcase } from "../interfaces/IShowcase";
+import { useNavigate } from "react-router-dom";
 
-const ShowcaseCard = ({ title, image_Thumbnail }: IShowcase) => {
+const ShowcaseCard = ({ id, title, image_Thumbnail }: IShowcase) => {
+  const navigate = useNavigate();
+
   return (
-    <article className="relative group shadow-lg rounded overflow-hidden cursor-pointer">
+    <article
+      onClick={() => navigate(`/showcase/${id}`)}
+      className="relative group shadow-lg rounded overflow-hidden cursor-pointer"
+    >
       <img
-        src={"/images/" + image_Thumbnail}
+        src={`/images/${image_Thumbnail}?v=${id}`}
         alt={title}
         className="w-full h-[260px] object-cover"
       />

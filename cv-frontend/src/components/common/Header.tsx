@@ -60,6 +60,18 @@ const Header: FC = () => {
               <span className={textDesktop}>CV</span>
             </NavLink>
           </li>
+
+          <li className={navRowItem}>
+            <NavLink
+              to="/kontakt"
+              className={({ isActive }) =>
+                isActive ? `${navLinkActive}` : navLinkInactive
+              }
+            >
+              <i className={`fa-envelope ${iconMobile}`}></i>
+              <span className={textDesktop}>Kontakt</span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>

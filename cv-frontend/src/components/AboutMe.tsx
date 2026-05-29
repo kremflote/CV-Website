@@ -2,12 +2,12 @@ import type { FC } from "react";
 
 const AboutMe: FC = () => {
   return (
-    <section className="py-16 px-4">
-      <h1 className="text-center text-wood text-4xl font-semibold mb-6">
+    <section className="px-4 pt-16 pb-16">
+      <h1 className="mb-6 text-center text-wood text-4xl font-semibold">
         Hei!
       </h1>
 
-      <hr className="border-wood mb-6" />
+      <hr className="mb-8 border-wood" />
 
       <div className="text-center space-y-6 text-gray-800 text-xl">
         <p>
