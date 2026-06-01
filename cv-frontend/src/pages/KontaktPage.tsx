@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { WideLayout } from "../components/common/WideLayout";
+import { contactStyles, pageStyles } from "../styles/styles";
 
 const email = "work@mariuskristensen.no";
 
@@ -14,19 +15,19 @@ const KontaktPage = () => {
   return (
     <WideLayout>
       <section className="mx-auto w-full max-w-2xl px-6 pt-16 pb-24 text-center">
-        <h1 className="text-wood text-4xl font-semibold">Kontakt</h1>
-        <hr className="mt-4 mb-8 border-wood" />
+        <h1 className={pageStyles.titleLeft}>Kontakt</h1>
+        <hr className={`mt-4 mb-8 ${pageStyles.divider}`} />
 
-        <div className="space-y-4 text-lg text-gray-800">
+        <div className={`space-y-4 text-lg ${pageStyles.bodyText}`}>
           <p>Ta gjerne kontakt.</p>
           <button
             onClick={copyEmail}
-            className="cursor-pointer rounded border border-wood px-5 py-3 font-semibold text-wood-dark transition-colors hover:bg-wood hover:text-white"
+            className={`cursor-pointer rounded border px-5 py-3 font-semibold transition-colors ${contactStyles.button}`}
           >
             {email}
           </button>
           {hasCopiedEmail && (
-            <p className="text-sm font-semibold text-wood-dark">
+            <p className={`text-sm font-semibold ${contactStyles.copiedText}`}>
               E-post kopiert til utklippstavlen.
             </p>
           )}

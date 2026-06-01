@@ -9,14 +9,14 @@ import {
 } from "../pages";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-import { backgroundColor } from "../styles/styles";
+import { pageStyles } from "../styles/styles";
 import ShowcasePage from "../pages/ShowcasePage";
 
 const AppRouting = () => {
   return (
     <BrowserRouter>
       <Header />
-      <main className={`${backgroundColor}`}>
+      <main className={pageStyles.main}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />

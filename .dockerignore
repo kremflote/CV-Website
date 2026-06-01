@@ -1,0 +1,14 @@
+.git
+.vscode
+.cloudflared
+
+**/bin
+**/obj
+**/node_modules
+**/dist
+
+*.log
+*.user
+*.suo
+*.db-shm
+*.db-wal

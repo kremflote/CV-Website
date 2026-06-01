@@ -55,17 +55,22 @@ public class ShowcaseController(CVContext _context, IWebHostEnvironment webHostE
             }
 
             string imageFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
-            string imagePrefix = GetImagePrefix(showcase.Image);
+            string imagePrefix = Path.GetFileNameWithoutExtension(showcase.Image);
+            string fallbackImagePrefix = GetImagePrefix(showcase.Image);
 
-            List<string> images = Directory
-                .GetFiles(imageFolderPath, $"{imagePrefix}-*.jpg")
-                .Select(Path.GetFileName)
-                .Where(fileName => fileName is not null && !fileName.Contains("thumbnail", StringComparison.OrdinalIgnoreCase))
-                .Cast<string>()
-                .OrderBy(fileName => GetImageNumber(imagePrefix, fileName))
-                .ToList();
+            List<string> images = GetNumberedImages(imageFolderPath, imagePrefix);
 
-            if (images.Count == 0 && !string.IsNullOrWhiteSpace(showcase.Image))
+            if (images.Count == 0 && fallbackImagePrefix != imagePrefix)
+            {
+                images = GetNumberedImages(imageFolderPath, fallbackImagePrefix);
+            }
+
+            string fallbackImagePath = Path.Combine(imageFolderPath, showcase.Image);
+            if (
+                images.Count == 0 &&
+                !string.IsNullOrWhiteSpace(showcase.Image) &&
+                System.IO.File.Exists(fallbackImagePath)
+            )
             {
                 images.Add(showcase.Image);
             }
@@ -76,6 +81,17 @@ public class ShowcaseController(CVContext _context, IWebHostEnvironment webHostE
         {
             return StatusCode(500, $"Error: {e.Message}");
         }
+    }
+
+    private static List<string> GetNumberedImages(string imageFolderPath, string imagePrefix)
+    {
+        return Directory
+            .GetFiles(imageFolderPath, $"{imagePrefix}-*.jpg")
+            .Select(Path.GetFileName)
+            .Where(fileName => fileName is not null && !fileName.Contains("thumbnail", StringComparison.OrdinalIgnoreCase))
+            .Cast<string>()
+            .OrderBy(fileName => GetImageNumber(imagePrefix, fileName))
+            .ToList();
     }
 
     private static string GetImagePrefix(string imageName)

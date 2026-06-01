@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import type { ITenure } from "../interfaces/ITenure";
+import { timelineStyles } from "../styles/styles";
 
 interface TenureTimelineItemProps {
   tenure: ITenure;
@@ -22,24 +23,24 @@ const TenureTimelineItem: FC<TenureTimelineItemProps> = ({
 
   const bar = (
     <div
-      className={`flex w-14 items-center justify-center rounded text-sm font-semibold text-white shadow-md ${barColor}`}
+      className={`w-14 rounded shadow-md ${barColor}`}
       style={{ height: `${barHeight}px` }}
-    >
-      <span className="-rotate-90 whitespace-nowrap">{durationLabel}</span>
-    </div>
+    />
   );
 
   const details = (
     <div
-      className={`max-w-44 rounded px-2 py-1 text-sm leading-tight text-gray-800 opacity-90 transition-all duration-300 group-hover:bg-white/30 group-hover:opacity-100 group-hover:shadow-2xl group-hover:shadow-marble/20 group-hover:backdrop-blur-xl ${
+      className={`max-w-44 rounded px-2 py-1 text-sm leading-tight ${timelineStyles.floatingDetails} ${
         isLeft
           ? "text-right group-hover:-translate-x-8 group-hover:scale-150"
           : "text-left group-hover:translate-x-8 group-hover:scale-150"
       }`}
     >
       <p className="font-semibold">{tenure.companyName}</p>
-      <p className="text-xs text-gray-600">{tenure.workTitle}</p>
-      <p className="mt-1 text-xs font-semibold text-wood-dark">
+      <p className={`text-xs ${timelineStyles.mutedDetails}`}>
+        {tenure.workTitle}
+      </p>
+      <p className={`mt-1 text-xs font-semibold ${timelineStyles.durationText}`}>
         {durationLabel}
       </p>
     </div>
@@ -68,10 +69,14 @@ const TenureTimelineItem: FC<TenureTimelineItemProps> = ({
   const mobileContent = (
     <div className="flex items-center gap-4">
       {bar}
-      <div className="max-w-48 rounded px-2 py-1 text-left text-sm leading-tight text-gray-800 opacity-90 transition-all duration-300 group-hover:translate-x-8 group-hover:scale-150 group-hover:bg-white/30 group-hover:opacity-100 group-hover:shadow-2xl group-hover:shadow-marble/20 group-hover:backdrop-blur-xl">
+      <div
+        className={`max-w-48 rounded px-2 py-1 text-left text-sm leading-tight group-hover:translate-x-8 group-hover:scale-150 ${timelineStyles.floatingDetails}`}
+      >
         <p className="font-semibold">{tenure.companyName}</p>
-        <p className="text-xs text-gray-600">{tenure.workTitle}</p>
-        <p className="mt-1 text-xs font-semibold text-wood-dark">
+        <p className={`text-xs ${timelineStyles.mutedDetails}`}>
+          {tenure.workTitle}
+        </p>
+        <p className={`mt-1 text-xs font-semibold ${timelineStyles.durationText}`}>
           {durationLabel}
         </p>
       </div>
@@ -83,8 +88,10 @@ const TenureTimelineItem: FC<TenureTimelineItemProps> = ({
       <div className="hidden md:block">{isLeft && content}</div>
 
       <div className="relative flex items-center justify-center">
-        <span className="h-px w-full bg-wood-dark/70" />
-        <span className="absolute h-3 w-3 rounded-full border-2 border-wood-dark bg-concrete" />
+        <span className={`h-px w-full ${timelineStyles.line}`} />
+        <span
+          className={`absolute h-3 w-3 rounded-full border-2 ${timelineStyles.dot}`}
+        />
       </div>
 
       <div className="md:hidden">{mobileContent}</div>

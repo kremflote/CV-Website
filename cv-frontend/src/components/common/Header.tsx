@@ -1,75 +1,55 @@
 import type { FC } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  header,
-  iconMobile,
-  logoLink,
-  navContainer,
-  navLinkActive,
-  navLinkInactive,
-  navRow,
-  navRowItem,
-  primaryColor,
-  textDesktop,
-} from "../../styles/styles";
+import { headerStyles } from "../../styles/styles";
+
+const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `${headerStyles.navLinkBase} ${isActive ? headerStyles.navLinkActive : ""}`;
 
 const Header: FC = () => {
   return (
-    <header className={`${header} ${primaryColor}`}>
-      <nav className={navContainer}>
-        <NavLink to="/" className={logoLink}>
-          <span className=" text-6xl font-nunito">Marius</span>
-          <span className="block text-4xl ml-16 font-nunito -mt-3">
+    <header className={headerStyles.header}>
+      <nav className={headerStyles.nav}>
+        <NavLink to="/" className={headerStyles.logo}>
+          <span className={headerStyles.logoFirstName}>Marius</span>
+          <span className={headerStyles.logoLastName}>
             Kristensen
           </span>
         </NavLink>
 
-        <ul className={navRow}>
-          <li className={navRowItem}>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? `${navLinkActive}` : navLinkInactive
-              }
-            >
-              <i className={`fa-user-shield ${iconMobile}`}></i>
-              <span className={textDesktop}>Hjem</span>
+        <ul className={headerStyles.navList}>
+          <li>
+            <NavLink to="/" className={navLinkClass} aria-label="Hjem">
+              <i className="fas fa-house inline sm:!hidden"></i>
+              <span className="hidden sm:inline">Hjem</span>
             </NavLink>
           </li>
 
-          <li className={navRowItem}>
+          <li>
             <NavLink
               to="/portfolio"
-              className={({ isActive }) =>
-                isActive ? `${navLinkActive}` : navLinkInactive
-              }
+              className={navLinkClass}
+              aria-label="Portfolio"
             >
-              <i className={`fa-user-plus ${iconMobile}`}></i>
-              <span className={textDesktop}>Portfolio</span>
+              <i className="fas fa-briefcase inline sm:!hidden"></i>
+              <span className="hidden sm:inline">Portfolio</span>
             </NavLink>
           </li>
 
-          <li className={navRowItem}>
-            <NavLink
-              to="/cv"
-              className={({ isActive }) =>
-                isActive ? `${navLinkActive}` : navLinkInactive
-              }
-            >
-              <i className={`fa-coins ${iconMobile}`}></i>
-              <span className={textDesktop}>CV</span>
+          <li>
+            <NavLink to="/cv" className={navLinkClass} aria-label="CV">
+              <i className="fas fa-file-lines inline sm:!hidden"></i>
+              <span className="hidden sm:inline">CV</span>
             </NavLink>
           </li>
 
-          <li className={navRowItem}>
+          <li>
             <NavLink
               to="/kontakt"
-              className={({ isActive }) =>
-                isActive ? `${navLinkActive}` : navLinkInactive
-              }
+              className={navLinkClass}
+              aria-label="Kontakt"
             >
-              <i className={`fa-envelope ${iconMobile}`}></i>
-              <span className={textDesktop}>Kontakt</span>
+              <i className="fas fa-envelope inline sm:!hidden"></i>
+              <span className="hidden sm:inline">Kontakt</span>
             </NavLink>
           </li>
         </ul>

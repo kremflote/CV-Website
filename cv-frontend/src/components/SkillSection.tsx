@@ -2,6 +2,7 @@ import { useContext, useState, type FC } from "react";
 import { SkillContext } from "../contexts/SkillProvider";
 import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
 import type { ISkill } from "../interfaces/ISkill";
+import { pageStyles, skillStyles } from "../styles/styles";
 
 interface SkillTagProps {
   label: string;
@@ -12,12 +13,9 @@ interface SkillTagProps {
 const SkillTag: FC<SkillTagProps> = ({ label, isSelected, onClick }) => (
   <button
     onClick={onClick}
-    className={`px-3 py-1 rounded border text-md transition-colors cursor-pointer
-      ${
-        isSelected
-          ? "bg-wood text-white border-wood"
-          : "bg-transparent text-wood-dark border-wood hover:bg-wood hover:text-white"
-      }`}
+    className={`${skillStyles.tagBase} ${
+      isSelected ? skillStyles.tagSelected : skillStyles.tagUnselected
+    }`}
   >
     {label}
   </button>
@@ -27,15 +25,15 @@ const formatDescription = (description: string) => {
   const parts = description.split("Emnebeskrivelse:");
   if (parts.length === 1)
     return (
-      <p className="text-lg text-wood-dark font-semibold">{description}</p>
+      <p className={skillStyles.descriptionStrong}>{description}</p>
     );
 
   return (
     <>
-      <p className="text-lg text-wood-dark font-semibold">{parts[0].trim()}</p>
+      <p className={skillStyles.descriptionStrong}>{parts[0].trim()}</p>
       <br />
       <br />
-      <p className="text-lg text-wood-dark">
+      <p className={skillStyles.descriptionText}>
         <span className="font-semibold">Emnebeskrivelse: </span>
         {parts[1].trim()}
       </p>
@@ -60,14 +58,14 @@ const SkillSection: FC = () => {
 
   if (skillIsLoading) return <p className="text-center mt-12">Laster...</p>;
   if (initError)
-    return <p className="text-center mt-12 text-red-500">{initError}</p>;
+    return <p className={`text-center mt-12 ${pageStyles.errorText}`}>{initError}</p>;
 
   return (
     <section className="mx-auto max-w-6xl px-4 pt-16 pb-12">
-      <h1 className="mb-6 text-center text-wood text-4xl font-semibold">
+      <h1 className={`mb-6 ${pageStyles.title}`}>
         IT Kompetanse
       </h1>
-      <hr className="mt-4 mb-8 border-wood" />
+      <hr className={`mt-4 mb-8 ${pageStyles.divider}`} />
 
       <div className="space-y-4">
         <div>
@@ -99,7 +97,7 @@ const SkillSection: FC = () => {
         </div>
       </div>
 
-      <hr className="border-wood mt-10" />
+      <hr className={`mt-10 ${pageStyles.divider}`} />
 
       <div className="mt-6">
         <div className=" ">

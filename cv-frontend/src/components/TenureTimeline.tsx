@@ -4,8 +4,16 @@ import { TenureContext } from "../contexts/TenureProvider";
 import type { ITenureContext } from "../interfaces/contexts/ITenureContext";
 import type { ITenure } from "../interfaces/ITenure";
 import TenureTimelineItem from "./TenureTimelineItem";
+import { companyColors, pageStyles, timelineStyles } from "../styles/styles";
 
 interface TimelineTenure {
+  tenure: ITenure;
+  durationMonths: number;
+  startDate: Date;
+  side: "left" | "right";
+}
+
+interface TimelineTenureWithoutSide {
   tenure: ITenure;
   durationMonths: number;
   startDate: Date;
@@ -15,25 +23,25 @@ const getBarColor = (companyName: string): string => {
   const normalizedCompanyName = companyName.toLowerCase();
 
   if (normalizedCompanyName.includes("power")) {
-    return "bg-orange-600";
+    return companyColors.power;
   }
 
   if (normalizedCompanyName.includes("kristiania")) {
-    return "bg-rose-700";
+    return companyColors.kristiania;
   }
 
   if (
     normalizedCompanyName.includes("würth") ||
     normalizedCompanyName.includes("wurth")
   ) {
-    return "bg-red-900";
+    return companyColors.wurth;
   }
 
   if (normalizedCompanyName.includes("ihlang")) {
-    return "bg-orange-400";
+    return companyColors.ihlang;
   }
 
-  return "bg-wood";
+  return companyColors.default;
 };
 
 const getCompanyUrl = (companyName: string): string | undefined => {
@@ -126,8 +134,19 @@ const parseTenureDate = (value: string): Date => {
 const getDurationMonths = (startDate: Date, endDate: Date): number => {
   const yearDifference = endDate.getFullYear() - startDate.getFullYear();
   const monthDifference = endDate.getMonth() - startDate.getMonth();
+  const calendarMonths = yearDifference * 12 + monthDifference;
 
-  return Math.max(1, yearDifference * 12 + monthDifference + 1);
+  if (calendarMonths > 0 && calendarMonths % 12 === 0) {
+    return calendarMonths;
+  }
+
+  const inclusiveMonths = calendarMonths + 1;
+
+  if (inclusiveMonths >= 10 && inclusiveMonths < 12) {
+    return 12;
+  }
+
+  return Math.max(1, inclusiveMonths);
 };
 
 const formatDuration = (months: number): string => {
@@ -153,31 +172,79 @@ const getBarHeight = (durationMonths: number, longestDuration: number) => {
   return Math.round(minHeight + (maxHeight - minHeight) * scale);
 };
 
+const getCompanyGroupKey = (companyName: string): string => {
+  const normalizedCompanyName = companyName.toLowerCase();
+
+  if (normalizedCompanyName.includes("power")) {
+    return "power";
+  }
+
+  if (normalizedCompanyName.includes("kristiania")) {
+    return "kristiania";
+  }
+
+  if (
+    normalizedCompanyName.includes("würth") ||
+    normalizedCompanyName.includes("wurth")
+  ) {
+    return "wurth";
+  }
+
+  if (normalizedCompanyName.includes("ihlang")) {
+    return "ihlang";
+  }
+
+  return normalizedCompanyName;
+};
+
+const addGroupSides = (
+  timelineTenures: TimelineTenureWithoutSide[],
+): TimelineTenure[] => {
+  const groupSides = new Map<string, "left" | "right">();
+
+  return timelineTenures.map((timelineTenure) => {
+    const groupKey = getCompanyGroupKey(timelineTenure.tenure.companyName);
+    let side = groupSides.get(groupKey);
+
+    if (!side) {
+      side = groupSides.size % 2 === 0 ? "right" : "left";
+      groupSides.set(groupKey, side);
+    }
+
+    return {
+      ...timelineTenure,
+      side,
+    };
+  });
+};
+
 const TenureTimeline: FC = () => {
   const { tenures, tenureIsLoading, initError } = useContext(
     TenureContext,
   ) as ITenureContext;
 
   if (tenureIsLoading) {
-    return <p className="py-12 text-center text-wood-dark">Laster...</p>;
+    return <p className={`py-12 text-center ${pageStyles.accentText}`}>Laster...</p>;
   }
 
   if (initError) {
-    return <p className="py-12 text-center text-red-500">{initError}</p>;
+    return <p className={`py-12 text-center ${pageStyles.errorText}`}>{initError}</p>;
   }
 
-  const timelineTenures: TimelineTenure[] = tenures
-    .map((tenure) => {
-      const startDate = parseTenureDate(tenure.startDate);
-      const endDate = parseTenureDate(tenure.endDate);
+  const timelineTenures: TimelineTenure[] = addGroupSides(
+    tenures
+      .map((tenure) => {
+        const startDate = parseTenureDate(tenure.startDate);
+        const endDate = parseTenureDate(tenure.endDate);
 
-      return {
-        tenure,
-        durationMonths: getDurationMonths(startDate, endDate),
-        startDate,
-      };
-    })
-    .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+        return {
+          tenure,
+          durationMonths: getDurationMonths(startDate, endDate),
+          startDate,
+        };
+      })
+      .sort((a, b) => a.startDate.getTime() - b.startDate.getTime()),
+  );
 
   const longestDuration = Math.max(
     1,
@@ -191,14 +258,16 @@ const TenureTimeline: FC = () => {
   return (
     <section className="px-4 py-16">
       <div className="relative mx-auto max-w-4xl">
-        <div className="absolute top-0 bottom-0 left-[18px] w-px -translate-x-1/2 bg-wood-dark/70 md:left-1/2" />
+        <div
+          className={`absolute top-0 bottom-0 left-[18px] w-px -translate-x-1/2 md:left-1/2 ${timelineStyles.line}`}
+        />
 
-        <div className="relative space-y-8">
-          {timelineTenures.map(({ tenure, durationMonths }, index) => (
+        <div className="relative space-y-10">
+          {timelineTenures.map(({ tenure, durationMonths, side }) => (
             <TenureTimelineItem
               key={tenure.id}
               tenure={tenure}
-              side={index % 2 === 0 ? "right" : "left"}
+              side={side}
               barHeight={getBarHeight(durationMonths, longestDuration)}
               durationLabel={formatDuration(durationMonths)}
               barColor={getBarColor(tenure.companyName)}
@@ -210,22 +279,22 @@ const TenureTimeline: FC = () => {
             to="/kontakt"
             className="group grid grid-cols-[36px_1fr] items-center md:grid-cols-[1fr_48px_1fr]"
           >
-            <div className="hidden items-center justify-end gap-4 md:flex">
-              <div className="max-w-48 rounded px-2 py-1 text-right text-sm leading-tight text-gray-800 opacity-90 transition-all duration-300 group-hover:-translate-x-8 group-hover:scale-150 group-hover:bg-white/30 group-hover:opacity-100 group-hover:shadow-2xl group-hover:shadow-marble/20 group-hover:backdrop-blur-xl">
-                <p className="font-semibold">Kontakt meg</p>
-                <p className="text-xs text-gray-600">Neste kapittel?</p>
-              </div>
-              <div className="h-32 w-14 rounded bg-gradient-to-b from-marble via-stone-500 to-concrete shadow-md" />
-            </div>
+            <div className="hidden md:block" />
             <div className="relative flex items-center justify-center">
-              <span className="h-px w-full bg-wood-dark/70" />
-              <span className="absolute h-3 w-3 rounded-full border-2 border-wood-dark bg-concrete" />
+              <span className={`h-px w-full ${timelineStyles.line}`} />
+              <span
+                className={`absolute h-3 w-3 rounded-full border-2 ${timelineStyles.dot}`}
+              />
             </div>
-            <div className="flex items-center gap-4 md:hidden">
-              <div className="h-32 w-14 rounded bg-gradient-to-b from-marble via-stone-500 to-concrete shadow-md" />
-              <div className="max-w-48 rounded px-2 py-1 text-left text-sm leading-tight text-gray-800 opacity-90 transition-all duration-300 group-hover:translate-x-8 group-hover:scale-150 group-hover:bg-white/30 group-hover:opacity-100 group-hover:shadow-2xl group-hover:shadow-marble/20 group-hover:backdrop-blur-xl">
+            <div className="flex items-center gap-4">
+              <div className={`h-32 w-14 rounded ${timelineStyles.contactBar}`} />
+              <div
+                className={`max-w-48 rounded px-2 py-1 text-left text-sm leading-tight transition-all duration-300 group-hover:translate-x-8 group-hover:scale-150 ${timelineStyles.floatingDetails}`}
+              >
                 <p className="font-semibold">Kontakt meg</p>
-                <p className="text-xs text-gray-600">Neste kapittel?</p>
+                <p className={`text-xs ${timelineStyles.mutedDetails}`}>
+                  Neste kapittel?
+                </p>
               </div>
             </div>
           </Link>

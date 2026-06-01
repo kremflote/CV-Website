@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import { footer, primaryColor, footerSigature } from "../../styles/styles";
+import { footerStyles } from "../../styles/styles";
 
 const Footer: FC = () => {
   return (
-    <footer className={`${footer} ${primaryColor}`}>
-      <div className={footerSigature}>2026 mariuskristensen.no.</div>
+    <footer className={footerStyles.footer}>
+      <div className={footerStyles.signature}>2026 mariuskristensen.no.</div>
     </footer>
   );
 };

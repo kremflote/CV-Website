@@ -1,15 +1,16 @@
 import type { FC } from "react";
+import { pageStyles } from "../styles/styles";
 
 const AboutMe: FC = () => {
   return (
     <section className="px-4 pt-16 pb-16">
-      <h1 className="mb-6 text-center text-wood text-4xl font-semibold">
+      <h1 className={`mb-6 ${pageStyles.title}`}>
         Hei!
       </h1>
 
-      <hr className="mb-8 border-wood" />
+      <hr className={`mb-8 ${pageStyles.divider}`} />
 
-      <div className="text-center space-y-6 text-gray-800 text-xl">
+      <div className={`text-center space-y-6 ${pageStyles.bodyText} text-xl`}>
         <p>
           Mitt navn er Marius Kristensen, en nystartet utvikler og tidligere
           kundebehandler med bakgrunn i salg og relasjonsbygging.
@@ -33,7 +34,7 @@ const AboutMe: FC = () => {
         </p>
       </div>
 
-      <hr className="border-wood mt-10" />
+      <hr className={`mt-10 ${pageStyles.divider}`} />
     </section>
   );
 };
