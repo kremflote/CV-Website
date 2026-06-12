@@ -4,8 +4,9 @@ import CvModal from "../components/CvModal";
 import CvTimeline from "../components/CvTimeline";
 import RotatingHeroImage from "../components/RotatingHeroImage";
 import SkillSection from "../components/SkillSection";
-import { FullBleedSection } from "../components/common/FullBleedSection";
 import { homeStyles } from "../styles/styles";
+import { MediumLayout } from "../components/common/MediumLayout";
+import { FullWidthLayout } from "../components/common/FullWidthLayout";
 
 const HomePage = () => {
   const [isCvOpen, setIsCvOpen] = useState(false);
@@ -57,15 +58,21 @@ const HomePage = () => {
         </button>
       </nav>
 
-      <FullBleedSection className={homeStyles.timelineToBlackBand}>
-        <div className={homeStyles.sketchMain}>
-          <div className={homeStyles.sketchTimeline}>
-            <CvTimeline />
+      <section>
+        <FullWidthLayout>
+          <div className={homeStyles.timelineGradientShell}>
+            <MediumLayout>
+              <div className={homeStyles.timelineToBlackBand}>
+                <div className={homeStyles.sketchTimeline}>
+                  <CvTimeline />
+                </div>
+              </div>
+            </MediumLayout>
           </div>
-        </div>
-      </FullBleedSection>
+        </FullWidthLayout>
+      </section>
 
-      <FullBleedSection className={homeStyles.rainToCvBand}>
+      <section className={homeStyles.rainToCvBand}>
         <section className={homeStyles.rainSection}>
           <h2 className={homeStyles.rainText}>
             En <span className={homeStyles.rainHighlight}>pålitelig</span>{" "}
@@ -79,7 +86,7 @@ const HomePage = () => {
             />
           </div>
         </section>
-      </FullBleedSection>
+      </section>
 
       <div className={homeStyles.sketchLowerStack}>
         <section className={homeStyles.skillEdgeSection}>

@@ -137,13 +137,13 @@ export const homeStyles = {
     "flex h-8 min-w-11 items-center justify-center px-1.5 leading-none text-[#c8b895] no-underline transition-colors hover:text-white",
   sketchNavButton:
     "flex h-8 min-w-11 cursor-pointer items-center justify-center border-0 bg-transparent px-1.5 text-2xl font-[300] leading-none text-[#c8b895] transition-colors hover:text-white",
+  timelineGradientShell:
+    "relative w-full bg-[linear-gradient(to_bottom,rgba(19,25,37,0)_0%,rgba(19,25,37,0.18)_34rem,rgba(19,25,37,0.62)_58rem,#131925_100%)]",
   timelineToBlackBand:
     "bg-[linear-gradient(165deg,rgba(5,5,5,0)_0%,rgba(5,5,5,0)_24rem,rgba(5,5,5,0.18)_40rem,rgba(5,5,5,0.52)_58rem,rgba(5,5,5,0.86)_76rem,#050505_92rem,#050505_100%)]",
-  sketchMain:
-    "mx-auto flex w-full max-w-[1320px] flex-col px-8 pt-28 pb-12 sm:px-16 sm:pt-36 sm:pb-0",
-  sketchTimeline:
-    "mx-auto w-full max-w-[720px] [&>div]:bg-transparent [&>div]:shadow-none [&>div]:backdrop-blur-0 [&>div]:[box-shadow:none]",
-  rainToCvBand: `flex flex-col ${rainPaletteClasses.background} shadow-2xl shadow-black/30`,
+  sketchMain: " flex-col px-8 pt-28 pb-12 sm:px-16 sm:pt-36 sm:pb-0",
+  sketchTimeline: "",
+  rainToCvBand: `flex w-full flex-col ${rainPaletteClasses.background} shadow-2xl shadow-black/30`,
   rainSection:
     "grid w-full items-center gap-0 overflow-hidden py-12 sm:min-h-[430px] sm:grid-cols-[minmax(0,0.75fr)_minmax(360px,0.95fr)] sm:py-12",
   rainText: `relative z-10 self-center px-8 py-8 text-4xl font-[300] leading-tight ${rainPaletteClasses.accentText} sm:px-16 sm:py-10 sm:text-6xl lg:pl-[calc((100vw-1320px)/2+4rem)]`,
