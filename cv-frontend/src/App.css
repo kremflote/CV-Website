@@ -1,7 +1,0 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-@import "tailwindcss";
-@import "@fortawesome/fontawesome-free/css/all.min.css";
-
-@theme {
-  --font-sans: "Nunito", sans-serif;
-}

@@ -1,38 +1,39 @@
-import { createContext, useEffect, useRef, useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import type { IProviderProps } from "../interfaces/components/IProviderProps";
 import type { ISkill } from "../interfaces/ISkill";
-import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
 import { getSkills } from "../services/CvService";
 import type { ISkillResponseList } from "../interfaces/IServiceResponses";
-
-export const SkillContext = createContext<ISkillContext | null>(null);
+import { SkillContext } from "./SkillContext";
 
 export const SkillProvider: FC<IProviderProps> = ({ children }) => {
   const [skills, setSkills] = useState<ISkill[]>([]);
-  const [skillIsLoading, setSkillIsLoading] = useState<boolean>(false);
-
-  const initError = useRef<string | null>(null);
-  const hasInitialized = useRef(false);
-
-  const initializeSkills = async () => {
-    if (hasInitialized.current) return;
-    hasInitialized.current = true;
-    setSkillIsLoading(true);
-
-    const response: ISkillResponseList = await getSkills();
-
-    if (!response.success) {
-      initError.current = response.error ?? "Failed to load skills";
-      setSkillIsLoading(false);
-      return;
-    }
-
-    setSkills(response.data);
-    setSkillIsLoading(false);
-  };
+  const [skillIsLoading, setSkillIsLoading] = useState<boolean>(true);
+  const [initError, setInitError] = useState<string | null>(null);
 
   useEffect(() => {
-    initializeSkills();
+    let isCancelled = false;
+
+    const initializeSkills = async () => {
+      const response: ISkillResponseList = await getSkills();
+
+      if (isCancelled) return;
+
+      if (!response.success) {
+        setInitError(response.error ?? "Failed to load skills");
+        setSkillIsLoading(false);
+        return;
+      }
+
+      setInitError(null);
+      setSkills(response.data);
+      setSkillIsLoading(false);
+    };
+
+    void initializeSkills();
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   return (
@@ -40,7 +41,7 @@ export const SkillProvider: FC<IProviderProps> = ({ children }) => {
       value={{
         skills,
         skillIsLoading,
-        initError: initError.current,
+        initError,
       }}
     >
       {children}

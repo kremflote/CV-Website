@@ -1,38 +1,39 @@
-import { createContext, useEffect, useRef, useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import type { IProviderProps } from "../interfaces/components/IProviderProps";
 import type { IShowcase } from "../interfaces/IShowcase";
-import type { IShowcaseContext } from "../interfaces/contexts/IShowcaseContext";
 import { getShowcases } from "../services/CvService";
 import type { IShowcaseResponseList } from "../interfaces/IServiceResponses";
-
-export const ShowcaseContext = createContext<IShowcaseContext | null>(null);
+import { ShowcaseContext } from "./ShowcaseContext";
 
 export const ShowcaseProvider: FC<IProviderProps> = ({ children }) => {
   const [showcases, setShowcases] = useState<IShowcase[]>([]);
-  const [showcaseIsLoading, setShowcaseIsLoading] = useState<boolean>(false);
-
-  const initError = useRef<string | null>(null);
-  const hasInitialized = useRef(false);
-
-  const initializeShowcases = async () => {
-    if (hasInitialized.current) return;
-    hasInitialized.current = true;
-    setShowcaseIsLoading(true);
-
-    const response: IShowcaseResponseList = await getShowcases();
-
-    if (!response.success) {
-      initError.current = response.error ?? "Failed to load showcases";
-      setShowcaseIsLoading(false);
-      return;
-    }
-
-    setShowcases(response.data);
-    setShowcaseIsLoading(false);
-  };
+  const [showcaseIsLoading, setShowcaseIsLoading] = useState<boolean>(true);
+  const [initError, setInitError] = useState<string | null>(null);
 
   useEffect(() => {
-    initializeShowcases();
+    let isCancelled = false;
+
+    const initializeShowcases = async () => {
+      const response: IShowcaseResponseList = await getShowcases();
+
+      if (isCancelled) return;
+
+      if (!response.success) {
+        setInitError(response.error ?? "Failed to load showcases");
+        setShowcaseIsLoading(false);
+        return;
+      }
+
+      setInitError(null);
+      setShowcases(response.data);
+      setShowcaseIsLoading(false);
+    };
+
+    void initializeShowcases();
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   return (
@@ -40,7 +41,7 @@ export const ShowcaseProvider: FC<IProviderProps> = ({ children }) => {
       value={{
         showcases,
         showcaseIsLoading,
-        initError: initError.current,
+        initError,
       }}
     >
       {children}

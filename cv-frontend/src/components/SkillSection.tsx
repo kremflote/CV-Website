@@ -1,5 +1,5 @@
 import { useContext, useState, type FC } from "react";
-import { SkillContext } from "../contexts/SkillProvider";
+import { SkillContext } from "../contexts/SkillContext";
 import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
 import type { ISkill } from "../interfaces/ISkill";
 import { pageStyles, skillStyles } from "../styles/styles";
@@ -23,18 +23,16 @@ const SkillTag: FC<SkillTagProps> = ({ label, isSelected, onClick }) => (
 
 const formatDescription = (description: string) => {
   const parts = description.split("Emnebeskrivelse:");
-  if (parts.length === 1)
-    return (
-      <p className={skillStyles.descriptionStrong}>{description}</p>
-    );
+
+  if (parts.length === 1) {
+    return <p className={skillStyles.descriptionStrong}>{description}</p>;
+  }
 
   return (
     <>
       <p className={skillStyles.descriptionStrong}>{parts[0].trim()}</p>
-      <br />
-      <br />
       <p className={skillStyles.descriptionText}>
-        <span className="font-semibold">Emnebeskrivelse: </span>
+        <span className="font-[600] text-[#D4D4D8]">Emnebeskrivelse: </span>
         {parts[1].trim()}
       </p>
     </>
@@ -56,54 +54,61 @@ const SkillSection: FC = () => {
   );
   const technologies = skills.filter((s) => s.category === "Technologies");
 
-  if (skillIsLoading) return <p className="text-center mt-12">Laster...</p>;
-  if (initError)
-    return <p className={`text-center mt-12 ${pageStyles.errorText}`}>{initError}</p>;
+  if (skillIsLoading) {
+    return <p className={skillStyles.loadingText}>Laster...</p>;
+  }
+
+  if (initError) {
+    return (
+      <p className={`mt-12 text-center ${pageStyles.errorText}`}>{initError}</p>
+    );
+  }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-16 pb-12">
-      <h1 className={`mb-6 ${pageStyles.title}`}>
-        IT Kompetanse
-      </h1>
-      <hr className={`mt-4 mb-8 ${pageStyles.divider}`} />
-
-      <div className="space-y-4">
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Programmeringsspråk</h3>
-          <div className="flex flex-wrap gap-2">
-            {programmingLanguages.map((skill) => (
-              <SkillTag
-                key={skill.id}
-                label={skill.skill_Name}
-                isSelected={selectedSkill?.id === skill.id}
-                onClick={() => handleClick(skill)}
-              />
-            ))}
+    <section className={skillStyles.shell}>
+      <div className={skillStyles.controlColumn}>
+        <div className="space-y-10">
+          <div>
+            <h3 className={skillStyles.groupTitle}>Programmeringsspråk</h3>
+            <div className="flex flex-wrap gap-3">
+              {programmingLanguages.map((skill) => (
+                <SkillTag
+                  key={skill.id}
+                  label={skill.skill_Name}
+                  isSelected={selectedSkill?.id === skill.id}
+                  onClick={() => handleClick(skill)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div>
-          <h3 className="font-semibold text-lg mb-2">Andre teknologier</h3>
-          <div className="flex flex-wrap gap-2">
-            {technologies.map((skill) => (
-              <SkillTag
-                key={skill.id}
-                label={skill.skill_Name}
-                isSelected={selectedSkill?.id === skill.id}
-                onClick={() => handleClick(skill)}
-              />
-            ))}
+          <div>
+            <h3 className={skillStyles.groupTitle}>Andre teknologier</h3>
+            <div className="flex flex-wrap gap-3">
+              {technologies.map((skill) => (
+                <SkillTag
+                  key={skill.id}
+                  label={skill.skill_Name}
+                  isSelected={selectedSkill?.id === skill.id}
+                  onClick={() => handleClick(skill)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <hr className={`mt-10 ${pageStyles.divider}`} />
-
-      <div className="mt-6">
-        <div className=" ">
-          <div className={!selectedSkill ? "invisible" : ""}>
-            {selectedSkill && formatDescription(selectedSkill.description)}
-          </div>
+      <div className={skillStyles.descriptionPanel}>
+        <div className={skillStyles.descriptionContent}>
+          {selectedSkill ? (
+            <div className="space-y-5">
+              {formatDescription(selectedSkill.description)}
+            </div>
+          ) : (
+            <p className={skillStyles.emptyText}>
+              Trykk en knapp på venstre side for detaljer.
+            </p>
+          )}
         </div>
       </div>
     </section>

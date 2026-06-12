@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap");
 @import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 
 @theme {
-  --color-marble: #242424;
-  --color-concrete: #e5e4e2;
-  --color-travertine: #e1d9cc;
-  --color-wood: #98765b;
-  --color-wood-dark: #66503d;
+  --font-sans: "Inter", sans-serif;
+  --color-marble: #242426;
+  --color-concrete: #AEB9BF;
+  --color-travertine: #CBDADB;
+  --color-wood: #B4B6AD;
+  --color-wood-dark: #A08760;
 }

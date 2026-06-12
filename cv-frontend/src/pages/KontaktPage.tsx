@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { WideLayout } from "../components/common/WideLayout";
-import { contactStyles, pageStyles } from "../styles/styles";
+import { contactStyles } from "../styles/styles";
 
 const email = "work@mariuskristensen.no";
+const githubUrl = "https://github.com/kremflote";
 
 const KontaktPage = () => {
   const [hasCopiedEmail, setHasCopiedEmail] = useState(false);
@@ -14,23 +15,42 @@ const KontaktPage = () => {
 
   return (
     <WideLayout>
-      <section className="mx-auto w-full max-w-2xl px-6 pt-16 pb-24 text-center">
-        <h1 className={pageStyles.titleLeft}>Kontakt</h1>
-        <hr className={`mt-4 mb-8 ${pageStyles.divider}`} />
+      <section className={contactStyles.section}>
+        <div className={contactStyles.cardGrid}>
+          <div className={contactStyles.card}>
+            <i className={contactStyles.iconEnvelope}></i>
+            <h2 className={contactStyles.title}>E-post</h2>
+            <p className={contactStyles.body}>Ta gjerne kontakt.</p>
 
-        <div className={`space-y-4 text-lg ${pageStyles.bodyText}`}>
-          <p>Ta gjerne kontakt.</p>
-          <button
-            onClick={copyEmail}
-            className={`cursor-pointer rounded border px-5 py-3 font-semibold transition-colors ${contactStyles.button}`}
-          >
-            {email}
-          </button>
-          {hasCopiedEmail && (
-            <p className={`text-sm font-semibold ${contactStyles.copiedText}`}>
-              E-post kopiert til utklippstavlen.
-            </p>
-          )}
+            <button
+              type="button"
+              onClick={copyEmail}
+              className={`${contactStyles.action} ${contactStyles.button}`}
+            >
+              {email}
+            </button>
+
+            {hasCopiedEmail && (
+              <p className={contactStyles.copiedText}>
+                E-post kopiert til utklippstavlen.
+              </p>
+            )}
+          </div>
+
+          <div className={contactStyles.card}>
+            <i className={contactStyles.iconGithub}></i>
+            <h2 className={contactStyles.title}>GitHub</h2>
+            <p className={contactStyles.body}>Se prosjekter og kode.</p>
+
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`${contactStyles.action} ${contactStyles.button}`}
+            >
+              github.com/kremflote
+            </a>
+          </div>
         </div>
       </section>
     </WideLayout>
