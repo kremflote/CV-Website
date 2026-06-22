@@ -7,12 +7,12 @@ const RotatingHeroImage: FC = () => {
       <div className={homeStyles.sketchPhotoFrame}>
         <img
           src="/images/me/me8-edited.jpg"
-          alt="Marius Kristensen og nettsidens designer"
+          alt="Marius Kristensen og samboer"
           className={`${homeStyles.sketchPhotoImage} opacity-100`}
         />
       </div>
       <p className={homeStyles.sketchPhotoCaption}>
-        Avbildet: Meg &amp; nettsidens designer
+        Avbildet: Meg &amp; og samboer
       </p>
     </div>
   );

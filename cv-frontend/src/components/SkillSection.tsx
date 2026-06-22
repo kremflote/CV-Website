@@ -32,7 +32,7 @@ const formatDescription = (description: string) => {
     <>
       <p className={skillStyles.descriptionStrong}>{parts[0].trim()}</p>
       <p className={skillStyles.descriptionText}>
-        <span className="font-[600] text-[#D4D4D8]">Emnebeskrivelse: </span>
+        <span className="font-[600] text-[#d9d4c8]">Emnebeskrivelse: </span>
         {parts[1].trim()}
       </p>
     </>

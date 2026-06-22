@@ -39,7 +39,7 @@ export const companyMeta: Record<
     url: "https://www.fjellsprengern.no/",
   },
   default: {
-    color: "#AEB9BF",
+    color: "#d9d4c8",
   },
 };
 
@@ -47,28 +47,20 @@ export const pageStyles = {
   errorText: "text-red-500",
 };
 
-export const rainPalette = {
-  inkBlack: "#131925",
-  greyOlive: "#737D71",
-  charcoalBlue: "#364651",
-  grey: "#7C8287",
-  dustGrey: "#D4D4D8",
-  warmHighlight: "#C88068",
+export const fadeStyles = {
+  pageShell:
+    "[background-image:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.1))]",
+  homeShell:
+    "[background-image:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.1))]",
+  heroOverlay:
+    "[background:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.42))]",
 };
 
-export const rainPaletteClasses = {
-  background: "bg-[#131925]",
-  surface: "bg-[#364651]/42",
-  surfaceMuted: "bg-[#7C8287]/16",
-  accentText: "text-[#D4D4D8]",
-  mutedText: "text-[#D4D4D8]/70",
-  quietText: "text-[#D4D4D8]/55",
-  oliveText: "text-[#737D71]",
-  oliveBorder: "border-[#737D71]",
-  oliveBackground: "bg-[#737D71]",
-  highlightText: "text-[#C88068]",
-  highlightBorder: "border-[#C88068]",
-  highlightBackground: "bg-[#C88068]",
+export const standardPaletteClasses = {
+  background: "bg-[#050505]",
+  accentText: "text-[#d9d4c8]",
+  quietText: "text-[#d9d4c8]/55",
+  highlightText: "text-[#c8b895]",
 };
 
 export const headerStyles = {
@@ -76,15 +68,14 @@ export const headerStyles = {
   hero: "relative h-[460px] overflow-hidden",
   heroImage:
     "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
-  heroOverlay:
-    "absolute inset-0 [background:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.42))]",
+  heroOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
   heroContent:
     "relative z-10 mx-auto flex h-full w-full max-w-[1320px] flex-col justify-center px-8 py-16 sm:px-16",
   kicker: "text-3xl font-[200] leading-none text-[#d9d4c8]/90",
   pageTitle: "mt-2 text-6xl font-[300] leading-none text-[#c8b895] sm:text-7xl",
   quote:
     "mt-16 max-w-3xl text-2xl font-[200] italic leading-snug text-[#d9d4c8]/85",
-  nav: "mx-auto flex w-full max-w-[1320px] justify-end px-8 shadow-[0_14px_32px_rgba(0,0,0,0.18)] sm:px-16",
+  nav: "mx-auto flex w-full max-w-[1320px] justify-end px-8 sm:px-16",
   navList:
     "flex items-center justify-end gap-5 py-5 text-2xl font-[300] text-[#c8b895]",
   navLinkBase:
@@ -96,25 +87,22 @@ export const headerStyles = {
 };
 
 export const footerStyles = {
-  footer: `${rainPaletteClasses.background} py-8`,
-  signature: `text-center text-base ${rainPaletteClasses.quietText}`,
+  footer: `${standardPaletteClasses.background} py-8`,
+  signature: `text-center text-base ${standardPaletteClasses.quietText}`,
 };
 
 export const appStyles = {
-  shell:
-    "relative min-h-screen overflow-hidden bg-[#050505] text-[#AEB9BF] [background-image:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.42))]",
+  shell: `relative min-h-screen overflow-hidden bg-[#050505] text-[#d9d4c8] ${fadeStyles.pageShell}`,
   overlay: "relative min-h-screen",
   contentBackground: "bg-transparent",
 };
 
 export const homeStyles = {
-  sketchShell:
-    "relative min-h-screen bg-[#050505] [background-image:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.42))] text-[#c8b895]",
+  sketchShell: `relative min-h-screen bg-[#050505] text-[#c8b895] ${fadeStyles.homeShell}`,
   sketchHero: "relative h-[460px] overflow-hidden",
   sketchHeroImage:
     "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
-  sketchOverlay:
-    "absolute inset-0 [background:linear-gradient(to_top_right,rgba(17,17,17,0.91),rgba(115,115,115,0.42))]",
+  sketchOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
   sketchHeroContent:
     "relative z-10 mx-auto grid h-full w-full max-w-[1320px] grid-cols-1 items-center gap-12 px-8 py-16 sm:grid-cols-[1fr_520px] sm:px-16",
   sketchHeroText: "pt-10 sm:pt-0",
@@ -124,55 +112,41 @@ export const homeStyles = {
   sketchQuote:
     "mt-20 text-2xl font-[200] italic leading-snug text-[#d9d4c8]/85 [&_span]:font-[600] [&_span]:text-white",
   sketchPhoto: "relative hidden w-full sm:block",
-  sketchPhotoFrame:
-    "relative aspect-[1.55/1] w-full overflow-hidden shadow-2xl shadow-black/40",
+  sketchPhotoFrame: "relative aspect-[1.55/1] w-full overflow-hidden",
   sketchPhotoImage:
     "absolute inset-0 h-full w-full object-cover transition-opacity duration-1000",
   sketchPhotoCaption: "mt-3 text-right text-base font-[300] text-white",
   sketchNav:
-    "mx-auto flex w-full max-w-[1320px] items-center justify-end gap-5 px-8 py-5 text-2xl font-[300] text-[#c8b895] shadow-[0_14px_32px_rgba(0,0,0,0.18)] sm:px-16",
+    "mx-auto flex w-full max-w-[1320px] items-center justify-end gap-5 px-8 py-5 text-2xl font-[300] text-[#c8b895] sm:px-16",
   sketchNavActive:
     "flex h-8 min-w-11 items-center justify-center bg-[#c8b895] px-1.5 font-[600] leading-none !text-[#111111] no-underline hover:!text-[#111111]",
   sketchNavLink:
     "flex h-8 min-w-11 items-center justify-center px-1.5 leading-none text-[#c8b895] no-underline transition-colors hover:text-white",
   sketchNavButton:
     "flex h-8 min-w-11 cursor-pointer items-center justify-center border-0 bg-transparent px-1.5 text-2xl font-[300] leading-none text-[#c8b895] transition-colors hover:text-white",
-  timelineGradientShell:
-    "relative w-full bg-[linear-gradient(to_bottom,rgba(19,25,37,0)_0%,rgba(19,25,37,0.18)_34rem,rgba(19,25,37,0.62)_58rem,#131925_100%)]",
-  timelineToBlackBand:
-    "bg-[linear-gradient(165deg,rgba(5,5,5,0)_0%,rgba(5,5,5,0)_24rem,rgba(5,5,5,0.18)_40rem,rgba(5,5,5,0.52)_58rem,rgba(5,5,5,0.86)_76rem,#050505_92rem,#050505_100%)]",
-  sketchMain: " flex-col px-8 pt-28 pb-12 sm:px-16 sm:pt-36 sm:pb-0",
-  sketchTimeline: "",
-  rainToCvBand: `flex w-full flex-col ${rainPaletteClasses.background} shadow-2xl shadow-black/30`,
-  rainSection:
-    "grid w-full items-center gap-0 overflow-hidden py-12 sm:min-h-[430px] sm:grid-cols-[minmax(0,0.75fr)_minmax(360px,0.95fr)] sm:py-12",
-  rainText: `relative z-10 self-center px-8 py-8 text-4xl font-[300] leading-tight ${rainPaletteClasses.accentText} sm:px-16 sm:py-10 sm:text-6xl lg:pl-[calc((100vw-1320px)/2+4rem)]`,
-  rainHighlight: rainPaletteClasses.highlightText,
-  rainImageFrame: `${rainPaletteClasses.surface} shadow-2xl shadow-black/35 `,
-  rainImage: "",
+  timelineGradientShell: "relative w-full",
   sketchLowerStack: "flex w-full flex-col gap-24 py-16 sm:py-12",
   skillEdgeSection:
     "mr-auto w-full max-w-[1320px] px-6 sm:pr-16 sm:pl-8 lg:pl-12",
-  sketchSectionTitle: `mb-6 text-5xl font-[300] leading-none ${rainPaletteClasses.accentText} sm:text-6xl`,
   sketchSkillPanel: "px-0 py-2",
 };
 
 export const skillStyles = {
-  shell: `grid min-h-full grid-cols-1 items-stretch gap-12 ${rainPaletteClasses.accentText} lg:grid-cols-2`,
-  controlColumn: "min-w-0 lg:min-h-[480px]",
+  shell: `grid min-h-full grid-cols-1 items-stretch gap-12 ${standardPaletteClasses.accentText} lg:grid-cols-2`,
+  controlColumn: "min-w-0 lg:min-h-[420px]",
   tagBase:
     "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
-  tagSelected: "border-[#C88068]/90 bg-[#C88068]/18 text-[#C88068]",
+  tagSelected: "border-[#c8b895]/90 bg-[#c8b895]/18 text-[#c8b895]",
   tagUnselected:
-    "border-[#7C8287]/35 bg-transparent text-[#D4D4D8]/70 hover:border-[#737D71]/75 hover:bg-[#737D71]/16 hover:text-[#D4D4D8]",
-  groupTitle: "mb-4 text-lg font-[600] text-[#D4D4D8]",
+    "border-[#d9d4c8]/35 bg-transparent text-[#d9d4c8]/70 hover:border-[#c8b895]/75 hover:bg-[#c8b895]/16 hover:text-[#d9d4c8]",
+  groupTitle: "mb-4 text-lg font-[600] text-[#d9d4c8]",
   descriptionPanel: "lg:min-h-[280px]",
   descriptionContent:
-    "border-t border-[#C88068]/55 px-0 pt-8 lg:border-t-0 lg:border-l lg:px-10 lg:pt-0",
-  descriptionStrong: "text-lg font-[300] leading-relaxed text-[#D4D4D8]/88",
-  descriptionText: "text-base font-[300] leading-relaxed text-[#D4D4D8]/68",
-  loadingText: "mt-8 text-center text-[#D4D4D8]/60",
-  emptyText: "text-base font-[300] leading-relaxed text-[#D4D4D8]/55",
+    "border-t border-[#c8b895]/55 px-0 pt-8 lg:border-t-0 lg:border-l lg:px-10 lg:pt-0",
+  descriptionStrong: "text-lg font-[300] leading-relaxed text-[#d9d4c8]/88",
+  descriptionText: "text-base font-[300] leading-relaxed text-[#d9d4c8]/68",
+  loadingText: "mt-8 text-center text-[#d9d4c8]/60",
+  emptyText: "text-base font-[300] leading-relaxed text-[#d9d4c8]/55",
 };
 
 export const glassStyles = {
@@ -246,9 +220,9 @@ export const cvModalStyles = {
   backdrop:
     "fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-6 backdrop-blur-sm",
   panel:
-    "relative h-full max-h-[92vh] w-full max-w-5xl bg-[#131925] p-4 shadow-2xl shadow-black/60 sm:p-6",
+    "relative h-full max-h-[92vh] w-full max-w-5xl bg-[#050505] p-4 shadow-2xl shadow-black/60 sm:p-6",
   closeButton:
-    "absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border border-[#C88068]/70 bg-[#131925]/95 text-xl font-[500] text-[#C88068] transition-colors hover:bg-[#C88068] hover:text-[#131925]",
+    "absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border border-[#c8b895]/70 bg-[#050505]/95 text-xl font-[500] text-[#c8b895] transition-colors hover:bg-[#c8b895] hover:text-[#050505]",
   frame: "h-full w-full bg-white",
 };
 

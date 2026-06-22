@@ -62,30 +62,10 @@ const HomePage = () => {
         <FullWidthLayout>
           <div className={homeStyles.timelineGradientShell}>
             <MediumLayout>
-              <div className={homeStyles.timelineToBlackBand}>
-                <div className={homeStyles.sketchTimeline}>
-                  <CvTimeline />
-                </div>
-              </div>
+              <CvTimeline />
             </MediumLayout>
           </div>
         </FullWidthLayout>
-      </section>
-
-      <section className={homeStyles.rainToCvBand}>
-        <section className={homeStyles.rainSection}>
-          <h2 className={homeStyles.rainText}>
-            En <span className={homeStyles.rainHighlight}>pålitelig</span>{" "}
-            utvikler, som tåler regnvær
-          </h2>
-          <div className={homeStyles.rainImageFrame}>
-            <img
-              src="/images/me/merain.jpg"
-              alt="Marius Kristensen på regnværsdag"
-              className={homeStyles.rainImage}
-            />
-          </div>
-        </section>
       </section>
 
       <div className={homeStyles.sketchLowerStack}>
