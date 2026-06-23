@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { WideLayout } from "../components/common/WideLayout";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import { getShowcaseImages } from "../services/CvService";
-import { glassStyles, showcaseStyles } from "../styles/styles";
+import { glassStyles, pageStyles, showcaseStyles } from "../styles/styles";
 
 const ShowcasePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -71,9 +71,7 @@ const ShowcasePage = () => {
   if (!showcase)
     return (
       <WideLayout>
-        <p className="pt-10 text-center text-xl font-extralight text-white/65">
-          Loading...
-        </p>
+        <p className={`pt-10 ${pageStyles.loadingText}`}>Loading...</p>
       </WideLayout>
     );
 

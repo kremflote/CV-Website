@@ -67,47 +67,49 @@ const Header: FC = () => {
       </section>
 
       <nav className={headerStyles.nav} aria-label="Hovednavigasjon">
-        <ul className={headerStyles.navList}>
-          <li>
-            <NavLink
-              to="/"
-              preventScrollReset
-              onClick={preventCurrentPageNavigation("/")}
-              className={navLinkClass}
-              aria-label="Hjem"
-            >
-              <i className="fas fa-house inline sm:!hidden"></i>
-              <span className="hidden sm:inline">Hjem</span>
-            </NavLink>
-          </li>
+        <div className={headerStyles.navInner}>
+          <ul className={headerStyles.navList}>
+            <li>
+              <NavLink
+                to="/"
+                preventScrollReset
+                onClick={preventCurrentPageNavigation("/")}
+                className={navLinkClass}
+                aria-label="Hjem"
+              >
+                <i className="fas fa-house inline sm:!hidden"></i>
+                <span className="hidden sm:inline">Hjem</span>
+              </NavLink>
+            </li>
 
-          <li>
-            <NavLink
-              to="/portfolio"
-              preventScrollReset
-              onClick={preventCurrentPageNavigation("/portfolio")}
-              className={navLinkClass}
-              aria-label="Portfolio"
-            >
-              <i className="fas fa-briefcase inline sm:!hidden"></i>
-              <span className="hidden sm:inline">Portfolio</span>
-            </NavLink>
-          </li>
+            <li>
+              <NavLink
+                to="/portfolio"
+                preventScrollReset
+                onClick={preventCurrentPageNavigation("/portfolio")}
+                className={navLinkClass}
+                aria-label="Portfolio"
+              >
+                <i className="fas fa-briefcase inline sm:!hidden"></i>
+                <span className="hidden sm:inline">Portfolio</span>
+              </NavLink>
+            </li>
 
-          <li>
-            <NavLink
-              to="/kontakt"
-              preventScrollReset
-              onClick={preventCurrentPageNavigation("/kontakt")}
-              className={navLinkClass}
-              aria-label="Kontakt"
-            >
-              <i className="fas fa-envelope inline sm:!hidden"></i>
-              <span className="hidden sm:inline">Kontakt</span>
-            </NavLink>
-          </li>
+            <li>
+              <NavLink
+                to="/kontakt"
+                preventScrollReset
+                onClick={preventCurrentPageNavigation("/kontakt")}
+                className={navLinkClass}
+                aria-label="Kontakt"
+              >
+                <i className="fas fa-envelope inline sm:!hidden"></i>
+                <span className="hidden sm:inline">Kontakt</span>
+              </NavLink>
+            </li>
+          </ul>
 
-          <li>
+          <div className={headerStyles.navAction}>
             <button
               type="button"
               onClick={() => setIsCvOpen(true)}
@@ -116,9 +118,10 @@ const Header: FC = () => {
             >
               <i className="fas fa-file-lines inline sm:!hidden"></i>
               <span className="hidden sm:inline">CV</span>
+              <i className="fas fa-arrow-up-right-from-square text-base"></i>
             </button>
-          </li>
-        </ul>
+          </div>
+        </div>
       </nav>
       <CvModal isOpen={isCvOpen} onClose={() => setIsCvOpen(false)} />
     </header>

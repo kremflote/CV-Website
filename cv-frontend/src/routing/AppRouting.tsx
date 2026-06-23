@@ -9,13 +9,13 @@ import {
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import ShowcasePage from "../pages/ShowcasePage";
-import { appStyles } from "../styles/styles";
+import { appStyles, colorVariables } from "../styles/styles";
 import { FullWidthLayout } from "../components/common/FullWidthLayout";
 
 const AppRouting = () => {
   return (
     <BrowserRouter>
-      <div className={appStyles.shell}>
+      <div className={appStyles.shell} style={colorVariables}>
         <div className={appStyles.overlay}>
           <Header />
           <FullWidthLayout>

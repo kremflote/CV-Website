@@ -4,7 +4,11 @@ import { showcaseStyles } from "../styles/styles";
 
 const thumbnailVersion = "20260529";
 
-const ShowcaseCard = ({ id, title, image_Thumbnail }: IShowcase) => {
+const ShowcaseCard = ({
+  id,
+  title,
+  image_Thumbnail,
+}: IShowcase) => {
   const navigate = useNavigate();
 
   return (
@@ -12,14 +16,14 @@ const ShowcaseCard = ({ id, title, image_Thumbnail }: IShowcase) => {
       onClick={() => navigate(`/showcase/${id}`)}
       className={showcaseStyles.card}
     >
-      <img
-        src={`/images/${image_Thumbnail}?v=${id}-${thumbnailVersion}`}
-        alt={title}
-        className={showcaseStyles.cardImage}
-      />
-      <div className={showcaseStyles.cardOverlay}>
-        <span className={showcaseStyles.cardTitle}>{title}</span>
+      <div className={showcaseStyles.cardImageFrame}>
+        <img
+          src={`/images/${image_Thumbnail}?v=${id}-${thumbnailVersion}`}
+          alt={title}
+          className={showcaseStyles.cardImage}
+        />
       </div>
+      <h3 className={showcaseStyles.cardTitle}>{title}</h3>
     </article>
   );
 };
