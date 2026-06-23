@@ -67,7 +67,7 @@ const SkillSection: FC = () => {
   return (
     <section className={skillStyles.shell}>
       <div className={skillStyles.controlColumn}>
-        <div className="space-y-10">
+        <div className="space-y-5">
           <div>
             <h3 className={skillStyles.groupTitle}>Programmeringsspråk</h3>
             <div className="flex flex-wrap gap-3">
@@ -106,7 +106,7 @@ const SkillSection: FC = () => {
             </div>
           ) : (
             <p className={skillStyles.emptyText}>
-              Trykk en knapp på venstre side for detaljer.
+              Trykk en knapp over for detaljer.
             </p>
           )}
         </div>

@@ -1,4 +1,11 @@
-import { useContext, type CSSProperties, type FC, type ReactNode } from "react";
+import {
+  useContext,
+  useMemo,
+  useState,
+  type CSSProperties,
+  type FC,
+  type ReactNode,
+} from "react";
 import { Link } from "react-router-dom";
 import { TenureContext } from "../contexts/TenureContext";
 import type { ITenureContext } from "../interfaces/contexts/ITenureContext";
@@ -25,6 +32,10 @@ interface TimelineMarker {
   durationLabel: string;
   top: number;
   size: number;
+}
+
+interface CvTimelineProps {
+  showDetailPanel?: boolean;
 }
 
 const monthNames: Record<string, number> = {
@@ -232,6 +243,26 @@ const buildMarkers = (tenures: ITenure[]): TimelineMarker[] => {
   });
 };
 
+const getExperienceNote = (marker: TimelineMarker): string => {
+  if (marker.companyKey === "power") {
+    return "Kundeorientert arbeid, salg og teamansvar ga meg et tydelig blikk for brukerbehov, kommunikasjon og praktisk problemløsning.";
+  }
+
+  if (marker.companyKey === "wurth") {
+    return "Direkte kundekontakt og løsningssalg styrket evnen til å forstå behov raskt og forklare valg på en enkel måte.";
+  }
+
+  if (marker.companyKey === "kristiania") {
+    return "Studietiden samlet frontend, mobilutvikling, universell utforming, algoritmer og systemnære fag til et bredt teknisk fundament.";
+  }
+
+  if (marker.companyKey === "ihlang") {
+    return "Tidlig arbeidserfaring med ansvar, gjennomføring og praktisk samarbeid.";
+  }
+
+  return "En erfaring som bidrar til helheten i profilen min.";
+};
+
 const LogoContent: FC<{ marker: TimelineMarker; size: number }> = ({
   marker,
   size,
@@ -292,13 +323,19 @@ const TimelineBubbleLink: FC<{
   marker: TimelineMarker;
   className: string;
   style: CSSProperties;
+  onActivate?: () => void;
   children: ReactNode;
-}> = ({ marker, className, style, children }) => {
+}> = ({ marker, className, style, onActivate, children }) => {
   const markerUrl = companyMeta[marker.companyKey].url;
 
   if (!markerUrl) {
     return (
-      <div className={className} style={style}>
+      <div
+        className={className}
+        style={style}
+        onMouseEnter={onActivate}
+        onFocus={onActivate}
+      >
         {children}
       </div>
     );
@@ -312,13 +349,19 @@ const TimelineBubbleLink: FC<{
       aria-label={`Besok ${marker.tenure.companyName}`}
       className={className}
       style={style}
+      onMouseEnter={onActivate}
+      onFocus={onActivate}
     >
       {children}
     </a>
   );
 };
 
-const TimelineCircle: FC<{ marker: TimelineMarker }> = ({ marker }) => {
+const TimelineCircle: FC<{
+  marker: TimelineMarker;
+  isActive: boolean;
+  onActivate: () => void;
+}> = ({ marker, isActive, onActivate }) => {
   const circleLeft =
     marker.textSide === "left"
       ? `calc(var(--timeline-x) + ${
@@ -329,7 +372,10 @@ const TimelineCircle: FC<{ marker: TimelineMarker }> = ({ marker }) => {
   return (
     <TimelineBubbleLink
       marker={marker}
-      className={`${timelineStyles.bubbleBase} ${timelineStyles.bubbleDesktop}`}
+      className={`${timelineStyles.bubbleBase} ${timelineStyles.bubbleDesktop} ${
+        isActive ? timelineStyles.bubbleActive : ""
+      }`}
+      onActivate={onActivate}
       style={{
         top: `${marker.top}px`,
         left: circleLeft,
@@ -344,12 +390,62 @@ const TimelineCircle: FC<{ marker: TimelineMarker }> = ({ marker }) => {
   );
 };
 
-const TimelineDesktopItem: FC<{ marker: TimelineMarker }> = ({ marker }) => (
+const TimelineDesktopItem: FC<{
+  marker: TimelineMarker;
+  isActive: boolean;
+  onActivate: () => void;
+}> = ({ marker, isActive, onActivate }) => (
   <div className="pointer-events-none absolute inset-0">
-    <TimelineCircle marker={marker} />
+    <TimelineCircle
+      marker={marker}
+      isActive={isActive}
+      onActivate={onActivate}
+    />
     <TimelineText marker={marker} />
   </div>
 );
+
+const ExperienceDetailPanel: FC<{ marker?: TimelineMarker }> = ({ marker }) => {
+  if (!marker) {
+    return (
+      <aside className={timelineStyles.detailPanel}>
+        <p className={timelineStyles.detailPanelHint}>
+          Hold over et punkt i tidslinjen for å se mer.
+        </p>
+      </aside>
+    );
+  }
+
+  const meta = companyMeta[marker.companyKey];
+
+  return (
+    <aside className={timelineStyles.detailPanel}>
+      <p className={timelineStyles.detailPanelEyebrow}>
+        {marker.tenure.startDate} - {marker.tenure.endDate}
+      </p>
+      <h2 className={timelineStyles.detailPanelTitle}>
+        {marker.tenure.companyName}
+      </h2>
+      <p className={timelineStyles.detailPanelRole}>{marker.tenure.workTitle}</p>
+      <p className={timelineStyles.detailPanelDuration}>
+        Varighet: {marker.durationLabel}
+      </p>
+      <p className={timelineStyles.detailPanelBody}>
+        {getExperienceNote(marker)}
+      </p>
+      {meta.url && (
+        <a
+          href={meta.url}
+          target="_blank"
+          rel="noreferrer"
+          className={timelineStyles.detailPanelLink}
+        >
+          Besøk nettside
+        </a>
+      )}
+    </aside>
+  );
+};
 
 const ContactBubble: FC<{ top: number }> = ({ top }) => {
   return (
@@ -395,11 +491,15 @@ const MobileTimelineBubble: FC<{
   );
 };
 
-const CvTimeline: FC = () => {
+const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
   const { tenures, tenureIsLoading, initError } = useContext(
     TenureContext,
   ) as ITenureContext;
-  const markers = buildMarkers(tenures);
+  const markers = useMemo(() => buildMarkers(tenures), [tenures]);
+  const [activeMarkerId, setActiveMarkerId] = useState<number | null>(null);
+  const activeMarker =
+    markers.find((marker) => marker.tenure.id === activeMarkerId) ??
+    markers[0];
   const contactTop =
     markers.length > 0
       ? Math.max(...markers.map((marker) => marker.top + marker.size)) + 88
@@ -413,7 +513,7 @@ const CvTimeline: FC = () => {
   const timelineLineHeight =
     contactTop + CONTACT_BUBBLE_SIZE / 2 - timelineLineTop;
 
-  return (
+  const timeline = (
     <div
       className={timelineStyles.shell}
       style={
@@ -457,7 +557,12 @@ const CvTimeline: FC = () => {
 
       <div className="hidden sm:block">
         {markers.map((marker) => (
-          <TimelineDesktopItem key={marker.tenure.id} marker={marker} />
+          <TimelineDesktopItem
+            key={marker.tenure.id}
+            marker={marker}
+            isActive={activeMarker?.tenure.id === marker.tenure.id}
+            onActivate={() => setActiveMarkerId(marker.tenure.id)}
+          />
         ))}
         {!tenureIsLoading && !initError && markers.length > 0 && (
           <ContactBubble top={contactTop} />
@@ -515,6 +620,19 @@ const CvTimeline: FC = () => {
         )}
       </div>
     </div>
+  );
+
+  if (!showDetailPanel) {
+    return timeline;
+  }
+
+  return (
+    <section className={timelineStyles.detailLayout}>
+      <div className={timelineStyles.detailTimelineColumn}>{timeline}</div>
+      <div className={timelineStyles.detailPanelColumn}>
+        <ExperienceDetailPanel marker={activeMarker} />
+      </div>
+    </section>
   );
 };
 

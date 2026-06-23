@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import SkillSection from "./SkillSection";
 import { cvModalStyles } from "../styles/styles";
 
 interface CvModalProps {
@@ -27,7 +28,16 @@ const CvModal: FC<CvModalProps> = ({ isOpen, onClose }) => {
         >
           X
         </button>
-        <iframe src="/api/Cv" className={cvModalStyles.frame} title="CV PDF" />
+        <div className={cvModalStyles.contentGrid}>
+          <iframe
+            src="/api/Cv"
+            className={cvModalStyles.frame}
+            title="CV PDF"
+          />
+          <section className={cvModalStyles.skillPane}>
+            <SkillSection />
+          </section>
+        </div>
       </div>
     </div>
   );

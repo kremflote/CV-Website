@@ -2,11 +2,16 @@ import { useState, type FC, type MouseEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import CvModal from "../CvModal";
 import { headerStyles } from "../../styles/styles";
+import RotatingHeroImage from "../RotatingHeroImage";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `${headerStyles.navLinkBase} ${isActive ? headerStyles.navLinkActive : ""}`;
 
 const pageCopy: Record<string, { title: string; quote: string }> = {
+  "/": {
+    title: "Marius Kristensen",
+    quote: "En nystartet utvikler og tidligere kundebehandler med bakgrunn i salg og relasjonsbygging.",
+  },
   "/portfolio": {
     title: "Portfolio",
     quote: "En samling av mine personlige- og akademiske prosjekter",
@@ -20,17 +25,12 @@ const pageCopy: Record<string, { title: string; quote: string }> = {
 const Header: FC = () => {
   const { pathname } = useLocation();
   const [isCvOpen, setIsCvOpen] = useState(false);
-  const isHomePage = pathname === "/";
   const preventCurrentPageNavigation =
     (targetPath: string) => (event: MouseEvent<HTMLAnchorElement>) => {
       if (pathname === targetPath) {
         event.preventDefault();
       }
     };
-
-  if (isHomePage) {
-    return null;
-  }
 
   const copy =
     pageCopy[pathname] ??
@@ -47,9 +47,22 @@ const Header: FC = () => {
         <div className={headerStyles.heroImage} />
         <div className={headerStyles.heroOverlay} />
         <div className={headerStyles.heroContent}>
-          <p className={headerStyles.kicker}>Digital Cv</p>
-          <h1 className={headerStyles.pageTitle}>{copy.title}</h1>
-          <p className={headerStyles.quote}>{copy.quote}</p>
+          <div className={headerStyles.heroText}>
+            <p className={headerStyles.kicker}>Digital Cv</p>
+            <h1 className={headerStyles.pageTitle}>{copy.title}</h1>
+            <p className={headerStyles.quote}>
+              {pathname === "/" ? (
+                <>
+                  En <span>nystartet utvikler</span> og tidligere kundebehandler
+                  <br />
+                  med <span>bakgrunn i salg og relasjonsbygging.</span>
+                </>
+              ) : (
+                copy.quote
+              )}
+            </p>
+          </div>
+          {pathname === "/" && <RotatingHeroImage />}
         </div>
       </section>
 

@@ -70,11 +70,12 @@ export const headerStyles = {
     "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
   heroOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
   heroContent:
-    "relative z-10 mx-auto flex h-full w-full max-w-[1320px] flex-col justify-center px-8 py-16 sm:px-16",
+    "relative z-10 mx-auto grid h-full w-full max-w-[1320px] grid-cols-1 items-center gap-12 px-8 py-16 sm:grid-cols-[1fr_520px] sm:px-16",
+  heroText: "pt-10 sm:pt-0",
   kicker: "text-3xl font-[200] leading-none text-[#d9d4c8]/90",
-  pageTitle: "mt-2 text-6xl font-[300] leading-none text-[#c8b895] sm:text-7xl",
+  pageTitle: "mt-2 text-5xl font-[300] leading-none text-[#c8b895] sm:text-6xl",
   quote:
-    "mt-16 max-w-3xl text-2xl font-[200] italic leading-snug text-[#d9d4c8]/85",
+    "mt-20 max-w-3xl text-2xl font-[200] italic leading-snug text-[#d9d4c8]/85 [&_span]:font-[600] [&_span]:text-white",
   nav: "mx-auto flex w-full max-w-[1320px] justify-end px-8 sm:px-16",
   navList:
     "flex items-center justify-end gap-5 py-5 text-2xl font-[300] text-[#c8b895]",
@@ -92,57 +93,32 @@ export const footerStyles = {
 };
 
 export const appStyles = {
-  shell: `relative min-h-screen overflow-hidden bg-[#050505] text-[#d9d4c8] ${fadeStyles.pageShell}`,
+  shell: `relative min-h-screen overflow-x-clip bg-[#050505] text-[#d9d4c8] ${fadeStyles.pageShell}`,
   overlay: "relative min-h-screen",
   contentBackground: "bg-transparent",
 };
 
 export const homeStyles = {
   sketchShell: `relative min-h-screen bg-[#050505] text-[#c8b895] ${fadeStyles.homeShell}`,
-  sketchHero: "relative h-[460px] overflow-hidden",
-  sketchHeroImage:
-    "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
-  sketchOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
-  sketchHeroContent:
-    "relative z-10 mx-auto grid h-full w-full max-w-[1320px] grid-cols-1 items-center gap-12 px-8 py-16 sm:grid-cols-[1fr_520px] sm:px-16",
-  sketchHeroText: "pt-10 sm:pt-0",
-  sketchKicker: "text-3xl font-[200] leading-none text-[#d9d4c8]/90",
-  sketchTitle:
-    "mt-2 text-5xl font-[300] leading-none text-[#c8b895] sm:text-6xl",
-  sketchQuote:
-    "mt-20 text-2xl font-[200] italic leading-snug text-[#d9d4c8]/85 [&_span]:font-[600] [&_span]:text-white",
   sketchPhoto: "relative hidden w-full sm:block",
   sketchPhotoFrame: "relative aspect-[1.55/1] w-full overflow-hidden",
   sketchPhotoImage:
     "absolute inset-0 h-full w-full object-cover transition-opacity duration-1000",
   sketchPhotoCaption: "mt-3 text-right text-base font-[300] text-white",
-  sketchNav:
-    "mx-auto flex w-full max-w-[1320px] items-center justify-end gap-5 px-8 py-5 text-2xl font-[300] text-[#c8b895] sm:px-16",
-  sketchNavActive:
-    "flex h-8 min-w-11 items-center justify-center bg-[#c8b895] px-1.5 font-[600] leading-none !text-[#111111] no-underline hover:!text-[#111111]",
-  sketchNavLink:
-    "flex h-8 min-w-11 items-center justify-center px-1.5 leading-none text-[#c8b895] no-underline transition-colors hover:text-white",
-  sketchNavButton:
-    "flex h-8 min-w-11 cursor-pointer items-center justify-center border-0 bg-transparent px-1.5 text-2xl font-[300] leading-none text-[#c8b895] transition-colors hover:text-white",
   timelineGradientShell: "relative w-full",
-  sketchLowerStack: "flex w-full flex-col gap-24 py-16 sm:py-12",
-  skillEdgeSection:
-    "mr-auto w-full max-w-[1320px] px-6 sm:pr-16 sm:pl-8 lg:pl-12",
-  sketchSkillPanel: "px-0 py-2",
 };
 
 export const skillStyles = {
-  shell: `grid min-h-full grid-cols-1 items-stretch gap-12 ${standardPaletteClasses.accentText} lg:grid-cols-2`,
-  controlColumn: "min-w-0 lg:min-h-[420px]",
+  shell: `grid min-h-full grid-cols-1 items-stretch gap-3 ${standardPaletteClasses.accentText}`,
+  controlColumn: "min-w-0",
   tagBase:
     "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
   tagSelected: "border-[#c8b895]/90 bg-[#c8b895]/18 text-[#c8b895]",
   tagUnselected:
     "border-[#d9d4c8]/35 bg-transparent text-[#d9d4c8]/70 hover:border-[#c8b895]/75 hover:bg-[#c8b895]/16 hover:text-[#d9d4c8]",
   groupTitle: "mb-4 text-lg font-[600] text-[#d9d4c8]",
-  descriptionPanel: "lg:min-h-[280px]",
-  descriptionContent:
-    "border-t border-[#c8b895]/55 px-0 pt-8 lg:border-t-0 lg:border-l lg:px-10 lg:pt-0",
+  descriptionPanel: "min-h-[660px]",
+  descriptionContent: "border-t border-[#c8b895]/55 px-0 pt-2",
   descriptionStrong: "text-lg font-[300] leading-relaxed text-[#d9d4c8]/88",
   descriptionText: "text-base font-[300] leading-relaxed text-[#d9d4c8]/68",
   loadingText: "mt-8 text-center text-[#d9d4c8]/60",
@@ -166,6 +142,8 @@ export const timelineStyles = {
     "relative grid shrink-0 place-items-center rounded-full transition-transform duration-300",
   bubbleDesktop:
     "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-black/40",
+  bubbleActive:
+    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#c8b895]/55",
   bubbleMobile: "hover:-translate-y-1 hover:scale-105",
   textWrapper:
     "absolute w-[190px] -translate-y-1/2 transition-transform duration-300 peer-hover:scale-125",
@@ -190,6 +168,23 @@ export const timelineStyles = {
   contactDesktop: "absolute flex flex-col items-center justify-center px-10",
   contactMobile:
     "mx-auto flex h-56 w-56 flex-col items-center justify-center px-8",
+  detailLayout:
+    "grid w-full grid-cols-1 gap-12 px-4 py-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.8fr)] lg:items-stretch lg:gap-16 lg:px-8 lg:py-16",
+  detailTimelineColumn: "min-w-0",
+  detailPanelColumn: "min-w-0 lg:flex lg:items-start lg:self-stretch",
+  detailPanel:
+    "rounded-md bg-transparent px-7 py-8 shadow-none backdrop-blur-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:max-w-[440px] lg:overflow-y-auto",
+  detailPanelHint: "text-xl font-extralight leading-relaxed text-[#d9d4c8]/65",
+  detailPanelEyebrow:
+    "text-base font-extralight uppercase tracking-[0.18em] text-[#d9d4c8]/55",
+  detailPanelTitle:
+    "mt-4 text-5xl font-[400] leading-none text-[#c8b895] sm:text-6xl",
+  detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-white/88",
+  detailPanelDuration: "mt-3 text-lg font-extralight text-[#d9d4c8]/60",
+  detailPanelBody:
+    "mt-8 text-xl font-extralight leading-relaxed text-[#d9d4c8]/72",
+  detailPanelLink:
+    "mt-9 inline-flex border border-[#c8b895]/30 px-5 py-3 text-lg font-[300] text-[#c8b895] no-underline transition-colors hover:border-[#c8b895]/70 hover:bg-[#c8b895]/10 hover:text-white",
 };
 
 export const showcaseStyles = {
@@ -220,10 +215,14 @@ export const cvModalStyles = {
   backdrop:
     "fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-6 backdrop-blur-sm",
   panel:
-    "relative h-full max-h-[92vh] w-full max-w-5xl bg-[#050505] p-4 shadow-2xl shadow-black/60 sm:p-6",
+    "relative h-full max-h-[70vh] w-full max-w-[1500px] bg-[#050505] p-4 shadow-2xl shadow-black/60 sm:p-6",
   closeButton:
     "absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border border-[#c8b895]/70 bg-[#050505]/95 text-xl font-[500] text-[#c8b895] transition-colors hover:bg-[#c8b895] hover:text-[#050505]",
-  frame: "h-full w-full bg-white",
+  contentGrid:
+    "grid h-full grid-cols-1 gap-6 overflow-y-auto pr-1 pt-12 lg:grid-cols-[minmax(420px,0.95fr)_minmax(360px,0.8fr)] lg:overflow-hidden lg:pt-0",
+  frame: "min-h-[480px] w-full bg-white lg:h-full lg:min-h-0",
+  skillPane:
+    "min-h-[360px] overflow-y-auto border-t border-[#c8b895]/20 pt-6 lg:min-h-0 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0",
 };
 
 export const contactStyles = {
