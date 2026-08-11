@@ -24,6 +24,7 @@ const pageCopy: Record<string, { title: string; quote: string }> = {
 const Header: FC = () => {
   const { pathname } = useLocation();
   const [isCvOpen, setIsCvOpen] = useState(false);
+  const isHomePage = pathname === "/";
   const preventCurrentPageNavigation =
     (targetPath: string) => (event: MouseEvent<HTMLAnchorElement>) => {
       if (pathname === targetPath) {
@@ -42,28 +43,6 @@ const Header: FC = () => {
 
   return (
     <header className={headerStyles.header}>
-      <section className={headerStyles.hero}>
-        <div className={headerStyles.heroImage} />
-        <div className={headerStyles.heroOverlay} />
-        <div className={headerStyles.heroContent}>
-          <div className={headerStyles.heroText}>
-            <p className={headerStyles.kicker}>Digital Cv</p>
-            <h1 className={headerStyles.pageTitle}>{copy.title}</h1>
-            <p className={headerStyles.quote}>
-              {pathname === "/" ? (
-                <>
-                  En <span>nystartet utvikler</span> og tidligere kundebehandler
-                  <br />
-                  med <span>bakgrunn i salg og relasjonsbygging.</span>
-                </>
-              ) : (
-                copy.quote
-              )}
-            </p>
-          </div>
-        </div>
-      </section>
-
       <nav className={headerStyles.nav} aria-label="Hovednavigasjon">
         <div className={headerStyles.navInner}>
           <ul className={headerStyles.navList}>
@@ -121,6 +100,26 @@ const Header: FC = () => {
           </div>
         </div>
       </nav>
+      <div className={headerStyles.navSpacer} aria-hidden="true" />
+
+      {isHomePage && (
+        <section className={headerStyles.hero}>
+          <div className={headerStyles.heroImage} />
+          <div className={headerStyles.heroOverlay} />
+          <div className={headerStyles.heroContent}>
+            <div className={headerStyles.heroText}>
+              <p className={headerStyles.kicker}>Digital Cv</p>
+              <h1 className={headerStyles.pageTitle}>{copy.title}</h1>
+              <p className={headerStyles.quote}>
+                En <span>nystartet utvikler</span> og tidligere kundebehandler
+                <br />
+                med <span>bakgrunn i salg og relasjonsbygging.</span>
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       <CvModal isOpen={isCvOpen} onClose={() => setIsCvOpen(false)} />
     </header>
   );

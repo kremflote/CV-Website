@@ -109,7 +109,8 @@ export const colorVariables = {
   "--site-black-25": "rgba(0,0,0,0.25)",
   "--site-error": colorPalette.error,
   "--site-page-gradient": `linear-gradient(to top right,${colorPalette.overlayDark},${colorPalette.overlayGreySoft})`,
-  "--site-hero-overlay": `linear-gradient(to top right,${colorPalette.overlayDark},${colorPalette.overlayGreyStrong})`,
+  "--site-hero-overlay":
+    "linear-gradient(90deg,#101010 0%,rgba(16,16,16,0.92) 34%,rgba(16,16,16,0.48) 62%,rgba(16,16,16,0) 100%)",
 } as CSSProperties;
 
 const siteColorClasses = {
@@ -184,19 +185,22 @@ export const standardPaletteClasses = {
 
 export const headerStyles = {
   header: "relative",
-  hero: "relative h-[460px] overflow-hidden",
+  hero:
+    "relative mx-auto h-[460px] w-full max-w-[1800px] overflow-hidden bg-[#101010] px-5",
   heroImage:
     "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
   heroOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
   heroContent:
-    "relative z-10 mx-auto grid h-full w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:grid-cols-[1fr_520px]",
+    "relative z-10 grid h-full w-full grid-cols-1 items-start gap-12 sm:grid-cols-[1fr_520px]",
   heroText: "pt-[118px]",
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
   pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
   quote:
     `mt-20 max-w-3xl text-2xl font-[200] italic leading-snug ${siteColorClasses.text85} [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
-  nav: "mx-auto w-full max-w-[1800px] px-5",
-  navInner: "flex w-full items-center justify-between gap-6",
+  nav: `fixed inset-x-0 top-0 z-50 ${siteColorClasses.surfaceBg95} shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
+  navInner:
+    "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-6 px-5",
+  navSpacer: "h-[72px]",
   navList:
     `flex items-center justify-start gap-5 py-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
   navAction: "flex items-center justify-end py-5",
@@ -215,7 +219,8 @@ export const footerStyles = {
 
 export const appStyles = {
   shell: `relative min-h-screen overflow-x-clip ${siteColorClasses.surfaceBg} ${siteColorClasses.text} ${fadeStyles.pageShell}`,
-  overlay: "relative min-h-screen",
+  overlay: "relative flex min-h-screen flex-col",
+  routeArea: "flex-1",
   contentBackground: "bg-transparent",
 };
 
@@ -359,7 +364,8 @@ export const cvModalStyles = {
 };
 
 export const contactStyles = {
-  section: "mb-14 py-8 sm:mb-24 sm:py-16",
+  section:
+    "mb-20 min-h-[68vh] pt-32 pb-24 sm:mb-28 sm:min-h-[74vh] sm:pt-48 sm:pb-32",
   cardGrid:
     "mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8",
   card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center shadow-2xl ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,

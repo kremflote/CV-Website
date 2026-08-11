@@ -18,18 +18,20 @@ const AppRouting = () => {
       <div className={appStyles.shell} style={colorVariables}>
         <div className={appStyles.overlay}>
           <Header />
-          <FullWidthLayout>
-            <main className={appStyles.contentBackground}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="*" element={<NotFoundPage />} />
-                <Route path="/cv" element={<Navigate to="/" replace />} />
-                <Route path="/kontakt" element={<KontaktPage />} />
-                <Route path="/portfolio" element={<PortfolioPage />} />
-                <Route path="/showcase/:id" element={<ShowcasePage />} />
-              </Routes>
-            </main>
-          </FullWidthLayout>
+          <div className={appStyles.routeArea}>
+            <FullWidthLayout>
+              <main className={appStyles.contentBackground}>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                  <Route path="/cv" element={<Navigate to="/" replace />} />
+                  <Route path="/kontakt" element={<KontaktPage />} />
+                  <Route path="/portfolio" element={<PortfolioPage />} />
+                  <Route path="/showcase/:id" element={<ShowcasePage />} />
+                </Routes>
+              </main>
+            </FullWidthLayout>
+          </div>
           <Footer />
         </div>
       </div>
