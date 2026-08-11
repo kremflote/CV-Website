@@ -1,10 +1,10 @@
 # Cloudflare Tunnel deployment
 
-This project is intended to run as one ASP.NET Core app in production:
+This project is intended to run as a static frontend in production:
 
-- React is built into `cv-backend/wwwroot`
-- API routes stay under `/api`
-- images and the CV PDF stay under `cv-backend/wwwroot/images`
+- React is built by Vite
+- images and the CV PDF live under `cv-frontend/public/images`
+- Docker serves the built frontend through nginx on port `5110`
 - Cloudflare Tunnel points `mariuskristensen.no` to `http://localhost:5110`
 
 ## Local PC setup
@@ -54,29 +54,28 @@ Install as a Windows service when the tunnel works:
 
 ## Build and run the site
 
-Build the frontend into the backend and publish:
+Build the static frontend:
 
 ```powershell
 .\scripts\Publish-FrontendToBackend.ps1
 ```
 
-Run the backend locally:
+Build and run the Docker container:
 
 ```powershell
-cd .\cv-backend
-dotnet run --launch-profile http
+docker compose up --build -d
 ```
 
 ## Raspberry Pi later
 
-On the Pi, publish for Linux ARM64 from a development machine:
+On the Pi, run the same Docker Compose setup:
 
 ```powershell
-dotnet publish .\cv-backend\cv-backend.csproj -c Release -r linux-arm64 --self-contained false
+docker compose up --build -d
 ```
 
-Then copy the publish folder to the Pi and configure:
+Then configure:
 
-- one systemd service for the ASP.NET app
+- one Docker Compose service for the static nginx site
 - one systemd service for `cloudflared`
 - the same tunnel public hostname: `mariuskristensen.no -> http://localhost:5110`

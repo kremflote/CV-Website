@@ -30,11 +30,14 @@ const KontaktPage = () => {
               {email}
             </button>
 
-            {hasCopiedEmail && (
-              <p className={contactStyles.copiedText}>
-                E-post kopiert til utklippstavlen.
-              </p>
-            )}
+            <p
+              className={`${contactStyles.copiedText} ${
+                hasCopiedEmail ? "opacity-100" : "opacity-0"
+              }`}
+              aria-live="polite"
+            >
+              E-post kopiert til utklippstavlen.
+            </p>
           </div>
 
           <div className={contactStyles.card}>
@@ -50,6 +53,13 @@ const KontaktPage = () => {
             >
               github.com/kremflote
             </a>
+
+            <p
+              className={`${contactStyles.copiedText} opacity-0`}
+              aria-hidden="true"
+            >
+              E-post kopiert til utklippstavlen.
+            </p>
           </div>
         </div>
       </section>

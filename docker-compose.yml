@@ -6,12 +6,6 @@ services:
     container_name: cv-webpage
     ports:
       - "5110:5110"
-    volumes:
-      - ./cv-backend/Databases:/app/Databases
-      - ./cv-backend/wwwroot/images:/app/wwwroot/images
-    environment:
-      ASPNETCORE_URLS: http://0.0.0.0:5110
-      ASPNETCORE_ENVIRONMENT: Production
     restart: unless-stopped
 
   cloudflared:

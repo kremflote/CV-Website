@@ -2,7 +2,6 @@ import { useState, type FC, type MouseEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import CvModal from "../CvModal";
 import { headerStyles } from "../../styles/styles";
-import RotatingHeroImage from "../RotatingHeroImage";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `${headerStyles.navLinkBase} ${isActive ? headerStyles.navLinkActive : ""}`;
@@ -62,7 +61,6 @@ const Header: FC = () => {
               )}
             </p>
           </div>
-          {pathname === "/" && <RotatingHeroImage />}
         </div>
       </section>
 

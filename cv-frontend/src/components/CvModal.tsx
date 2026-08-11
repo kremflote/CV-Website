@@ -18,8 +18,12 @@ const CvModal: FC<CvModalProps> = ({ isOpen, onClose }) => {
       role="dialog"
       aria-modal="true"
       aria-label="CV PDF"
+      onClick={onClose}
     >
-      <div className={cvModalStyles.panel}>
+      <div
+        className={cvModalStyles.panel}
+        onClick={(event) => event.stopPropagation()}
+      >
         <button
           type="button"
           onClick={onClose}
@@ -30,7 +34,7 @@ const CvModal: FC<CvModalProps> = ({ isOpen, onClose }) => {
         </button>
         <div className={cvModalStyles.contentGrid}>
           <iframe
-            src="/api/Cv"
+            src="/images/cv.pdf"
             className={cvModalStyles.frame}
             title="CV PDF"
           />

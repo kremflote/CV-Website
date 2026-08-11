@@ -2,7 +2,6 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { WideLayout } from "../components/common/WideLayout";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
-import { getShowcaseImages } from "../services/CvService";
 import { glassStyles, pageStyles, showcaseStyles } from "../styles/styles";
 
 const ShowcasePage = () => {
@@ -19,10 +18,13 @@ const ShowcasePage = () => {
   useEffect(() => {
     let isActive = true;
 
-    const loadShowcaseImages = async () => {
+    const loadShowcaseImages = () => {
       if (!showcase) return;
 
-      const images = await getShowcaseImages(showcase.id);
+      const images =
+        showcase.images && showcase.images.length > 0
+          ? showcase.images
+          : [showcase.image].filter(Boolean);
 
       if (isActive) {
         setShowcaseImages(images);
@@ -115,6 +117,25 @@ const ShowcasePage = () => {
             <p className={`mt-8 max-w-4xl ${showcaseStyles.description}`}>
               {showcase.description}
             </p>
+            {showcase.details && (
+              <div className={showcaseStyles.detailTextStack}>
+                {showcase.details.map((section) => (
+                  <section
+                    key={section.title}
+                    className={showcaseStyles.detailTextSection}
+                  >
+                    <h2 className={showcaseStyles.detailTextTitle}>
+                      {section.title}
+                    </h2>
+                    {section.body.map((paragraph) => (
+                      <p key={paragraph} className={showcaseStyles.description}>
+                        {paragraph}
+                      </p>
+                    ))}
+                  </section>
+                ))}
+              </div>
+            )}
             {showcase.gitHub_Link && (
               <a
                 href={showcase.gitHub_Link}

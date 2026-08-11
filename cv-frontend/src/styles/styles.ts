@@ -189,8 +189,8 @@ export const headerStyles = {
     "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
   heroOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
   heroContent:
-    "relative z-10 mx-auto grid h-full w-full max-w-[1800px] grid-cols-1 items-center gap-12 px-5 py-16 sm:grid-cols-[1fr_520px]",
-  heroText: "pt-10 sm:pt-0",
+    "relative z-10 mx-auto grid h-full w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:grid-cols-[1fr_520px]",
+  heroText: "pt-[118px]",
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
   pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
   quote:
@@ -201,11 +201,11 @@ export const headerStyles = {
     `flex items-center justify-start gap-5 py-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
   navAction: "flex items-center justify-end py-5",
   navLinkBase:
-    `flex h-8 min-w-11 items-center justify-center px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-[var(--site-white)]`,
+    `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-[var(--site-white)]`,
   navLinkActive:
     `${siteColorClasses.accentBg} font-[600] !text-[var(--site-inverse)] hover:!text-[var(--site-inverse)]`,
   navButton:
-    `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-[var(--site-text)] hover:text-[var(--site-surface)]`,
+    `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-[var(--site-text)] hover:text-[var(--site-surface)]`,
 };
 
 export const footerStyles = {
@@ -327,6 +327,10 @@ export const showcaseStyles = {
   carouselButton:
     `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:bg-[var(--site-white-10)] hover:text-[var(--site-white)]`,
   description: `text-xl font-extralight leading-relaxed ${siteColorClasses.whiteText65}`,
+  detailTextStack: "mt-10 max-w-4xl space-y-8",
+  detailTextSection: "space-y-3",
+  detailTextTitle:
+    `text-3xl font-[500] leading-tight ${siteColorClasses.accentText}`,
   githubLink:
     `mt-8 inline-flex items-center gap-3 border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
   link: `${siteColorClasses.whiteText80} hover:text-[var(--site-white)]`,
@@ -358,7 +362,7 @@ export const contactStyles = {
   section: "mb-14 py-8 sm:mb-24 sm:py-16",
   cardGrid:
     "mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8",
-  card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 ${siteColorClasses.panelBg18} px-6 py-7 text-center shadow-2xl ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,
+  card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center shadow-2xl ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,
   action:
     "inline-flex max-w-full cursor-pointer items-center justify-center break-all px-4 py-3 text-base font-extralight no-underline transition-all duration-300 sm:px-6 sm:py-4 sm:text-xl",
   title: `text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
@@ -367,5 +371,5 @@ export const contactStyles = {
   iconGithub: `fab fa-github text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
   button:
     `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-[var(--site-accent-55)] hover:bg-[var(--site-accent-10)] hover:text-[var(--site-white)]`,
-  copiedText: `text-base font-extralight ${siteColorClasses.text65} sm:text-lg`,
+  copiedText: `min-h-[1.75rem] text-base font-extralight transition-opacity duration-200 ${siteColorClasses.text65} sm:text-lg`,
 };
