@@ -348,14 +348,14 @@ export const cvModalStyles = {
   backdrop:
     `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-6 backdrop-blur-sm`,
   panel:
-    `relative h-full max-h-[70vh] w-full max-w-[1500px] ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
+    `relative max-h-[70vh] w-full max-w-[1500px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
   closeButton:
     `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-[var(--site-accent)] hover:text-[var(--site-surface)]`,
   contentGrid:
-    "grid h-full grid-cols-1 gap-6 overflow-y-auto pr-1 pt-12 lg:grid-cols-[minmax(420px,0.95fr)_minmax(360px,0.8fr)] lg:overflow-hidden lg:pt-0",
-  frame: `min-h-[480px] w-full ${siteColorClasses.whiteBg} lg:h-full lg:min-h-0`,
+    "grid max-h-[calc(70vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(420px,0.95fr)_minmax(360px,0.8fr)] lg:pt-0",
+  frame: `h-[46vh] min-h-[360px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(70vh-3rem)] lg:min-h-0`,
   skillPane:
-    `min-h-[360px] overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:min-h-0 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
+    `min-h-0 overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
 };
 
 export const contactStyles = {
