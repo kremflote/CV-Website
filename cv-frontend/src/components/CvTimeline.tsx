@@ -611,7 +611,7 @@ const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
             <span className="block text-base font-[300] leading-tight text-white/70">
               Kanskje du er min neste arbeidsplass?
             </span>
-            <span className="mt-1 block text-xl font-[400] leading-tight text-[#f4f1eb]">
+            <span className="mt-1 block text-xl font-[400] leading-tight text-[#E3CD9F]">
               Ta Kontakt
             </span>
           </Link>

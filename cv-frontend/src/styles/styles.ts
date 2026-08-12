@@ -46,9 +46,9 @@ export const companyMeta: Record<
 };
 
 export const colorPalette = {
-  surface: "#101010",
+  surface: "#080808",
   text: "#d9d4c8",
-  accent: "#f4f1eb",
+  accent: "#E3CD9F",
   panel: "#c3c5c4",
   inverseText: "#111111",
   pureWhite: "#ffffff",
@@ -71,21 +71,21 @@ export const colorVariables = {
   "--site-text-55": "rgba(217,212,200,0.55)",
   "--site-text-35": "rgba(217,212,200,0.35)",
   "--site-accent": colorPalette.accent,
-  "--site-accent-90": "rgba(244,241,235,0.9)",
-  "--site-accent-75": "rgba(244,241,235,0.75)",
-  "--site-accent-70": "rgba(244,241,235,0.7)",
-  "--site-accent-55": "rgba(244,241,235,0.55)",
-  "--site-accent-30": "rgba(244,241,235,0.3)",
-  "--site-accent-25": "rgba(244,241,235,0.25)",
-  "--site-accent-20": "rgba(244,241,235,0.2)",
-  "--site-accent-18": "rgba(244,241,235,0.18)",
-  "--site-accent-16": "rgba(244,241,235,0.16)",
-  "--site-accent-10": "rgba(244,241,235,0.1)",
+  "--site-accent-90": "rgba(227,205,159,0.9)",
+  "--site-accent-75": "rgba(227,205,159,0.75)",
+  "--site-accent-70": "rgba(227,205,159,0.7)",
+  "--site-accent-55": "rgba(227,205,159,0.55)",
+  "--site-accent-30": "rgba(227,205,159,0.3)",
+  "--site-accent-25": "rgba(227,205,159,0.25)",
+  "--site-accent-20": "rgba(227,205,159,0.2)",
+  "--site-accent-18": "rgba(227,205,159,0.18)",
+  "--site-accent-16": "rgba(227,205,159,0.16)",
+  "--site-accent-10": "rgba(227,205,159,0.1)",
   "--site-panel-26": "rgba(195,197,196,0.26)",
   "--site-panel-18": "rgba(195,197,196,0.18)",
   "--site-panel-14": "rgba(195,197,196,0.14)",
-  "--site-surface-95": "rgba(5,5,5,0.95)",
-  "--site-surface-35": "rgba(5,5,5,0.35)",
+  "--site-surface-95": "rgba(8,8,8,0.95)",
+  "--site-surface-35": "rgba(8,8,8,0.35)",
   "--site-inverse": colorPalette.inverseText,
   "--site-white": colorPalette.pureWhite,
   "--site-white-80": "rgba(255,255,255,0.8)",
@@ -104,7 +104,7 @@ export const colorVariables = {
   "--site-black-25": "rgba(0,0,0,0.25)",
   "--site-error": colorPalette.error,
   "--site-page-gradient":
-    "linear-gradient(125deg,#4f5454 0%,#363a3a 22%,#171717 56%,#050505 100%)",
+    "linear-gradient(125deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.06) 24%,rgba(8,8,8,0.55) 58%,#080808 100%)",
 } as CSSProperties;
 
 const siteColorClasses = {
@@ -175,7 +175,7 @@ export const headerStyles = {
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
   pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
   quote: `mt-20 max-w-3xl pb-24 text-2xl font-[200] italic leading-snug ${siteColorClasses.text85} [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
-  nav: `fixed inset-x-0 top-0 z-50 bg-[#181818]/95 shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
+  nav: `fixed inset-x-0 top-0 z-50 bg-[#060606] shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
   navInner:
     "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-6 px-5",
   navSpacer: "h-[72px]",
@@ -236,7 +236,7 @@ export const timelineStyles = {
   bubbleDesktop:
     "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-black/40",
   bubbleActive:
-    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#f4f1eb]/55",
+    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#E3CD9F]/55",
   bubbleMobile: "hover:-translate-y-1 hover:scale-105",
   textWrapper:
     "absolute w-[190px] -translate-y-1/2 transition-transform duration-300 peer-hover:scale-125",
@@ -271,13 +271,13 @@ export const timelineStyles = {
   detailPanelEyebrow:
     "text-base font-extralight uppercase tracking-[0.18em] text-[#d9d4c8]/55",
   detailPanelTitle:
-    "mt-4 text-5xl font-[400] leading-none text-[#f4f1eb] sm:text-6xl",
+    "mt-4 text-5xl font-[400] leading-none text-[#E3CD9F] sm:text-6xl",
   detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-white/88",
   detailPanelDuration: "mt-3 text-lg font-extralight text-[#d9d4c8]/60",
   detailPanelBody:
     "mt-8 text-xl font-extralight leading-relaxed text-[#d9d4c8]/72",
   detailPanelLink:
-    "mt-9 inline-flex border border-[#f4f1eb]/30 px-5 py-3 text-lg font-[300] text-[#f4f1eb] no-underline transition-colors hover:border-[#f4f1eb]/70 hover:bg-[#f4f1eb]/10 hover:text-white",
+    "mt-9 inline-flex border border-[#E3CD9F]/30 px-5 py-3 text-lg font-[300] text-[#E3CD9F] no-underline transition-colors hover:border-[#E3CD9F]/70 hover:bg-[#E3CD9F]/10 hover:text-white",
 };
 
 export const showcaseStyles = {
