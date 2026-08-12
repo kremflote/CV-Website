@@ -3,6 +3,40 @@ import { useParams } from "react-router-dom";
 import { WideLayout } from "../components/common/WideLayout";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import { glassStyles, pageStyles, showcaseStyles } from "../styles/styles";
+import type { IShowcase } from "../interfaces/IShowcase";
+
+type ShowcaseDetailSection = NonNullable<IShowcase["details"]>[number];
+
+const getOrderedDetailSections = (details: ShowcaseDetailSection[]) =>
+  [...details].sort((first, second) => {
+    const firstIsGrade = first.title.toLowerCase().startsWith("karakter");
+    const secondIsGrade = second.title.toLowerCase().startsWith("karakter");
+
+    if (firstIsGrade === secondIsGrade) return 0;
+    return firstIsGrade ? -1 : 1;
+  });
+
+const renderDetailTitle = (title: string) => {
+  const normalizedTitle = title.toLowerCase();
+
+  if (normalizedTitle.includes("karakter a")) {
+    return (
+      <>
+        Karakter <span className={showcaseStyles.detailGradeA}>A</span>
+      </>
+    );
+  }
+
+  if (normalizedTitle.includes("karakter b")) {
+    return (
+      <>
+        Karakter <span className={showcaseStyles.detailGradeB}>B</span>
+      </>
+    );
+  }
+
+  return title;
+};
 
 const ShowcasePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -109,13 +143,13 @@ const ShowcasePage = () => {
             </p>
             {showcase.details && (
               <div className={showcaseStyles.detailTextStack}>
-                {showcase.details.map((section) => (
+                {getOrderedDetailSections(showcase.details).map((section) => (
                   <section
                     key={section.title}
                     className={showcaseStyles.detailTextSection}
                   >
                     <h2 className={showcaseStyles.detailTextTitle}>
-                      {section.title}
+                      {renderDetailTitle(section.title)}
                     </h2>
                     {section.body.map((paragraph) => (
                       <p key={paragraph} className={showcaseStyles.description}>

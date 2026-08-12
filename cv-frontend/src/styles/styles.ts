@@ -297,6 +297,8 @@ export const showcaseStyles = {
   detailTextStack: "mt-10 max-w-4xl space-y-8 break-words",
   detailTextSection: "space-y-3",
   detailTextTitle: `break-words text-2xl font-[500] leading-tight ${siteColorClasses.accentText} sm:text-3xl`,
+  detailGradeA: "text-[#22e66f]",
+  detailGradeB: "text-[#7bd65f]",
   githubLink: `mt-8 inline-flex max-w-full items-center gap-3 break-words border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
   link: `${siteColorClasses.whiteText80} hover:text-[var(--site-white)]`,
 };

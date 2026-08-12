@@ -235,13 +235,12 @@ export const showcases: IShowcase[] = [
     id: 8,
     title: "Matflote",
     description:
-      "Personlig husholdningsverktøy for middagsplanlegging, kokebok, handleliste og lokal matdata, laget for å kjøres på egen hjemmeserver.",
+      "Personlig verktøy for middagsplanlegging, kokebok, handleliste og lokal matdata.",
     details: [
       {
         title: "Oversikt",
         body: [
-          "Matflote er en husholdningsapp for middagsplanlegging og kokebok. Prosjektet er laget som et personlig verktøy for å kjøre på egen hjemmeserver, med fokus på praktiske behov i hverdagen.",
-          "Appen samler oppskrifter, ingredienser, ukesplanlegging, handlelisteflyt, strekkodeskanning, lokal prissporing og omtrentlige ernæringssummer i ett system.",
+          "Appen tilbyr oppskrifter, ingredienser, ukesplanlegging, handlelisteflyt, strekkodeskanning, lokal prissporing og omtrentlige ernæringssummer.",
           "Prosjektet er utviklet med assistanse fra ChatGPT 5.5.",
         ],
       },
@@ -256,16 +255,6 @@ export const showcases: IShowcase[] = [
           "Skannerside for norsk dagligvareoppslag via strekkode/EAN gjennom Kassalapp, med manglende ernæringsfelter supplert fra Matvaretabellen.",
           "Prisside for lokal husholdningssporing av priser etter ingrediens, butikk og dato.",
           "Ernæringsside for omtrentlige ukessammendrag fra planlagte måltider og lokalt lagrede referanseverdier fra Helsedirektoratet.",
-        ],
-      },
-      {
-        title: "Hva jeg har lært",
-        body: [
-          "Prosjektet har gitt meg mer praktisk erfaring med secrets management, spesielt rundt hvordan API-nøkler, tokens og lokale konfigurasjonsverdier bør holdes utenfor kildekoden.",
-          "Jeg har jobbet mer med nettverk og drift i praksis, siden applikasjonen er tenkt kjørt på en personlig hjemmeserver og må fungere sammen med lokale tjenester og eksterne API-er.",
-          "Arbeidet har gitt meg bedre forståelse for permissions og tilgangsstyring, både i forhold til lokale filer, tjenester og hvilke deler av systemet som bør få tilgang til hva.",
-          "Git-versjonskontroll har vært sentralt gjennom prosjektet, med løpende endringer, rydding, historikk og tryggere eksperimentering.",
-          "Jeg har også lært mer om backup-tankegang: hva som faktisk er viktig å ta vare på, hvordan lokale data kan beskyttes, og hvorfor gjenoppretting bør tenkes inn tidlig.",
         ],
       },
     ],
@@ -286,10 +275,40 @@ export const showcases: IShowcase[] = [
     id: 4,
     title: "Raspberry Pi Home Server",
     description:
-      "Med bruk av en Raspberry Pi 4 har jeg satt opp en hjemmeserver som oppfyller flere roller. Serveren fungerer som en webserver, filserver og medieserver. Den er konfigurert med Nginx for å håndtere HTTP-forespørsler og Rustic for regelmessige sikkerhetskopier. Dette er også serveren som denne nettsiden kjører på. Prosjektet har gitt meg praktisk erfaring med serveradministrasjon, nettverkskommunikasjon og shell scripting.",
-    image: "raspberrythumbnail.jpg",
+      "Dokumentasjon og konfigurasjon for min personlige Raspberry Pi-hjemmeserver, bygget for og med Docker Compose, Tailscale, Cloudflare og Nginx Proxy Manager.",
+    details: [
+      {
+        title: "Oversikt",
+        body: [
+          "Pi Homeserver er min personlige hjemmeserver. Repositoryet brukes hovedsakelig til dokumentasjon, versjonskontroll og som showcase.",
+          "Prosjektet inneholder Docker Compose-filene, scripts og eksempler som beskriver hvordan tjenestene på hjemmeserveren henger sammen.",
+          "Serveren kjører på en Raspberry Pi 4 med Docker Compose. Tilgang skjer via Tailscale, DNS håndteres i Cloudflare, og web-routing styres gjennom Nginx Proxy Manager.",
+        ],
+      },
+      {
+        title: "Tjenester",
+        body: [
+          "Kjerneinfrastruktur og reverse proxy.",
+          "Filsynkronisering og personlig skylagring med Nextcloud.",
+          "Mediaautomatisering med Sonarr, Radarr, Prowlarr, Bazarr, qBittorrent og Gluetun.",
+          "Medieserver med Jellyfin.",
+          "Overvåkning med Uptime Kuma og Beszel.",
+          "Dashboarding med Homepage.",
+          "Personlige verktøy som Firefly III, Vikunja og egne Matflote-tjenester.",
+          "Lokalt backup-script med Restic.",
+        ],
+      },
+      {
+        title: "Notater",
+        body: [
+          "Å sette opp hjemmeserveren har gitt meg praktisk erfaring med drift, nettverk og selvhosting. Jeg har lært hvordan tjenester må kobles sammen gjennom Docker-nettverk, porter, DNS, reverse proxy og sikre tilgangsløsninger, og hvordan små feil i permissions, volumes eller miljøvariabler kan påvirke hele systemet.",
+          "Prosjektet har også gjort meg bedre på secrets management, backup-rutiner og dokumentasjon.",
+        ],
+      },
+    ],
+    image: "piserver.jpg",
     image_Thumbnail: "raspberrythumbnail.jpg",
-    images: ["raspberrythumbnail.jpg"],
+    images: ["piserver.jpg"],
     gitHub_Link: "",
     category: "personal",
   },
