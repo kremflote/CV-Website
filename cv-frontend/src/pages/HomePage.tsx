@@ -5,14 +5,12 @@ import { FullWidthLayout } from "../components/common/FullWidthLayout";
 
 const HomePage = () => {
   return (
-    <section className={homeStyles.sketchShell}>
+    <section className={homeStyles.shell}>
       <section>
         <FullWidthLayout>
-          <div className={homeStyles.timelineGradientShell}>
-            <MediumLayout>
-              <CvTimeline showDetailPanel />
-            </MediumLayout>
-          </div>
+          <MediumLayout>
+            <CvTimeline showDetailPanel />
+          </MediumLayout>
         </FullWidthLayout>
       </section>
     </section>

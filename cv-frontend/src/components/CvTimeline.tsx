@@ -364,9 +364,7 @@ const TimelineCircle: FC<{
 }> = ({ marker, isActive, onActivate }) => {
   const circleLeft =
     marker.textSide === "left"
-      ? `calc(var(--timeline-x) + ${
-          marker.companyKey === "power" ? 34 : 28
-        }px)`
+      ? `calc(var(--timeline-x) + ${marker.companyKey === "power" ? 34 : 28}px)`
       : `calc(var(--timeline-x) - ${marker.size + 26}px)`;
 
   return (
@@ -426,7 +424,9 @@ const ExperienceDetailPanel: FC<{ marker?: TimelineMarker }> = ({ marker }) => {
       <h2 className={timelineStyles.detailPanelTitle}>
         {marker.tenure.companyName}
       </h2>
-      <p className={timelineStyles.detailPanelRole}>{marker.tenure.workTitle}</p>
+      <p className={timelineStyles.detailPanelRole}>
+        {marker.tenure.workTitle}
+      </p>
       <p className={timelineStyles.detailPanelDuration}>
         Varighet: {marker.durationLabel}
       </p>
@@ -459,13 +459,10 @@ const ContactBubble: FC<{ top: number }> = ({ top }) => {
         height: `${CONTACT_BUBBLE_SIZE}px`,
       }}
     >
-      <span className="whitespace-nowrap text-base font-[300] leading-tight text-white/70">
+      <span className="whitespace-nowrap text-sm font-[300] leading-tight text-white/70">
         Kanskje du er
         <br />
         min neste arbeidsplass?
-      </span>
-      <span className="mt-1 text-xl font-[400] leading-tight text-[#c8b895]">
-        Ta Kontakt
       </span>
     </Link>
   );
@@ -498,8 +495,7 @@ const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
   const markers = useMemo(() => buildMarkers(tenures), [tenures]);
   const [activeMarkerId, setActiveMarkerId] = useState<number | null>(null);
   const activeMarker =
-    markers.find((marker) => marker.tenure.id === activeMarkerId) ??
-    markers[0];
+    markers.find((marker) => marker.tenure.id === activeMarkerId) ?? markers[0];
   const contactTop =
     markers.length > 0
       ? Math.max(...markers.map((marker) => marker.top + marker.size)) + 88
@@ -541,7 +537,9 @@ const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
         }}
       />
 
-      {tenureIsLoading && <p className={timelineStyles.loadingText}>Laster...</p>}
+      {tenureIsLoading && (
+        <p className={timelineStyles.loadingText}>Laster...</p>
+      )}
 
       {initError && (
         <p className={`relative py-16 text-center ${pageStyles.errorText}`}>
@@ -613,7 +611,7 @@ const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
             <span className="block text-base font-[300] leading-tight text-white/70">
               Kanskje du er min neste arbeidsplass?
             </span>
-            <span className="mt-1 block text-xl font-[400] leading-tight text-[#c8b895]">
+            <span className="mt-1 block text-xl font-[400] leading-tight text-[#f4f1eb]">
               Ta Kontakt
             </span>
           </Link>

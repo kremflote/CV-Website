@@ -46,23 +46,18 @@ export const companyMeta: Record<
 };
 
 export const colorPalette = {
-  surface: "#050505",
-  surfaceRaised: "#111111",
+  surface: "#101010",
   text: "#d9d4c8",
-  accent: "#c8b895",
+  accent: "#f4f1eb",
   panel: "#c3c5c4",
   inverseText: "#111111",
   pureWhite: "#ffffff",
   pureBlack: "#000000",
   error: "#ef4444",
-  overlayDark: "rgba(17,17,17,0.91)",
-  overlayGreySoft: "rgba(115,115,115,0.1)",
-  overlayGreyStrong: "rgba(115,115,115,0.42)",
 } as const;
 
 export const colorVariables = {
   "--site-surface": colorPalette.surface,
-  "--site-surface-raised": colorPalette.surfaceRaised,
   "--site-text": colorPalette.text,
   "--site-text-90": "rgba(217,212,200,0.9)",
   "--site-text-88": "rgba(217,212,200,0.88)",
@@ -76,16 +71,16 @@ export const colorVariables = {
   "--site-text-55": "rgba(217,212,200,0.55)",
   "--site-text-35": "rgba(217,212,200,0.35)",
   "--site-accent": colorPalette.accent,
-  "--site-accent-90": "rgba(200,184,149,0.9)",
-  "--site-accent-75": "rgba(200,184,149,0.75)",
-  "--site-accent-70": "rgba(200,184,149,0.7)",
-  "--site-accent-55": "rgba(200,184,149,0.55)",
-  "--site-accent-30": "rgba(200,184,149,0.3)",
-  "--site-accent-25": "rgba(200,184,149,0.25)",
-  "--site-accent-20": "rgba(200,184,149,0.2)",
-  "--site-accent-18": "rgba(200,184,149,0.18)",
-  "--site-accent-16": "rgba(200,184,149,0.16)",
-  "--site-accent-10": "rgba(200,184,149,0.1)",
+  "--site-accent-90": "rgba(244,241,235,0.9)",
+  "--site-accent-75": "rgba(244,241,235,0.75)",
+  "--site-accent-70": "rgba(244,241,235,0.7)",
+  "--site-accent-55": "rgba(244,241,235,0.55)",
+  "--site-accent-30": "rgba(244,241,235,0.3)",
+  "--site-accent-25": "rgba(244,241,235,0.25)",
+  "--site-accent-20": "rgba(244,241,235,0.2)",
+  "--site-accent-18": "rgba(244,241,235,0.18)",
+  "--site-accent-16": "rgba(244,241,235,0.16)",
+  "--site-accent-10": "rgba(244,241,235,0.1)",
   "--site-panel-26": "rgba(195,197,196,0.26)",
   "--site-panel-18": "rgba(195,197,196,0.18)",
   "--site-panel-14": "rgba(195,197,196,0.14)",
@@ -108,9 +103,8 @@ export const colorVariables = {
   "--site-black-30": "rgba(0,0,0,0.3)",
   "--site-black-25": "rgba(0,0,0,0.25)",
   "--site-error": colorPalette.error,
-  "--site-page-gradient": `linear-gradient(to top right,${colorPalette.overlayDark},${colorPalette.overlayGreySoft})`,
-  "--site-hero-overlay":
-    "linear-gradient(90deg,#101010 0%,rgba(16,16,16,0.92) 34%,rgba(16,16,16,0.48) 62%,rgba(16,16,16,0) 100%)",
+  "--site-page-gradient":
+    "linear-gradient(125deg,#4f5454 0%,#363a3a 22%,#171717 56%,#050505 100%)",
 } as CSSProperties;
 
 const siteColorClasses = {
@@ -130,19 +124,15 @@ const siteColorClasses = {
   text55: "text-[var(--site-text-55)]",
   textBorder35: "border-[var(--site-text-35)]",
   accentText: "text-[var(--site-accent)]",
-  accentText75: "text-[var(--site-accent-75)]",
   accentText70: "text-[var(--site-accent-70)]",
   accentBg: "bg-[var(--site-accent)]",
   accentBg18: "bg-[var(--site-accent-18)]",
-  accentBg16: "bg-[var(--site-accent-16)]",
   accentBg10: "bg-[var(--site-accent-10)]",
   accentBorder90: "border-[var(--site-accent-90)]",
   accentBorder70: "border-[var(--site-accent-70)]",
   accentBorder55: "border-[var(--site-accent-55)]",
-  accentBorder30: "border-[var(--site-accent-30)]",
   accentBorder25: "border-[var(--site-accent-25)]",
   accentBorder20: "border-[var(--site-accent-20)]",
-  panelBg26: "bg-[var(--site-panel-26)]",
   panelBg18: "bg-[var(--site-panel-18)]",
   panelBg14: "bg-[var(--site-panel-14)]",
   inverseText: "text-[var(--site-inverse)]",
@@ -150,17 +140,13 @@ const siteColorClasses = {
   whiteText80: "text-[var(--site-white-80)]",
   whiteText75: "text-[var(--site-white-75)]",
   whiteText65: "text-[var(--site-white-65)]",
-  whiteBorder30: "border-[var(--site-white-30)]",
   whiteBorder15: "border-[var(--site-white-15)]",
-  whiteBg10: "bg-[var(--site-white-10)]",
   whiteBg04: "bg-[var(--site-white-04)]",
   whiteBg: "bg-[var(--site-white)]",
   blackBg75: "bg-[var(--site-black-75)]",
-  blackBg35: "bg-[var(--site-black-35)]",
   blackBg25: "bg-[var(--site-black-25)]",
   errorText: "text-[var(--site-error)]",
   shadow35: "shadow-[var(--site-black-35)]",
-  shadow45: "shadow-[var(--site-black-45)]",
   shadow60: "shadow-[var(--site-black-60)]",
   shadow30: "shadow-[var(--site-black-30)]",
 };
@@ -172,44 +158,32 @@ export const pageStyles = {
 
 export const fadeStyles = {
   pageShell: "[background-image:var(--site-page-gradient)]",
-  homeShell: "[background-image:var(--site-page-gradient)]",
-  heroOverlay: "[background:var(--site-hero-overlay)]",
 };
 
 export const standardPaletteClasses = {
   background: siteColorClasses.surfaceBg,
   accentText: siteColorClasses.text,
   quietText: siteColorClasses.text55,
-  highlightText: siteColorClasses.accentText,
 };
 
 export const headerStyles = {
   header: "relative",
-  hero:
-    "relative mx-auto h-[460px] w-full max-w-[1800px] overflow-hidden bg-[#101010] px-5",
-  heroImage:
-    "absolute inset-0 bg-[url('/images/background2.jpg')] bg-cover bg-center",
-  heroOverlay: `absolute inset-0 ${fadeStyles.heroOverlay}`,
+  hero: "relative h-[460px] w-full overflow-hidden bg-transparent px-5",
   heroContent:
-    "relative z-10 grid h-full w-full grid-cols-1 items-start gap-12 sm:grid-cols-[1fr_520px]",
-  heroText: "pt-[118px]",
+    "relative z-10 mx-auto grid h-full w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:grid-cols-[1fr_520px]",
+  heroText: "pt-[80px]",
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
   pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  quote:
-    `mt-20 max-w-3xl text-2xl font-[200] italic leading-snug ${siteColorClasses.text85} [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
-  nav: `fixed inset-x-0 top-0 z-50 ${siteColorClasses.surfaceBg95} shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
+  quote: `mt-20 max-w-3xl pb-24 text-2xl font-[200] italic leading-snug ${siteColorClasses.text85} [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
+  nav: `fixed inset-x-0 top-0 z-50 bg-[#181818]/95 shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
   navInner:
     "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-6 px-5",
   navSpacer: "h-[72px]",
-  navList:
-    `flex items-center justify-start gap-5 py-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
+  navList: `flex items-center justify-start gap-5 py-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
   navAction: "flex items-center justify-end py-5",
-  navLinkBase:
-    `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-[var(--site-white)]`,
-  navLinkActive:
-    `${siteColorClasses.accentBg} font-[600] !text-[var(--site-inverse)] hover:!text-[var(--site-inverse)]`,
-  navButton:
-    `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-[var(--site-text)] hover:text-[var(--site-surface)]`,
+  navLinkBase: `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-[var(--site-white)]`,
+  navLinkActive: `${siteColorClasses.accentBg} font-[600] !text-[var(--site-inverse)] hover:!text-[var(--site-inverse)]`,
+  navButton: `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-[var(--site-text)] hover:text-[var(--site-surface)]`,
 };
 
 export const footerStyles = {
@@ -225,13 +199,7 @@ export const appStyles = {
 };
 
 export const homeStyles = {
-  sketchShell: `relative min-h-screen ${siteColorClasses.surfaceBg} ${siteColorClasses.accentText} ${fadeStyles.homeShell}`,
-  sketchPhoto: "relative hidden w-full sm:block",
-  sketchPhotoFrame: "relative aspect-[1.55/1] w-full overflow-hidden",
-  sketchPhotoImage:
-    "absolute inset-0 h-full w-full object-cover transition-opacity duration-1000",
-  sketchPhotoCaption: `mt-3 text-right text-base font-[300] ${siteColorClasses.whiteText}`,
-  timelineGradientShell: "relative w-full",
+  shell: `relative min-h-screen bg-transparent ${siteColorClasses.accentText}`,
 };
 
 export const skillStyles = {
@@ -240,8 +208,7 @@ export const skillStyles = {
   tagBase:
     "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
   tagSelected: `${siteColorClasses.accentBorder90} ${siteColorClasses.accentBg18} ${siteColorClasses.accentText}`,
-  tagUnselected:
-    `${siteColorClasses.textBorder35} bg-transparent ${siteColorClasses.text70} hover:border-[var(--site-accent-75)] hover:bg-[var(--site-accent-16)] hover:text-[var(--site-text)]`,
+  tagUnselected: `${siteColorClasses.textBorder35} bg-transparent ${siteColorClasses.text70} hover:border-[var(--site-accent-75)] hover:bg-[var(--site-accent-16)] hover:text-[var(--site-text)]`,
   groupTitle: `mb-4 text-lg font-[600] ${siteColorClasses.text}`,
   descriptionPanel: "min-h-[660px]",
   descriptionContent: `border-t ${siteColorClasses.accentBorder55} px-0 pt-2`,
@@ -256,7 +223,6 @@ export const glassStyles = {
   panel: `${siteColorClasses.panelBg14} shadow-2xl ${siteColorClasses.shadow35}`,
   softPanel: `${siteColorClasses.surfaceBg35} shadow-xl ${siteColorClasses.shadow30}`,
   title: `text-6xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
-  body: `text-xl font-extralight leading-relaxed ${siteColorClasses.text70}`,
 };
 
 export const timelineStyles = {
@@ -270,7 +236,7 @@ export const timelineStyles = {
   bubbleDesktop:
     "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-black/40",
   bubbleActive:
-    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#c8b895]/55",
+    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#f4f1eb]/55",
   bubbleMobile: "hover:-translate-y-1 hover:scale-105",
   textWrapper:
     "absolute w-[190px] -translate-y-1/2 transition-transform duration-300 peer-hover:scale-125",
@@ -292,9 +258,9 @@ export const timelineStyles = {
   emptyText: "relative py-16 text-center text-white/65",
   contactBubble:
     "rounded-full bg-[#050505]/72 text-center text-white transition-transform duration-300 hover:-translate-y-2 hover:scale-105 hover:bg-[#111111]/82 hover:shadow-2xl hover:shadow-black/40",
-  contactDesktop: "absolute flex flex-col items-center justify-center px-10",
+  contactDesktop: "absolute flex flex-col items-center justify-center px-12",
   contactMobile:
-    "mx-auto flex h-56 w-56 flex-col items-center justify-center px-8",
+    "mx-auto flex h-56 w-56 flex-col items-center justify-center px-10",
   detailLayout:
     "grid w-full grid-cols-1 gap-12 px-4 py-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.8fr)] lg:items-stretch lg:gap-16 lg:px-8 lg:py-16",
   detailTimelineColumn: "min-w-0",
@@ -305,62 +271,50 @@ export const timelineStyles = {
   detailPanelEyebrow:
     "text-base font-extralight uppercase tracking-[0.18em] text-[#d9d4c8]/55",
   detailPanelTitle:
-    "mt-4 text-5xl font-[400] leading-none text-[#c8b895] sm:text-6xl",
+    "mt-4 text-5xl font-[400] leading-none text-[#f4f1eb] sm:text-6xl",
   detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-white/88",
   detailPanelDuration: "mt-3 text-lg font-extralight text-[#d9d4c8]/60",
   detailPanelBody:
     "mt-8 text-xl font-extralight leading-relaxed text-[#d9d4c8]/72",
   detailPanelLink:
-    "mt-9 inline-flex border border-[#c8b895]/30 px-5 py-3 text-lg font-[300] text-[#c8b895] no-underline transition-colors hover:border-[#c8b895]/70 hover:bg-[#c8b895]/10 hover:text-white",
+    "mt-9 inline-flex border border-[#f4f1eb]/30 px-5 py-3 text-lg font-[300] text-[#f4f1eb] no-underline transition-colors hover:border-[#f4f1eb]/70 hover:bg-[#f4f1eb]/10 hover:text-white",
 };
 
 export const showcaseStyles = {
-  card: "group relative cursor-pointer transition-transform duration-300 hover:-translate-y-1",
-  cardImageFrame: `overflow-hidden rounded-md ${siteColorClasses.panelBg18} shadow-2xl ${siteColorClasses.shadow35} transition-all duration-300 group-hover:bg-[var(--site-panel-26)] group-hover:shadow-[var(--site-black-45)]`,
+  card: `group relative cursor-pointer overflow-hidden rounded-md ${siteColorClasses.panelBg18} p-3 shadow-2xl ${siteColorClasses.shadow35} transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--site-panel-26)] hover:shadow-[var(--site-black-45)]`,
+  cardImageFrame: "overflow-hidden rounded-[4px]",
   cardImage:
     "h-[280px] w-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100",
-  cardTitle:
-    `mt-4 text-left text-3xl font-extralight leading-tight ${siteColorClasses.whiteText}`,
-  detailImageContained:
-    `max-h-[720px] w-full object-contain opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
-  detailImageCover:
-    `h-[640px] w-full object-cover object-left-top opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
-  detailImageMobile:
-    `aspect-[9/16] w-full object-cover object-left-top opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
+  cardTitle: `px-1 pt-4 pb-1 text-left text-3xl font-extralight leading-tight ${siteColorClasses.whiteText}`,
+  detailImageContained: `max-h-[720px] w-full object-contain opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
+  detailImageCover: `h-[640px] w-full object-cover object-left-top opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
+  detailImageMobile: `aspect-[9/16] w-full object-cover object-left-top opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
   carouselButtonBase:
     "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center shadow-lg backdrop-blur-md transition-colors",
-  carouselButton:
-    `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:bg-[var(--site-white-10)] hover:text-[var(--site-white)]`,
+  carouselButton: `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:bg-[var(--site-white-10)] hover:text-[var(--site-white)]`,
   description: `text-xl font-extralight leading-relaxed ${siteColorClasses.whiteText65}`,
   detailTextStack: "mt-10 max-w-4xl space-y-8",
   detailTextSection: "space-y-3",
-  detailTextTitle:
-    `text-3xl font-[500] leading-tight ${siteColorClasses.accentText}`,
-  githubLink:
-    `mt-8 inline-flex items-center gap-3 border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
+  detailTextTitle: `text-3xl font-[500] leading-tight ${siteColorClasses.accentText}`,
+  githubLink: `mt-8 inline-flex items-center gap-3 border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
   link: `${siteColorClasses.whiteText80} hover:text-[var(--site-white)]`,
 };
 
 export const portfolioStyles = {
   section: "mb-24 px-5 py-16",
   categoryStack: "space-y-20",
-  categoryTitle:
-    `mb-7 text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-5xl`,
+  categoryTitle: `mb-7 text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-5xl`,
   grid: "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3",
 };
 
 export const cvModalStyles = {
-  backdrop:
-    `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-6 backdrop-blur-sm`,
-  panel:
-    `relative max-h-[70vh] w-full max-w-[1500px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
-  closeButton:
-    `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-[var(--site-accent)] hover:text-[var(--site-surface)]`,
+  backdrop: `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-3 backdrop-blur-sm`,
+  panel: `relative max-h-[76vh] w-full max-w-[1500px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
+  closeButton: `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-[var(--site-accent)] hover:text-[var(--site-surface)]`,
   contentGrid:
-    "grid max-h-[calc(70vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(420px,0.95fr)_minmax(360px,0.8fr)] lg:pt-0",
-  frame: `h-[46vh] min-h-[360px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(70vh-3rem)] lg:min-h-0`,
-  skillPane:
-    `min-h-0 overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
+    "grid max-h-[calc(96vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(420px,0.95fr)_minmax(360px,0.8fr)] lg:pt-0",
+  frame: `h-[70vh] min-h-[420px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(96vh-3rem)] lg:min-h-0`,
+  skillPane: `min-h-0 overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
 };
 
 export const contactStyles = {
@@ -375,7 +329,6 @@ export const contactStyles = {
   body: `text-base font-extralight leading-relaxed ${siteColorClasses.text70} sm:text-xl`,
   iconEnvelope: `fas fa-envelope text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
   iconGithub: `fab fa-github text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
-  button:
-    `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-[var(--site-accent-55)] hover:bg-[var(--site-accent-10)] hover:text-[var(--site-white)]`,
+  button: `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-[var(--site-accent-55)] hover:bg-[var(--site-accent-10)] hover:text-[var(--site-white)]`,
   copiedText: `min-h-[1.75rem] text-base font-extralight transition-opacity duration-200 ${siteColorClasses.text65} sm:text-lg`,
 };

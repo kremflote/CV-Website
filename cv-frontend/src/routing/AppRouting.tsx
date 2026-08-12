@@ -10,7 +10,6 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import ShowcasePage from "../pages/ShowcasePage";
 import { appStyles, colorVariables } from "../styles/styles";
-import { FullWidthLayout } from "../components/common/FullWidthLayout";
 
 const AppRouting = () => {
   return (
@@ -19,18 +18,16 @@ const AppRouting = () => {
         <div className={appStyles.overlay}>
           <Header />
           <div className={appStyles.routeArea}>
-            <FullWidthLayout>
-              <main className={appStyles.contentBackground}>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                  <Route path="/cv" element={<Navigate to="/" replace />} />
-                  <Route path="/kontakt" element={<KontaktPage />} />
-                  <Route path="/portfolio" element={<PortfolioPage />} />
-                  <Route path="/showcase/:id" element={<ShowcasePage />} />
-                </Routes>
-              </main>
-            </FullWidthLayout>
+            <main className={appStyles.contentBackground}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="*" element={<NotFoundPage />} />
+                <Route path="/cv" element={<Navigate to="/" replace />} />
+                <Route path="/kontakt" element={<KontaktPage />} />
+                <Route path="/portfolio" element={<PortfolioPage />} />
+                <Route path="/showcase/:id" element={<ShowcasePage />} />
+              </Routes>
+            </main>
           </div>
           <Footer />
         </div>

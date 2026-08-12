@@ -6,20 +6,7 @@ import { headerStyles } from "../../styles/styles";
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `${headerStyles.navLinkBase} ${isActive ? headerStyles.navLinkActive : ""}`;
 
-const pageCopy: Record<string, { title: string; quote: string }> = {
-  "/": {
-    title: "Marius Kristensen",
-    quote: "En nystartet utvikler og tidligere kundebehandler med bakgrunn i salg og relasjonsbygging.",
-  },
-  "/portfolio": {
-    title: "Portfolio",
-    quote: "En samling av mine personlige- og akademiske prosjekter",
-  },
-  "/kontakt": {
-    title: "Kontakt",
-    quote: "Ta gjerne kontakt",
-  },
-};
+const homeTitle = "Marius Kristensen";
 
 const Header: FC = () => {
   const { pathname } = useLocation();
@@ -31,15 +18,6 @@ const Header: FC = () => {
         event.preventDefault();
       }
     };
-
-  const copy =
-    pageCopy[pathname] ??
-    (pathname.startsWith("/showcase/")
-      ? pageCopy["/portfolio"]
-      : {
-          title: "Marius Kristensen",
-          quote: "Digital Cv",
-        });
 
   return (
     <header className={headerStyles.header}>
@@ -104,12 +82,10 @@ const Header: FC = () => {
 
       {isHomePage && (
         <section className={headerStyles.hero}>
-          <div className={headerStyles.heroImage} />
-          <div className={headerStyles.heroOverlay} />
           <div className={headerStyles.heroContent}>
             <div className={headerStyles.heroText}>
               <p className={headerStyles.kicker}>Digital Cv</p>
-              <h1 className={headerStyles.pageTitle}>{copy.title}</h1>
+              <h1 className={headerStyles.pageTitle}>{homeTitle}</h1>
               <p className={headerStyles.quote}>
                 En <span>nystartet utvikler</span> og tidligere kundebehandler
                 <br />
