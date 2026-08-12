@@ -254,6 +254,57 @@ export const showcases: IShowcase[] = [
     category: "personal",
   },
   {
+    id: 8,
+    title: "Matflote",
+    description:
+      "Personlig husholdningsverktøy for middagsplanlegging, kokebok, handleliste og lokal matdata, laget for å kjøres på egen hjemmeserver.",
+    details: [
+      {
+        title: "Oversikt",
+        body: [
+          "Matflote er en husholdningsapp for middagsplanlegging og kokebok. Prosjektet er laget som et personlig verktøy for å kjøre på egen hjemmeserver, med fokus på praktiske behov i hverdagen.",
+          "Appen samler oppskrifter, ingredienser, ukesplanlegging, handlelisteflyt, strekkodeskanning, lokal prissporing og omtrentlige ernæringssummer i ett system.",
+          "Prosjektet er utviklet med assistanse fra ChatGPT 5.5.",
+        ],
+      },
+      {
+        title: "Funksjoner",
+        body: [
+          "Kokebok med oppskrifter og ingredienser.",
+          "Oppskrifter kan inneholde både ingredienser og målbare oppskriftskomponenter, slik at en oppskrift kan brukes som ingrediens i en annen.",
+          "Ingredienser og komponenter lagrer måleenheter og tilberedning, for eksempel hakket, terninger, julienne, revet eller knust.",
+          "Middagsplanlegger og prep-hjelper for inneværende uke.",
+          "Handlelisteforhåndsvisning og eksport gjennom et provider-basert handlelistesystem, der Vikunja er første støttede provider.",
+          "Skannerside for norsk dagligvareoppslag via strekkode/EAN gjennom Kassalapp, med manglende ernæringsfelter supplert fra Matvaretabellen.",
+          "Prisside for lokal husholdningssporing av priser etter ingrediens, butikk og dato.",
+          "Ernæringsside for omtrentlige ukessammendrag fra planlagte måltider og lokalt lagrede referanseverdier fra Helsedirektoratet.",
+        ],
+      },
+      {
+        title: "Hva jeg har lært",
+        body: [
+          "Prosjektet har gitt meg mer praktisk erfaring med secrets management, spesielt rundt hvordan API-nøkler, tokens og lokale konfigurasjonsverdier bør holdes utenfor kildekoden.",
+          "Jeg har jobbet mer med nettverk og drift i praksis, siden applikasjonen er tenkt kjørt på en personlig hjemmeserver og må fungere sammen med lokale tjenester og eksterne API-er.",
+          "Arbeidet har gitt meg bedre forståelse for permissions og tilgangsstyring, både i forhold til lokale filer, tjenester og hvilke deler av systemet som bør få tilgang til hva.",
+          "Git-versjonskontroll har vært sentralt gjennom prosjektet, med løpende endringer, rydding, historikk og tryggere eksperimentering.",
+          "Jeg har også lært mer om backup-tankegang: hva som faktisk er viktig å ta vare på, hvordan lokale data kan beskyttes, og hvorfor gjenoppretting bør tenkes inn tidlig.",
+        ],
+      },
+    ],
+    image: "cookbooklight.png",
+    image_Thumbnail: "matflotethumbnail.jpg",
+    images: [
+      "cookbooklight.png",
+      "mobilecookbooklight.png",
+      "mobileplannerlight.png",
+      "nutritionlight.png",
+      "plannerlight.png",
+      "priceslight.png",
+    ],
+    gitHub_Link: "https://github.com/kremflote/Matflote",
+    category: "personal",
+  },
+  {
     id: 5,
     title: "C Exam 2026",
     description:
@@ -285,7 +336,7 @@ export const showcases: IShowcase[] = [
       },
     ],
     image: "pg3401-c-exam-2026-1.jpg",
-    image_Thumbnail: "pg3401-c-exam-2026thumbnail.jpg",
+    image_Thumbnail: "kristiania.png",
     images: ["pg3401-c-exam-2026-1.jpg"],
     gitHub_Link: "https://github.com/kremflote/PG3401-C-Exam-2026",
     category: "kristiania",
@@ -330,8 +381,7 @@ export const showcases: IShowcase[] = [
       },
     ],
     image: "pg4200-data-structures-and-algorithms-exam-2026-1.jpg",
-    image_Thumbnail:
-      "pg4200-data-structures-and-algorithms-exam-2026thumbnail.jpg",
+    image_Thumbnail: "kristiania.png",
     images: ["pg4200-data-structures-and-algorithms-exam-2026-1.jpg"],
     gitHub_Link:
       "https://github.com/kremflote/PG4200-Data-Structures-and-Algorithms-Exam-2026",
@@ -373,7 +423,7 @@ export const showcases: IShowcase[] = [
       },
     ],
     image: "pgr107-python-exam-2026-1.jpg",
-    image_Thumbnail: "pgr107-python-exam-2026thumbnail.jpg",
+    image_Thumbnail: "kristiania.png",
     images: [
       "pgr107-python-exam-2026-1.jpg",
       "pgr107-python-exam-2026-2.jpg",

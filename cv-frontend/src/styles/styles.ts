@@ -168,13 +168,14 @@ export const standardPaletteClasses = {
 
 export const headerStyles = {
   header: "relative",
-  hero: "relative h-[460px] w-full overflow-hidden bg-transparent px-5",
+  hero:
+    "relative min-h-[460px] w-full overflow-visible bg-transparent px-5 sm:h-[460px] sm:overflow-hidden",
   heroContent:
-    "relative z-10 mx-auto grid h-full w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:grid-cols-[1fr_520px]",
-  heroText: "pt-[80px]",
+    "relative z-10 mx-auto grid min-h-[460px] w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:h-full sm:grid-cols-[1fr_520px]",
+  heroText: "pt-[72px] pb-16 sm:pt-[80px] sm:pb-0",
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
   pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  quote: `mt-20 max-w-3xl pb-24 text-2xl font-[200] italic leading-snug ${siteColorClasses.text85} [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
+  quote: `mt-14 max-w-3xl pb-0 text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:pb-24 sm:text-2xl [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
   nav: `fixed inset-x-0 top-0 z-50 bg-[#060606] shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
   navInner:
     "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-6 px-5",
@@ -222,7 +223,7 @@ export const skillStyles = {
 export const glassStyles = {
   panel: `${siteColorClasses.panelBg14} shadow-2xl ${siteColorClasses.shadow35}`,
   softPanel: `${siteColorClasses.surfaceBg35} shadow-xl ${siteColorClasses.shadow30}`,
-  title: `text-6xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
+  title: `break-words text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
 };
 
 export const timelineStyles = {
@@ -243,13 +244,13 @@ export const timelineStyles = {
   companyText: "text-base font-extralight leading-tight text-white/90",
   detailText: "text-base font-extralight leading-tight text-white/55",
   mobileDetailText: "text-base font-extralight leading-tight text-white/60",
-  mobileList: "relative space-y-14 px-6 py-14 sm:hidden",
+  mobileList: "relative space-y-12 px-2 py-12 min-[380px]:px-4 sm:hidden",
   mobileAxisDot:
     "absolute top-14 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-white/30 bg-white/35 shadow-lg shadow-black/20",
   mobileAxisLine:
     "absolute top-[70px] bottom-[18rem] left-1/2 w-px -translate-x-1/2 bg-white/25",
   mobileItem:
-    "relative z-10 grid grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] items-center gap-x-5",
+    "relative z-10 grid grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] items-center gap-x-3 min-[380px]:gap-x-5",
   mobileBubbleLeft: "col-start-1 justify-self-end",
   mobileBubbleRight: "col-start-3 justify-self-start",
   mobileTextLeft: "col-start-1 row-start-1 pr-1 text-right",
@@ -264,7 +265,7 @@ export const timelineStyles = {
   detailLayout:
     "grid w-full grid-cols-1 gap-12 px-4 py-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.8fr)] lg:items-stretch lg:gap-16 lg:px-8 lg:py-16",
   detailTimelineColumn: "min-w-0",
-  detailPanelColumn: "min-w-0 lg:flex lg:items-start lg:self-stretch",
+  detailPanelColumn: "hidden min-w-0 lg:flex lg:items-start lg:self-stretch",
   detailPanel:
     "rounded-md bg-transparent px-7 py-8 shadow-none backdrop-blur-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:max-w-[440px] lg:overflow-y-auto",
   detailPanelHint: "text-xl font-extralight leading-relaxed text-[#d9d4c8]/65",
@@ -286,17 +287,15 @@ export const showcaseStyles = {
   cardImage:
     "h-[280px] w-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100",
   cardTitle: `px-1 pt-4 pb-1 text-left text-3xl font-extralight leading-tight ${siteColorClasses.whiteText}`,
-  detailImageContained: `max-h-[720px] w-full object-contain opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
-  detailImageCover: `h-[640px] w-full object-cover object-left-top opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
-  detailImageMobile: `aspect-[9/16] w-full object-cover object-left-top opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
+  detailImageContained: `max-h-[720px] w-full max-w-full object-contain opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
   carouselButtonBase:
     "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center shadow-lg backdrop-blur-md transition-colors",
   carouselButton: `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:bg-[var(--site-white-10)] hover:text-[var(--site-white)]`,
-  description: `text-xl font-extralight leading-relaxed ${siteColorClasses.whiteText65}`,
-  detailTextStack: "mt-10 max-w-4xl space-y-8",
+  description: `break-words text-lg font-extralight leading-relaxed ${siteColorClasses.whiteText65} sm:text-xl`,
+  detailTextStack: "mt-10 max-w-4xl space-y-8 break-words",
   detailTextSection: "space-y-3",
-  detailTextTitle: `text-3xl font-[500] leading-tight ${siteColorClasses.accentText}`,
-  githubLink: `mt-8 inline-flex items-center gap-3 border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
+  detailTextTitle: `break-words text-2xl font-[500] leading-tight ${siteColorClasses.accentText} sm:text-3xl`,
+  githubLink: `mt-8 inline-flex max-w-full items-center gap-3 break-words border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
   link: `${siteColorClasses.whiteText80} hover:text-[var(--site-white)]`,
 };
 

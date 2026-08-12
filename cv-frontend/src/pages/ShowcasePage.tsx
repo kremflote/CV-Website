@@ -42,22 +42,8 @@ const ShowcasePage = () => {
   const currentImage = showcaseImages[currentImageIndex];
   const hasImages = showcaseImages.length > 0;
   const hasMultipleImages = showcaseImages.length > 1;
-  const usesMobileImageFrame =
-    currentImage?.toLowerCase().startsWith("animedatabase-") ?? false;
-  const usesContainedImageFrame =
-    currentImage?.toLowerCase().startsWith("sportsworld-") ||
-    currentImage?.toLowerCase().startsWith("catfish-") ||
-    currentImage?.toLowerCase().startsWith("pgr107-python-exam-2026-") ||
-    false;
-
-  const imageContainerClasses = usesMobileImageFrame
-    ? "relative mx-auto max-w-[390px]"
-    : "relative";
-  const imageClasses = usesMobileImageFrame
-    ? showcaseStyles.detailImageMobile
-    : usesContainedImageFrame
-      ? showcaseStyles.detailImageContained
-      : showcaseStyles.detailImageCover;
+  const imageContainerClasses = "relative min-w-0 overflow-hidden";
+  const imageClasses = showcaseStyles.detailImageContained;
   const showPreviousImage = () => {
     setCurrentImageIndex((index) =>
       index === 0 ? showcaseImages.length - 1 : index - 1,
@@ -79,8 +65,10 @@ const ShowcasePage = () => {
 
   return (
     <WideLayout>
-      <section className="mb-24 px-5 py-14">
-        <div className={`grid gap-10 px-10 py-12 ${glassStyles.panel}`}>
+      <section className="mb-24 min-w-0 py-10 sm:px-5 sm:py-14">
+        <div
+          className={`grid min-w-0 gap-8 overflow-hidden px-4 py-6 sm:gap-10 sm:px-10 sm:py-12 ${glassStyles.panel}`}
+        >
           {hasImages && (
             <div className={`${imageContainerClasses} ${glassStyles.softPanel}`}>
               <img
@@ -112,7 +100,9 @@ const ShowcasePage = () => {
             </div>
           )}
 
-          <div className={`px-8 py-8 ${glassStyles.softPanel}`}>
+          <div
+            className={`min-w-0 overflow-hidden px-4 py-6 sm:px-8 sm:py-8 ${glassStyles.softPanel}`}
+          >
             <h1 className={glassStyles.title}>{showcase.title}</h1>
             <p className={`mt-8 max-w-4xl ${showcaseStyles.description}`}>
               {showcase.description}
