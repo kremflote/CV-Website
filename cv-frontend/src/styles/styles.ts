@@ -104,7 +104,7 @@ export const colorVariables = {
   "--site-black-25": "rgba(0,0,0,0.25)",
   "--site-error": colorPalette.error,
   "--site-page-gradient":
-    "linear-gradient(125deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.06) 24%,rgba(8,8,8,0.55) 58%,#080808 100%)",
+    "radial-gradient(ellipse 135% 105% at 0% 0%,rgba(255,255,255,0.11) 0%,rgba(255,255,255,0.08) 22%,rgba(255,255,255,0.045) 42%,rgba(255,255,255,0.018) 62%,rgba(255,255,255,0) 82%),linear-gradient(135deg,rgba(255,255,255,0.045) 0%,rgba(255,255,255,0.018) 34%,rgba(255,255,255,0) 72%)",
 } as CSSProperties;
 
 const siteColorClasses = {
@@ -277,6 +277,8 @@ export const timelineStyles = {
   detailPanelDuration: "mt-3 text-lg font-extralight text-[#d9d4c8]/60",
   detailPanelBody:
     "mt-8 text-xl font-extralight leading-relaxed text-[#d9d4c8]/72",
+  detailPanelInlineLink:
+    "mt-5 inline-flex max-w-full break-words text-lg font-[300] leading-relaxed text-[#E3CD9F] underline decoration-[#E3CD9F]/35 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60",
   detailPanelLink:
     "mt-9 inline-flex border border-[#E3CD9F]/30 px-5 py-3 text-lg font-[300] text-[#E3CD9F] no-underline transition-colors hover:border-[#E3CD9F]/70 hover:bg-[#E3CD9F]/10 hover:text-white",
 };

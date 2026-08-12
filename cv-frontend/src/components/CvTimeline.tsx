@@ -23,6 +23,8 @@ type TimelineStyle = CSSProperties & { "--timeline-x": string };
 const CONTACT_BUBBLE_SIZE = 224;
 const TIMELINE_START_DOT_TOP = 38;
 const TIMELINE_START_DOT_SIZE = 14;
+const KRISTIANIA_PROGRAM_URL =
+  "https://www.kristiania.no/globalassets/programbeskrivelser/hoyskole/2024/seit/bachelor-i-informasjonsteknologi-frontend-og-mobilutvikling-kull-2024.pdf";
 
 interface TimelineMarker {
   tenure: ITenure;
@@ -245,23 +247,47 @@ const buildMarkers = (tenures: ITenure[]): TimelineMarker[] => {
 
 const getExperienceNote = (marker: TimelineMarker): string => {
   if (marker.companyKey === "power") {
-    return "Kundeorientert arbeid, salg og teamansvar ga meg et tydelig blikk for brukerbehov, kommunikasjon og praktisk problemløsning.";
+    const normalizedTitle = marker.tenure.workTitle.toLowerCase();
+
+    if (normalizedTitle.includes("assisterende")) {
+      return "Daglig drift av kundesenteret, oppfølgning av ansatte og deltok i rekrutteringsprosesser, intervju og vurdering av kandidater ved nyansettelser.";
+    }
+
+    return "Kundebehandler hverdagen er en hektisk stilling, hvor jeg lærte å skape gode kundeopplevelser, utføre behovsanalyser, jobbe under press og koordinere mellom flere ledd i en organisasjon.";
   }
 
   if (marker.companyKey === "wurth") {
-    return "Direkte kundekontakt og løsningssalg styrket evnen til å forstå behov raskt og forklare valg på en enkel måte.";
+    return "Her jobbet jeg i et nyetablert team: SK1. Konseptet var nytt i Würth, og vi var en liten avdeling med ansvar for en enorm kundeportefølje av bedriftskontoer vi skulle ivareta. Det ga meg erfaring innenfor relasjonsbygging og B2B salg.";
   }
 
   if (marker.companyKey === "kristiania") {
-    return "Studietiden samlet frontend, mobilutvikling, universell utforming, algoritmer og systemnære fag til et bredt teknisk fundament.";
+    return "Front- og backend, DSA, C Programmering i Linux, databaser og mobilutvikling.";
   }
 
   if (marker.companyKey === "ihlang") {
-    return "Tidlig arbeidserfaring med ansvar, gjennomføring og praktisk samarbeid.";
+    return "Singling, perimetersikring og kontrollerte sprengninger av berg";
   }
 
   return "En erfaring som bidrar til helheten i profilen min.";
 };
+
+const ExperienceDetailBody: FC<{ marker: TimelineMarker }> = ({ marker }) => (
+  <>
+    <p className={timelineStyles.detailPanelBody}>
+      {getExperienceNote(marker)}
+    </p>
+    {marker.companyKey === "kristiania" && (
+      <a
+        href={KRISTIANIA_PROGRAM_URL}
+        target="_blank"
+        rel="noreferrer"
+        className={timelineStyles.detailPanelInlineLink}
+      >
+        Se programbeskrivelse
+      </a>
+    )}
+  </>
+);
 
 const LogoContent: FC<{ marker: TimelineMarker; size: number }> = ({
   marker,
@@ -430,9 +456,7 @@ const ExperienceDetailPanel: FC<{ marker?: TimelineMarker }> = ({ marker }) => {
       <p className={timelineStyles.detailPanelDuration}>
         Varighet: {marker.durationLabel}
       </p>
-      <p className={timelineStyles.detailPanelBody}>
-        {getExperienceNote(marker)}
-      </p>
+      <ExperienceDetailBody marker={marker} />
       {meta.url && (
         <a
           href={meta.url}

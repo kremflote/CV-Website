@@ -232,28 +232,6 @@ export const showcases: IShowcase[] = [
     category: "kristiania",
   },
   {
-    id: 3,
-    title: "Catfish",
-    description:
-      "Konseptet er co-op fishing horror med boat og cat management. Så langt har jeg implementert et rudimentært grid-basert inventory system, en first-person controller, fungerende co-op med Fishnet og starten av en fungerende båt.",
-    image: "catfish-1.jpg",
-    image_Thumbnail: "catfishthumbnail.jpg",
-    images: ["catfish-1.jpg", "catfish-2.jpg", "catfish-3.jpg"],
-    gitHub_Link: "https://github.com/kremflote/Catfish3",
-    category: "personal",
-  },
-  {
-    id: 4,
-    title: "Raspberry Pi Home Server",
-    description:
-      "Med bruk av en Raspberry Pi 4 har jeg satt opp en hjemmeserver som oppfyller flere roller. Serveren fungerer som en webserver, filserver og medieserver. Den er konfigurert med Nginx for å håndtere HTTP-forespørsler og Rustic for regelmessige sikkerhetskopier. Dette er også serveren som denne nettsiden kjører på. Prosjektet har gitt meg praktisk erfaring med serveradministrasjon, nettverkskommunikasjon og shell scripting.",
-    image: "raspberrythumbnail.jpg",
-    image_Thumbnail: "raspberrythumbnail.jpg",
-    images: ["raspberrythumbnail.jpg"],
-    gitHub_Link: "",
-    category: "personal",
-  },
-  {
     id: 8,
     title: "Matflote",
     description:
@@ -302,6 +280,28 @@ export const showcases: IShowcase[] = [
       "priceslight.png",
     ],
     gitHub_Link: "https://github.com/kremflote/Matflote",
+    category: "personal",
+  },
+  {
+    id: 4,
+    title: "Raspberry Pi Home Server",
+    description:
+      "Med bruk av en Raspberry Pi 4 har jeg satt opp en hjemmeserver som oppfyller flere roller. Serveren fungerer som en webserver, filserver og medieserver. Den er konfigurert med Nginx for å håndtere HTTP-forespørsler og Rustic for regelmessige sikkerhetskopier. Dette er også serveren som denne nettsiden kjører på. Prosjektet har gitt meg praktisk erfaring med serveradministrasjon, nettverkskommunikasjon og shell scripting.",
+    image: "raspberrythumbnail.jpg",
+    image_Thumbnail: "raspberrythumbnail.jpg",
+    images: ["raspberrythumbnail.jpg"],
+    gitHub_Link: "",
+    category: "personal",
+  },
+  {
+    id: 3,
+    title: "Catfish",
+    description:
+      "Konseptet er co-op fishing horror med boat og cat management. Så langt har jeg implementert et rudimentært grid-basert inventory system, en first-person controller, fungerende co-op med Fishnet og starten av en fungerende båt.",
+    image: "catfish-1.jpg",
+    image_Thumbnail: "catfishthumbnail.jpg",
+    images: ["catfish-1.jpg", "catfish-2.jpg", "catfish-3.jpg"],
+    gitHub_Link: "https://github.com/kremflote/Catfish3",
     category: "personal",
   },
   {
