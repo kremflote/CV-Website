@@ -1,0 +1,27 @@
+services:
+  cv-webpage:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cv-webpage
+    expose:
+      - "5110"
+    networks:
+      - shared-network
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cv-cloudflared
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    volumes:
+      - /home/kremflote/infra/config/cloudflared:/etc/cloudflared:ro
+    depends_on:
+      - cv-webpage
+    networks:
+      - shared-network
+    restart: unless-stopped
+
+networks:
+  shared-network:
+    external: true
