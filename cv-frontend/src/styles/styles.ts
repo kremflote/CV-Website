@@ -156,6 +156,10 @@ export const pageStyles = {
   loadingText: `text-center text-xl font-extralight ${siteColorClasses.whiteText65}`,
 };
 
+export const inlineTextStyles = {
+  link: `text-[#E3CD9F] underline decoration-[#E3CD9F]/35 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60`,
+};
+
 export const fadeStyles = {
   pageShell: "[background-image:var(--site-page-gradient)]",
 };
@@ -204,7 +208,7 @@ export const homeStyles = {
 };
 
 export const skillStyles = {
-  shell: `grid min-h-full grid-cols-1 items-stretch gap-3 ${standardPaletteClasses.accentText}`,
+  shell: `grid grid-cols-1 content-start gap-3 ${standardPaletteClasses.accentText}`,
   controlColumn: "min-w-0",
   tagBase:
     "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
@@ -312,11 +316,11 @@ export const portfolioStyles = {
 
 export const cvModalStyles = {
   backdrop: `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-3 backdrop-blur-sm`,
-  panel: `relative max-h-[76vh] w-full max-w-[1500px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
+  panel: `relative max-h-[88vh] w-full max-w-[1760px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
   closeButton: `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-[var(--site-accent)] hover:text-[var(--site-surface)]`,
   contentGrid:
-    "grid max-h-[calc(96vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(420px,0.95fr)_minmax(360px,0.8fr)] lg:pt-0",
-  frame: `h-[70vh] min-h-[420px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(96vh-3rem)] lg:min-h-0`,
+    "grid max-h-[calc(88vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(560px,1.2fr)_minmax(420px,0.8fr)] lg:pt-0",
+  frame: `h-[74vh] min-h-[460px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(88vh-3rem)] lg:min-h-0`,
   skillPane: `min-h-0 overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
 };
 

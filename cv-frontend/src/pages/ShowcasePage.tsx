@@ -4,6 +4,7 @@ import { WideLayout } from "../components/common/WideLayout";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import { glassStyles, pageStyles, showcaseStyles } from "../styles/styles";
 import type { IShowcase } from "../interfaces/IShowcase";
+import { formatInlineLinks } from "../components/common/FormattedText";
 
 type ShowcaseDetailSection = NonNullable<IShowcase["details"]>[number];
 
@@ -139,7 +140,7 @@ const ShowcasePage = () => {
           >
             <h1 className={glassStyles.title}>{showcase.title}</h1>
             <p className={`mt-8 max-w-4xl ${showcaseStyles.description}`}>
-              {showcase.description}
+              {formatInlineLinks(showcase.description)}
             </p>
             {showcase.details && (
               <div className={showcaseStyles.detailTextStack}>
@@ -153,7 +154,7 @@ const ShowcasePage = () => {
                     </h2>
                     {section.body.map((paragraph) => (
                       <p key={paragraph} className={showcaseStyles.description}>
-                        {paragraph}
+                        {formatInlineLinks(paragraph)}
                       </p>
                     ))}
                   </section>
@@ -168,7 +169,7 @@ const ShowcasePage = () => {
                 className={`${showcaseStyles.githubLink} ${showcaseStyles.link}`}
               >
                 <i className="fab fa-github"></i>
-                View on GitHub
+                Github
               </a>
             )}
           </div>

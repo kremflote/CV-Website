@@ -39,7 +39,7 @@ const CvModal: FC<CvModalProps> = ({ isOpen, onClose }) => {
             title="CV PDF"
           />
           <section className={cvModalStyles.skillPane}>
-            <SkillSection />
+            <SkillSection onInternalLinkClick={onClose} />
           </section>
         </div>
       </div>

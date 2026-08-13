@@ -66,21 +66,21 @@ export const skills: ISkill[] = [
     id: 38,
     skill_Name: "TypeScript",
     description:
-      "Benyttet i React-kurset for å bygge skalerbare og typesikre prosjekter. SportsWorld portfolio prosjektet er utviklet med TypeScript.",
+      "Benyttet i studieløpet og prosjektene mine. Bla SportsWorld og [Matflote](/showcase/8).",
     category: "Programming Languages",
   },
   {
     id: 39,
     skill_Name: "C#",
     description:
-      "Benyttet i React-kurset for backend, samt i Unity for spill-prototypen min: Catfish.",
+      "Benyttet i React-kurset for backend, samt i Unity for spill-prototypen min: Catfish. Brukes også i backenden til [Matflote](/showcase/8).",
     category: "Programming Languages",
   },
   {
     id: 40,
     skill_Name: "C",
     description:
-      "Praktisk erfaring med systemprogrammering i Linux under studietiden. Inkludert: kompilering med makefiler, dynamisk minnehåndtering, nettverksprogrammering med POSIX sockets, grunnleggende datastrukturer og algoritmer, multi-threading med pthreads, semaphores og mutex locks.",
+      "Fikk praktisk erfaring med systemprogrammering i Linux under studietiden. Inkludert: kompilering med makefiler, dynamisk minnehåndtering, nettverksprogrammering med POSIX sockets, grunnleggende datastrukturer og algoritmer, multi-threading med pthreads, semaphores og mutex locks.",
     category: "Programming Languages",
   },
   {
@@ -91,11 +91,18 @@ export const skills: ISkill[] = [
     category: "Programming Languages",
   },
   {
+    id: 50,
+    skill_Name: "Python",
+    description:
+      "Benyttet i [Python Exam 2026](/showcase/7) til mindre programmeringsoppgaver og dataanalyse. Har erfaring med NumPy, Pandas, Matplotlib og enkel datarydding/visualisering.",
+    category: "Programming Languages",
+  },
+  {
     id: 42,
     skill_Name: "SQL",
     description:
       "Kjent med fundamentale databasekonsepter: SQL-spørringer, nøkkelbruk, relasjonsmodellering og normalisering av data.",
-    category: "Programming Languages",
+    category: "Technologies",
   },
   {
     id: 43,
@@ -108,20 +115,14 @@ export const skills: ISkill[] = [
     id: 44,
     skill_Name: "React",
     description:
-      "Rammeverket benyttet for utviklingen av frontenden til eksamensprosjektet SportsWorld. Er kjent med komponentbasert arbeidsflyt, useState, context og effects.",
+      "Rammeverket benyttet for utviklingen av frontenden til eksamensprosjektet SportsWorld og [Matflote](/showcase/8). Er kjent med komponentbasert arbeidsflyt, useState, context-mønsteret og effects.",
     category: "Technologies",
   },
   {
     id: 45,
     skill_Name: ".NET",
     description:
-      "Benyttet for backend til eksamensprosjektet SportsWorld, samt tidligere backend-løsning for denne nettsiden.",
-    category: "Technologies",
-  },
-  {
-    id: 46,
-    skill_Name: "Android Studio",
-    description: "IDE-en vi brukte for Android-utvikling i studiet.",
+      "Benyttet for backend til eksamensprosjektet SportsWorld og [Matflote](/showcase/8).",
     category: "Technologies",
   },
   {
@@ -136,6 +137,13 @@ export const skills: ISkill[] = [
     skill_Name: "Git",
     description:
       "Versjonskontrollsystemet jeg har brukt til alle mine prosjekter. Har godt grep på grunnleggende kommandoer og konsepter som branching og merging.",
+    category: "Technologies",
+  },
+  {
+    id: 49,
+    skill_Name: "Docker",
+    description:
+      "Jeg bruker Docker Compose til å drifte min personlige [hjemmeserver](/showcase/4). Oppsettet benytter to stacks: en for media, og en for kjerneoppgaver. Dette har gitt meg erfaring med compose-filer, container networking, reverse proxying, secrets-handling, health checks og monitoring.",
     category: "Technologies",
   },
 ];
@@ -294,7 +302,7 @@ export const showcases: IShowcase[] = [
           "Medieserver med Jellyfin.",
           "Overvåkning med Uptime Kuma og Beszel.",
           "Dashboarding med Homepage.",
-          "Personlige verktøy som Firefly III, Vikunja og egne Matflote-tjenester.",
+          "Personlige verktøy som Firefly III, Vikunja og egne [Matflote](/showcase/8)-tjenester.",
           "Lokalt backup-script med Restic.",
         ],
       },
@@ -410,7 +418,7 @@ export const showcases: IShowcase[] = [
     id: 7,
     title: "Python Exam 2026",
     description:
-      "Eksamensprosjekt for PGR107 Python. Prosjektet består av fem programmerings- og analyseoppgaver med blant annet tallfølger, enkel spillogikk, geografiske beregninger, matriseoperasjoner og dataanalyse.",
+      "Eksamensprosjekt i Python med fem oppgaver innen programmering, numeriske beregninger og dataanalyse.",
     details: [
       {
         title: "Karakter A",
@@ -421,23 +429,29 @@ export const showcases: IShowcase[] = [
       {
         title: "Oversikt",
         body: [
-          "Dette prosjektet består av fem programmerings- og analyseoppgaver i Python. Oppgavene dekker rekursive og mønsterbaserte tallfølger, enkel spillogikk, geografiske beregninger, matriseoperasjoner og en større dataanalyse av standpunktkarakterer ved videregående skoler i Oslo.",
-          "Prosjektet bruker grunnleggende Python sammen med biblioteker som NumPy, Pandas, Matplotlib og chardet for databehandling, numeriske beregninger og visualisering.",
+          "Prosjektet består av fem mindre programmerings- og analyseoppgaver. Det kombinerer grunnleggende Python med NumPy, Pandas, Matplotlib og chardet for numeriske beregninger, databehandling og visualisering.",
+          "Den største delen er en utforskende analyse av standpunktkarakterer ved videregående skoler i Oslo fra 2020-21 til 2024-25.",
+        ],
+      },
+      {
+        title: "Problemoversikt",
+        body: [
+          "Oppgavene dekker en Supernacci-lignende tallfølge, et enkelt terninggjettspill, geografiske beregninger for byer og interessepunkter, manuell matrisespor-beregning med NumPy-verifisering og en større karakteranalyse.",
+          "Dataanalysen bruker Utdanningsdirektoratets karakterstatistikk for Oslo-skoler, med filtrering, rydding av norske tallformater, vekting etter elevantall og visualisering av utvikling over tid.",
         ],
       },
       {
         title: "Hypoteser",
         body: [
-          "H1 - Karakterdrift: Gjennomsnittlige standpunktkarakterer ved Oslo videregående skoler har økt fra 2020-21 til 2024-25.",
-          "H2 - Færre svake resultater: Andelen lavere karaktergjennomsnitt har gått ned i 2024-25 sammenlignet med 2020-21.",
-          "Siden datasettet inneholder gjennomsnittskarakterer og ikke individuelle karakterfordelinger, måles H2 som vektet andel skole-fag-gjennomsnitt på eller under 3.",
+          "Analysen undersøker om standpunktkarakterer ved videregående skoler i Oslo har driftet oppover, og om andelen svakere gjennomsnitt har gått ned.",
+          "Siden datasettet inneholder gjennomsnittskarakterer og ikke individuelle karakterfordelinger, brukes skole-fag-gjennomsnitt på eller under 3 som proxy for svakere resultater.",
         ],
       },
       {
         title: "Konklusjon",
         body: [
-          "Visualiseringene og de vektede beregningene tyder ikke på en tydelig systematisk økning i standpunktkarakterer ved Oslo videregående skoler fra 2020-21 til 2024-25. H1 støttes derfor ikke tydelig av analysen.",
-          "H2 får heller ikke sterk støtte. Noen programgrupper viser en reduksjon i lavere karaktergjennomsnitt, mens andre grupper beveger seg i motsatt retning. Resultatet peker derfor mot et blandet og relativt stabilt mønster heller enn en klar generell forbedring.",
+          "Visualiseringene og de vektede beregningene peker ikke mot en tydelig systematisk økning i standpunktkarakterer fra 2020-21 til 2024-25.",
+          "Resultatet fremstår blandet og relativt stabilt: noen programgrupper viser forbedring, mens andre beveger seg motsatt vei.",
         ],
       },
     ],

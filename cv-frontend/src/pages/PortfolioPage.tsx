@@ -9,7 +9,7 @@ type ShowcaseCategory = "work" | "personal" | "kristiania";
 
 const categoryOrder: { key: ShowcaseCategory; title: string }[] = [
   { key: "work", title: "Work" },
-  { key: "personal", title: "Personal" },
+  { key: "personal", title: "Sideprosjekter" },
   { key: "kristiania", title: "Kristiania" },
 ];
 

@@ -3,11 +3,16 @@ import { SkillContext } from "../contexts/SkillContext";
 import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
 import type { ISkill } from "../interfaces/ISkill";
 import { pageStyles, skillStyles } from "../styles/styles";
+import { formatInlineLinks } from "./common/FormattedText";
 
 interface SkillTagProps {
   label: string;
   isSelected: boolean;
   onClick: () => void;
+}
+
+interface SkillSectionProps {
+  onInternalLinkClick?: () => void;
 }
 
 const SkillTag: FC<SkillTagProps> = ({ label, isSelected, onClick }) => (
@@ -21,27 +26,36 @@ const SkillTag: FC<SkillTagProps> = ({ label, isSelected, onClick }) => (
   </button>
 );
 
-const formatDescription = (description: string) => {
+const formatDescription = (
+  description: string,
+  onInternalLinkClick?: () => void,
+) => {
   const parts = description.split("Emnebeskrivelse:");
 
   if (parts.length === 1) {
-    return <p className={skillStyles.descriptionStrong}>{description}</p>;
+    return (
+      <p className={skillStyles.descriptionStrong}>
+        {formatInlineLinks(description, onInternalLinkClick)}
+      </p>
+    );
   }
 
   return (
     <>
-      <p className={skillStyles.descriptionStrong}>{parts[0].trim()}</p>
+      <p className={skillStyles.descriptionStrong}>
+        {formatInlineLinks(parts[0].trim(), onInternalLinkClick)}
+      </p>
       <p className={skillStyles.descriptionText}>
         <span className={skillStyles.descriptionLabel}>
           Emnebeskrivelse:{" "}
         </span>
-        {parts[1].trim()}
+        {formatInlineLinks(parts[1].trim(), onInternalLinkClick)}
       </p>
     </>
   );
 };
 
-const SkillSection: FC = () => {
+const SkillSection: FC<SkillSectionProps> = ({ onInternalLinkClick }) => {
   const { skills, skillIsLoading, initError } = useContext(
     SkillContext,
   ) as ISkillContext;
@@ -85,7 +99,7 @@ const SkillSection: FC = () => {
           </div>
 
           <div>
-            <h3 className={skillStyles.groupTitle}>Andre teknologier</h3>
+            <h3 className={skillStyles.groupTitle}>Teknologier</h3>
             <div className="flex flex-wrap gap-3">
               {technologies.map((skill) => (
                 <SkillTag
@@ -104,7 +118,10 @@ const SkillSection: FC = () => {
         <div className={skillStyles.descriptionContent}>
           {selectedSkill ? (
             <div className="space-y-5">
-              {formatDescription(selectedSkill.description)}
+              {formatDescription(
+                selectedSkill.description,
+                onInternalLinkClick,
+              )}
             </div>
           ) : (
             <p className={skillStyles.emptyText}>
