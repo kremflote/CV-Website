@@ -73,6 +73,11 @@ web_modules/
 # Local Cloudflare Tunnel credentials/config
 .cloudflared/
 
+# Local machine/editor files
+.DS_Store
+.dotnet_home/
+.vscode/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
