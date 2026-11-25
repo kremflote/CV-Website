@@ -221,6 +221,22 @@ export const glassStyles = {
 
 export const timelineStyles = {
   status: "py-16 text-center text-muted",
+  mobileOnly: "md:hidden",
+  desktopOnly: "hidden md:block",
+  /* Phone layout (CvTimelineMobile). */
+  mList:
+    "relative before:absolute before:top-8 before:bottom-8 before:left-[52px] before:w-px before:bg-line-strong",
+  mRow: "relative grid min-h-[72px] w-full cursor-pointer grid-cols-[104px_minmax(0,1fr)_auto] items-center gap-3 py-2.5 text-left text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  mBubbleCell: "relative z-10 grid place-items-center",
+  mBubble: "grid place-items-center rounded-full border transition-colors",
+  mNextBubble:
+    "border-dashed border-line-strong bg-band font-display text-xl font-semibold text-muted",
+  mText: "flex min-w-0 flex-col gap-0.5 leading-tight",
+  mCompany: "text-[15px] font-semibold text-ink",
+  mRole: "text-[13px] text-muted",
+  mChevron: "text-muted transition-transform",
+  mPanel:
+    "mb-3 relative z-10 min-[380px]:ml-[116px] rounded-card border border-line bg-surface p-4",
   /* Below ~1100px the track scrolls sideways (interim until the phone layout is approved). */
   scroller: "-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8",
   track: "relative min-w-[1100px]",

@@ -11,10 +11,9 @@ import { Link } from "react-router-dom";
 import { TenureContext } from "../contexts/TenureContext";
 import type { ITenureContext } from "../interfaces/contexts/ITenureContext";
 import { buildTimelinePeriods, today, type TimelinePeriod } from "../utils/tenure";
-import { buttonStyles, timelineStyles as s } from "../styles/styles";
-
-const KRISTIANIA_PROGRAM_URL =
-  "https://www.kristiania.no/globalassets/programbeskrivelser/hoyskole/2024/seit/bachelor-i-informasjonsteknologi-frontend-og-mobilutvikling-kull-2024.pdf";
+import { timelineStyles as s } from "../styles/styles";
+import { PeriodActions } from "./TimelineParts";
+import CvTimelineMobile from "./CvTimelineMobile";
 
 /* The axis runs from January 2018 to January 2028: one year is 10% of the track. */
 const AXIS_START = new Date(2018, 0, 1).getTime();
@@ -88,18 +87,6 @@ const useElementWidth = <T extends HTMLElement>(fallback: number) => {
   return [ref, width] as const;
 };
 
-const ExternalIcon = () => (
-  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none">
-    <path
-      d="M6 3h7v7M13 3 4 12"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 const DetailPanel: FC<{ period: TimelinePeriod }> = ({ period }) => (
   <div className={s.panel} id="timeline-detail" aria-live="polite">
     <div>
@@ -113,28 +100,7 @@ const DetailPanel: FC<{ period: TimelinePeriod }> = ({ period }) => (
     </div>
     <div>
       {period.description && <p className={s.panelBody}>{period.description}</p>}
-      <div className={s.panelActions}>
-        {period.url && (
-          <a
-            href={period.url}
-            target="_blank"
-            rel="noreferrer"
-            className={`${buttonStyles.base} ${buttonStyles.outline} ${buttonStyles.small}`}
-          >
-            Besøk nettside <ExternalIcon />
-          </a>
-        )}
-        {period.companyKey === "kristiania" && (
-          <a
-            href={KRISTIANIA_PROGRAM_URL}
-            target="_blank"
-            rel="noreferrer"
-            className={s.panelLink}
-          >
-            Se programbeskrivelse
-          </a>
-        )}
-      </div>
+      <PeriodActions period={period} />
     </div>
   </div>
 );
@@ -180,7 +146,11 @@ const CvTimeline: FC = () => {
   };
 
   return (
-    <div>
+    <>
+    <div className={s.mobileOnly}>
+      <CvTimelineMobile periods={periods} defaultOpenId={selected.id} />
+    </div>
+    <div className={s.desktopOnly}>
       <div className={s.scroller}>
         <div
           ref={trackRef}
@@ -315,6 +285,7 @@ const CvTimeline: FC = () => {
 
       <DetailPanel period={selected} />
     </div>
+    </>
   );
 };
 
