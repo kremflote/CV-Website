@@ -117,13 +117,14 @@ Findings from the planning session (verify, they may be stale):
 - `Borettslaget` and `homeserver-config` are public but not linked from the site.
 - Almost no repository has a description or topics.
 
-Recommended design. The owner has not confirmed the opt-in rule, so confirm it before building:
+Design, confirmed by the owner:
 - **Source of truth:** a build-time script calls the GitHub API for `kremflote`'s public repositories and writes a generated JSON file that the app imports.
 - **Opt in by topic:** only repositories with the topic `portfolio` are included. This keeps this website's own repository and unfinished work out.
 - **Card data from the API:** name, description, topics (as tech chips), primary language, last push date, URL.
 - **Rich data from each repository:** long text from the README, and an optional small `portfolio.json` in the repository for title override, category (`personal`, `kristiania`, `work`), grade, and screenshot paths.
 - **Fallback:** if the API call fails or is rate-limited during a build, reuse the last generated file committed in the repo so a build never ships an empty portfolio. An optional `GITHUB_TOKEN` build variable raises the rate limit; never commit a token.
-- **Keeping it fresh on Cloudflare Pages:** Pages rebuilds on push only. Add a scheduled GitHub Actions workflow that calls a Cloudflare Pages deploy hook once a day. The owner must create the deploy hook and store its URL as a repository secret.
+- **How the owner uses it:** to add a project, they add the topic `portfolio` to the repository on GitHub and fill in its description (the card's one-line text); other topics become tech chips. To remove one, they delete the topic or make the repository private. Document this in the README.
+- **Keeping it fresh on Cloudflare Pages (confirmed):** Pages rebuilds on push only. Add a scheduled GitHub Actions workflow that calls a Cloudflare Pages deploy hook once a day, and give the workflow a manual `workflow_dispatch` trigger so the owner can rebuild immediately after tagging a repository. The owner must create the deploy hook in Cloudflare and store its URL as a repository secret; never commit the URL. Verify the free-plan limits before relying on them: the planning session believed deploy hooks are included and the build quota is 500 a month, from memory. GitHub pauses scheduled workflows in public repositories after 60 days without repository activity; mention this in the README.
 - **Migration:** the existing long descriptions, grades and screenshots in `staticCvData.ts` should move into the corresponding repositories (README and `portfolio.json`). That means commits in other repositories, which needs the owner's go-ahead. Projects with no repository can stay in a small local file.
 
 ## 8. Theme toggle behaviour
@@ -138,14 +139,14 @@ Recommended design. The owner has not confirmed the opt-in rule, so confirm it b
 3. Home: hero, then the timeline rebuild, then skills, featured projects and the contact block.
 4. Portfolio list and project page.
 5. CV modal restyle (same behaviour; replace the letter "X" close button with a proper icon button).
-6. GitHub automation, after the owner confirms the opt-in rule.
+6. GitHub automation.
 7. Cleanup: mixed Norwegian/English labels ("Work", "Loading..."), `lang="nb"` on the document, the template README, and trimming Font Awesome to the few icons used or replacing them with inline SVG.
 
 Check every page in both themes at desktop and phone widths, with keyboard only, before calling a step done.
 
 ## 10. Open questions for the owner
 
-1. Portfolio: opt in by `portfolio` topic (recommended), or show every public repository?
+1. Has the owner created the Cloudflare Pages deploy hook and added it as a repository secret? Ask for the secret's name.
 2. May the implementing session add `portfolio.json` and README content to the other repositories?
 3. Theme default: follow the system setting, or always start in one mode?
 4. Phone layout of the timeline: approve a sketch before it is built.
