@@ -94,19 +94,8 @@ export const themeToggleStyles = {
   optionIdle: "text-muted hover:text-ink",
 };
 
-export const pageStyles = {
-  errorText: siteColorClasses.errorText,
-  loadingText: `text-center text-xl font-extralight ${siteColorClasses.whiteText65}`,
-};
-
 export const inlineTextStyles = {
   link: `text-accent-text underline underline-offset-4 transition-colors hover:text-ink`,
-};
-
-export const standardPaletteClasses = {
-  background: siteColorClasses.surfaceBg,
-  accentText: siteColorClasses.text,
-  quietText: siteColorClasses.text55,
 };
 
 export const layoutStyles = {
@@ -126,14 +115,6 @@ export const buttonStyles = {
 };
 
 export const headerStyles = {
-  // Hero styles are interim until the hero is rebuilt in step 3.
-  hero: "relative w-full px-5",
-  heroContent: "mx-auto w-full max-w-[1240px] sm:px-3",
-  heroText: "pt-16 pb-16 sm:pt-20",
-  kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
-  pageTitle: `mt-2 text-5xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  quote: `mt-14 max-w-3xl text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:text-2xl [&_span]:font-[600] [&_span]:text-ink`,
-
   nav: "sticky top-0 z-40 border-b border-line bg-bg",
   navInner:
     "grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-0 pt-2.5 pb-1 md:grid-cols-[auto_1fr_auto] md:gap-x-10 md:pt-0 md:pb-0",
@@ -207,6 +188,69 @@ export const featuredStyles = {
     "inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-accent-text no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
 };
 
+export const galleryStyles = {
+  gallery: "mt-10",
+  frame: "aspect-[16/10] overflow-hidden rounded-card border border-line bg-band",
+  image: "h-full w-full",
+  imageCover: "object-cover object-top",
+  imageContain: "object-contain",
+  controls:
+    "mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
+  thumbs: "-m-1 flex gap-2 overflow-x-auto p-1",
+  thumb:
+    "h-14 w-[88px] shrink-0 cursor-pointer overflow-hidden rounded-chip border-2 bg-band transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  thumbActive: "border-accent-text",
+  thumbIdle: "border-transparent opacity-70 hover:opacity-100",
+  thumbImage: "h-full w-full object-cover object-top",
+  counterRow: "flex items-center gap-3 self-end sm:self-auto",
+  counter: "min-w-[96px] text-center font-mono text-[13px] text-muted",
+  arrow:
+    "grid h-10 w-10 cursor-pointer place-items-center rounded-card border border-line-strong text-ink transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+};
+
+export const projectStyles = {
+  status: "py-16 text-muted",
+  header: "pt-10 pb-10 sm:pt-14",
+  back: "inline-flex min-h-11 items-center gap-2 text-sm font-medium text-muted no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  category: "mt-6 text-[13px] font-medium text-accent-text",
+  titleRow:
+    "mt-3 grid gap-6 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-end md:gap-12",
+  title:
+    "font-display text-[clamp(40px,6vw,80px)] font-semibold leading-none tracking-[-0.045em] text-ink break-words",
+  lead: "text-lg leading-[1.5] text-muted md:pb-1",
+  facts:
+    "flex flex-col gap-5 border-y border-line py-5 sm:flex-row sm:items-center sm:justify-between",
+  factList: "flex flex-wrap gap-x-10 gap-y-4",
+  factLabel: "text-[13px] text-muted",
+  factValue: "mt-0.5 text-base font-medium text-ink",
+  body: "mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16",
+  main: "min-w-0 space-y-12",
+  section: "max-w-[68ch]",
+  sectionTitle:
+    "flex items-center gap-3 font-display text-[28px] font-semibold leading-tight tracking-[-0.03em] text-ink",
+  gradeBadge:
+    "inline-block rounded-chip bg-accent px-2.5 py-0.5 font-sans text-sm font-semibold tracking-normal text-accent-ink",
+  paragraph: "mt-4 text-base leading-[1.55] text-ink break-words",
+  list: "mt-4 border-t border-line",
+  listItem:
+    "grid grid-cols-[40px_minmax(0,1fr)] gap-2 border-b border-line py-3.5 text-base leading-[1.55] text-ink break-words",
+  listNumber: "pt-0.5 font-mono text-[13px] text-accent-text",
+  sidebar:
+    "self-start space-y-8 rounded-card border border-line bg-surface p-6 lg:sticky lg:top-24",
+  sidebarTitle: "text-[13px] font-medium text-muted",
+  chips: "mt-3 flex flex-wrap gap-1.5",
+  chip: "rounded-chip border border-line-strong px-2 py-0.5 font-mono text-xs text-ink",
+  links: "mt-3 space-y-2",
+  link: "inline-flex items-center gap-1.5 text-[15px] font-medium text-accent-text underline underline-offset-4 hover:text-ink",
+  pager: "mt-20 mb-16 grid grid-cols-2 gap-4 border-t border-line pt-8",
+  pagerLink:
+    "flex min-w-0 flex-col gap-1 rounded-card p-2 -m-2 no-underline focus-visible:outline-2 focus-visible:outline-accent-text",
+  pagerNext: "col-start-2 items-end text-right",
+  pagerLabel: "text-[13px] text-muted",
+  pagerTitle:
+    "font-display text-lg font-semibold tracking-[-0.03em] text-ink sm:text-2xl",
+};
+
 export const notFoundStyles = {
   section: "py-24 sm:py-32",
   label: "text-[13px] font-medium text-accent-text",
@@ -214,10 +258,6 @@ export const notFoundStyles = {
     "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
   body: "mt-6 max-w-[56ch] text-lg text-muted",
   actions: "mt-10 flex flex-wrap gap-3",
-};
-
-export const homeStyles = {
-  shell: "",
 };
 
 export const skillStyles = {
@@ -239,12 +279,6 @@ export const skillStyles = {
   descriptionText: "mt-4 text-lg leading-[1.55] text-ink",
   descriptionSecondary: "mt-4 text-base leading-[1.55] text-muted",
   descriptionLabel: "font-semibold text-ink",
-};
-
-export const glassStyles = {
-  panel: `${siteColorClasses.panelBg14} ${siteColorClasses.shadow35}`,
-  softPanel: `${siteColorClasses.surfaceBg35} ${siteColorClasses.shadow30}`,
-  title: `break-words text-5xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
 };
 
 export const timelineStyles = {
@@ -307,31 +341,17 @@ export const timelineStyles = {
   panelLink: `text-sm font-medium text-accent-text underline underline-offset-4 hover:text-ink`,
 };
 
-export const showcaseStyles = {
-  card: `group relative cursor-pointer overflow-hidden rounded-md ${siteColorClasses.panelBg18} p-3 ${siteColorClasses.shadow35} transition-all duration-300 hover:-translate-y-1 hover:border-line-strong`,
-  cardImageFrame: "overflow-hidden rounded-[4px]",
-  cardImage:
-    "h-[280px] w-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100",
-  cardTitle: `px-1 pt-4 pb-1 text-left text-3xl font-extralight leading-tight ${siteColorClasses.whiteText}`,
-  detailImageContained: `max-h-[720px] w-full max-w-full object-contain opacity-90 ${siteColorClasses.shadow30}`,
-  carouselButtonBase:
-    "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center backdrop-blur-md transition-colors",
-  carouselButton: `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:text-accent-text`,
-  description: `break-words text-lg font-extralight leading-relaxed ${siteColorClasses.whiteText65} sm:text-xl`,
-  detailTextStack: "mt-10 max-w-4xl space-y-8 break-words",
-  detailTextSection: "space-y-3",
-  detailTextTitle: `break-words text-2xl font-[500] leading-tight ${siteColorClasses.accentText} sm:text-3xl`,
-  detailGradeA: "text-accent-text",
-  detailGradeB: "text-accent-text",
-  githubLink: `mt-8 inline-flex max-w-full items-center gap-3 break-words border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline transition-all hover:border-line-strong`,
-  link: `${siteColorClasses.whiteText80} hover:text-ink`,
-};
-
 export const portfolioStyles = {
-  section: "mb-24 px-5 py-16",
-  categoryStack: "space-y-20",
-  categoryTitle: `mb-7 text-4xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-5xl`,
-  grid: "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3",
+  header: "pt-14 pb-12 sm:pt-20 sm:pb-16",
+  label: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  intro: "mt-6 max-w-[56ch] text-lg text-muted",
+  status: "py-8 text-muted",
+  group: "border-t border-line py-12 sm:py-16",
+  groupTitle:
+    "mb-8 flex items-baseline gap-3 font-display text-[clamp(28px,3vw,40px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  count: "font-mono text-sm font-normal tracking-normal text-muted",
 };
 
 export const cvModalStyles = {

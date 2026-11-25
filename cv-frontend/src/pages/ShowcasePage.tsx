@@ -1,181 +1,209 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import { WideLayout } from "../components/common/WideLayout";
+import { useContext, useMemo } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Container } from "../components/common/Container";
+import Gallery from "../components/Gallery";
+import { ExternalIcon } from "../components/TimelineParts";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
-import { glassStyles, pageStyles, showcaseStyles } from "../styles/styles";
-import type { IShowcase } from "../interfaces/IShowcase";
+import { SkillContext } from "../contexts/SkillContext";
+import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
 import { formatInlineLinks } from "../components/common/FormattedText";
-
-type ShowcaseDetailSection = NonNullable<IShowcase["details"]>[number];
-
-const getOrderedDetailSections = (details: ShowcaseDetailSection[]) =>
-  [...details].sort((first, second) => {
-    const firstIsGrade = first.title.toLowerCase().startsWith("karakter");
-    const secondIsGrade = second.title.toLowerCase().startsWith("karakter");
-
-    if (firstIsGrade === secondIsGrade) return 0;
-    return firstIsGrade ? -1 : 1;
-  });
-
-const renderDetailTitle = (title: string) => {
-  const normalizedTitle = title.toLowerCase();
-
-  if (normalizedTitle.includes("karakter a")) {
-    return (
-      <>
-        Karakter <span className={showcaseStyles.detailGradeA}>A</span>
-      </>
-    );
-  }
-
-  if (normalizedTitle.includes("karakter b")) {
-    return (
-      <>
-        Karakter <span className={showcaseStyles.detailGradeB}>B</span>
-      </>
-    );
-  }
-
-  return title;
-};
+import NotFoundPage from "./NotFoundPage";
+import {
+  categoryLabels,
+  getMainLanguage,
+  getShowcaseCategory,
+  getShowcaseGrade,
+  listSectionPattern,
+  orderShowcases,
+} from "../utils/showcase";
+import { buttonStyles, projectStyles as s } from "../styles/styles";
 
 const ShowcasePage = () => {
   const { id } = useParams<{ id: string }>();
-  const { showcases } = useContext(ShowcaseContext)!;
-  const [showcaseImages, setShowcaseImages] = useState<string[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { showcases, showcaseIsLoading } = useContext(ShowcaseContext)!;
+  const { skills } = useContext(SkillContext) as ISkillContext;
 
-  const showcase = useMemo(
-    () => showcases.find((s) => s.id === Number(id)) ?? null,
-    [id, showcases],
+  const ordered = useMemo(() => orderShowcases(showcases), [showcases]);
+  const position = ordered.findIndex((showcase) => showcase.id === Number(id));
+  const showcase = ordered[position];
+
+  if (showcaseIsLoading) {
+    return (
+      <Container>
+        <p className={s.status}>Laster …</p>
+      </Container>
+    );
+  }
+  if (!showcase) return <NotFoundPage />;
+
+  const previous = position > 0 ? ordered[position - 1] : null;
+  const next = position < ordered.length - 1 ? ordered[position + 1] : null;
+  const grade = getShowcaseGrade(showcase);
+  const languages = skills
+    .filter((skill) => skill.category === "Programming Languages")
+    .map((skill) => skill.skill_Name);
+  const mainLanguage = getMainLanguage(showcase, languages);
+  const images =
+    showcase.images && showcase.images.length > 0
+      ? showcase.images
+      : [showcase.image].filter(Boolean);
+  const sections = (showcase.details ?? []).filter(
+    (section) => !/^karakter\b/i.test(section.title.trim()),
+  );
+  const gradeSection = showcase.details?.find((section) =>
+    /^karakter\b/i.test(section.title.trim()),
   );
 
-  useEffect(() => {
-    let isActive = true;
-
-    const loadShowcaseImages = () => {
-      if (!showcase) return;
-
-      const images =
-        showcase.images && showcase.images.length > 0
-          ? showcase.images
-          : [showcase.image].filter(Boolean);
-
-      if (isActive) {
-        setShowcaseImages(images);
-        setCurrentImageIndex(0);
-      }
-    };
-
-    loadShowcaseImages();
-
-    return () => {
-      isActive = false;
-    };
-  }, [showcase]);
-
-  const currentImage = showcaseImages[currentImageIndex];
-  const hasImages = showcaseImages.length > 0;
-  const hasMultipleImages = showcaseImages.length > 1;
-  const imageContainerClasses = "relative min-w-0 overflow-hidden";
-  const imageClasses = showcaseStyles.detailImageContained;
-  const showPreviousImage = () => {
-    setCurrentImageIndex((index) =>
-      index === 0 ? showcaseImages.length - 1 : index - 1,
-    );
-  };
-
-  const showNextImage = () => {
-    setCurrentImageIndex((index) =>
-      index === showcaseImages.length - 1 ? 0 : index + 1,
-    );
-  };
-
-  if (!showcase)
-    return (
-      <WideLayout>
-        <p className={`pt-10 ${pageStyles.loadingText}`}>Loading...</p>
-      </WideLayout>
-    );
+  const facts = [
+    { label: "Type", value: categoryLabels[getShowcaseCategory(showcase)].singular },
+    mainLanguage && { label: "Hovedspråk", value: mainLanguage },
+    showcase.updatedAt && {
+      label: "Sist oppdatert",
+      value: new Date(showcase.updatedAt).toLocaleDateString("nb-NO", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    },
+  ].filter(Boolean) as { label: string; value: string }[];
 
   return (
-    <WideLayout>
-      <section className="mb-24 min-w-0 py-10 sm:px-5 sm:py-14">
-        <div
-          className={`grid min-w-0 gap-8 overflow-hidden px-4 py-6 sm:gap-10 sm:px-10 sm:py-12 ${glassStyles.panel}`}
-        >
-          {hasImages && (
-            <div className={`${imageContainerClasses} ${glassStyles.softPanel}`}>
-              <img
-                src={`/images/${currentImage}?v=${showcase.id}-${currentImageIndex}`}
-                alt={showcase.title}
-                className={imageClasses}
-              />
+    <Container>
+      <article>
+        <header className={s.header}>
+          <Link to="/portfolio" className={s.back}>
+            <span aria-hidden="true">←</span> Alle prosjekter
+          </Link>
+          <p className={s.category}>
+            {categoryLabels[getShowcaseCategory(showcase)].singular}
+          </p>
+          <div className={s.titleRow}>
+            <h1 className={s.title}>{showcase.title}</h1>
+            <p className={s.lead}>{formatInlineLinks(showcase.description)}</p>
+          </div>
+        </header>
 
-              {hasMultipleImages && (
-                <>
-                  <button
-                    type="button"
-                    onClick={showPreviousImage}
-                    aria-label="Forrige bilde"
-                    className={`left-4 ${showcaseStyles.carouselButtonBase} ${showcaseStyles.carouselButton}`}
-                  >
-                    <i className="fas fa-chevron-left"></i>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={showNextImage}
-                    aria-label="Neste bilde"
-                    className={`right-4 ${showcaseStyles.carouselButtonBase} ${showcaseStyles.carouselButton}`}
-                  >
-                    <i className="fas fa-chevron-right"></i>
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-
-          <div
-            className={`min-w-0 overflow-hidden px-4 py-6 sm:px-8 sm:py-8 ${glassStyles.softPanel}`}
-          >
-            <h1 className={glassStyles.title}>{showcase.title}</h1>
-            <p className={`mt-8 max-w-4xl ${showcaseStyles.description}`}>
-              {formatInlineLinks(showcase.description)}
-            </p>
-            {showcase.details && (
-              <div className={showcaseStyles.detailTextStack}>
-                {getOrderedDetailSections(showcase.details).map((section) => (
-                  <section
-                    key={section.title}
-                    className={showcaseStyles.detailTextSection}
-                  >
-                    <h2 className={showcaseStyles.detailTextTitle}>
-                      {renderDetailTitle(section.title)}
-                    </h2>
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph} className={showcaseStyles.description}>
-                        {formatInlineLinks(paragraph)}
-                      </p>
-                    ))}
-                  </section>
-                ))}
+        <div className={s.facts}>
+          <dl className={s.factList}>
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className={s.factLabel}>{fact.label}</dt>
+                <dd className={s.factValue}>{fact.value}</dd>
+              </div>
+            ))}
+            {grade && (
+              <div>
+                <dt className={s.factLabel}>Karakter</dt>
+                <dd className={s.factValue}>
+                  <span className={s.gradeBadge}>{grade}</span>
+                </dd>
               </div>
             )}
-            {showcase.gitHub_Link && (
-              <a
-                href={showcase.gitHub_Link}
-                target="_blank"
-                rel="noreferrer"
-                className={`${showcaseStyles.githubLink} ${showcaseStyles.link}`}
-              >
-                <i className="fab fa-github"></i>
-                Github
-              </a>
-            )}
-          </div>
+          </dl>
+          {showcase.gitHub_Link && (
+            <a
+              href={showcase.gitHub_Link}
+              target="_blank"
+              rel="noreferrer"
+              className={`${buttonStyles.base} ${buttonStyles.primary}`}
+            >
+              Se koden på GitHub <ExternalIcon />
+            </a>
+          )}
         </div>
-      </section>
-    </WideLayout>
+
+        <Gallery key={showcase.id} images={images} title={showcase.title} version={showcase.id} />
+
+        <div className={s.body}>
+          <div className={s.main}>
+            {gradeSection && gradeSection.body.length > 0 && (
+              <section className={s.section}>
+                <h2 className={s.sectionTitle}>
+                  Karakter <span className={s.gradeBadge}>{grade}</span>
+                </h2>
+                {gradeSection.body.map((paragraph) => (
+                  <p key={paragraph} className={s.paragraph}>
+                    {formatInlineLinks(paragraph)}
+                  </p>
+                ))}
+              </section>
+            )}
+            {sections.map((section) => (
+              <section key={section.title} className={s.section}>
+                <h2 className={s.sectionTitle}>{section.title}</h2>
+                {listSectionPattern.test(section.title.trim()) ? (
+                  <ol className={s.list}>
+                    {section.body.map((item, i) => (
+                      <li key={item} className={s.listItem}>
+                        <span className={s.listNumber} aria-hidden="true">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span>{formatInlineLinks(item)}</span>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  section.body.map((paragraph) => (
+                    <p key={paragraph} className={s.paragraph}>
+                      {formatInlineLinks(paragraph)}
+                    </p>
+                  ))
+                )}
+              </section>
+            ))}
+          </div>
+
+          <aside className={s.sidebar}>
+            {showcase.tech && showcase.tech.length > 0 && (
+              <div>
+                <h2 className={s.sidebarTitle}>Teknologi</h2>
+                <ul className={s.chips}>
+                  {showcase.tech.map((tech) => (
+                    <li key={tech} className={s.chip}>
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div>
+              <h2 className={s.sidebarTitle}>Lenker</h2>
+              <ul className={s.links}>
+                {showcase.gitHub_Link && (
+                  <li>
+                    <a href={showcase.gitHub_Link} target="_blank" rel="noreferrer" className={s.link}>
+                      Kildekode på GitHub <ExternalIcon />
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <Link to="/portfolio" className={s.link}>
+                    Alle prosjekter
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+
+        <nav className={s.pager} aria-label="Andre prosjekter">
+          {previous ? (
+            <Link to={`/showcase/${previous.id}`} className={s.pagerLink}>
+              <span className={s.pagerLabel}>← Forrige prosjekt</span>
+              <span className={s.pagerTitle}>{previous.title}</span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next && (
+            <Link to={`/showcase/${next.id}`} className={`${s.pagerLink} ${s.pagerNext}`}>
+              <span className={s.pagerLabel}>Neste prosjekt →</span>
+              <span className={s.pagerTitle}>{next.title}</span>
+            </Link>
+          )}
+        </nav>
+      </article>
+    </Container>
   );
 };
 

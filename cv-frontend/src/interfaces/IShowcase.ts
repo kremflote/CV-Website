@@ -13,6 +13,8 @@ export interface IShowcase {
   category?: "work" | "personal" | "kristiania" | string;
   /** Technology chips on the card. Interim until they come from GitHub topics. */
   tech?: string[];
+  /** Last push to the repository (ISO date). Filled in from GitHub in step 6. */
+  updatedAt?: string;
   /** Shown on the home page's Prosjekter section. */
   featured?: boolean;
 }

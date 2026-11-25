@@ -33,3 +33,28 @@ const thumbnailVersion = "20260529";
 
 export const getThumbnailSrc = (showcase: IShowcase) =>
   `/images/${showcase.image_Thumbnail}?v=${showcase.id}-${thumbnailVersion}`;
+
+export const categoryOrder: ShowcaseCategory[] = ["work", "personal", "kristiania"];
+
+/** Projects grouped by category in display order; empty groups are left out. */
+export const groupShowcases = (showcases: IShowcase[]) =>
+  categoryOrder
+    .map((category) => ({
+      category,
+      showcases: showcases.filter((showcase) => getShowcaseCategory(showcase) === category),
+    }))
+    .filter((group) => group.showcases.length > 0);
+
+/** All projects in the order the portfolio page shows them (used for previous/next). */
+export const orderShowcases = (showcases: IShowcase[]) =>
+  groupShowcases(showcases).flatMap((group) => group.showcases);
+
+/** Detail sections whose paragraphs are really list items. */
+export const listSectionPattern = /^(funksjoner|teknologi|arkitektur|tjenester)$/i;
+
+/**
+ * Main language for the facts strip: the first technology that is one of
+ * the programming languages in the skills list. Interim until it comes from GitHub.
+ */
+export const getMainLanguage = (showcase: IShowcase, languages: string[]) =>
+  showcase.tech?.find((tech) => languages.includes(tech)) ?? null;
