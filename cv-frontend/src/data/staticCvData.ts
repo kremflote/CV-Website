@@ -7,6 +7,8 @@ export const tenures: ITenure[] = [
     id: 1,
     companyName: "Würth Norge",
     workTitle: "Selger",
+    description:
+      "Her jobbet jeg i et nyetablert team: SK1. Konseptet var nytt i Würth, og vi var en liten avdeling med ansvar for en enorm kundeportefølje av bedriftskontoer vi skulle ivareta. Det ga meg erfaring innenfor relasjonsbygging og B2B salg.",
     startDate: "2022-07-01",
     endDate: "2024-07-01",
   },
@@ -14,6 +16,8 @@ export const tenures: ITenure[] = [
     id: 2,
     companyName: "POWER",
     workTitle: "Assisterende Teamleder",
+    description:
+      "Daglig drift av kundesenteret, oppfølgning av ansatte og deltok i rekrutteringsprosesser, intervju og vurdering av kandidater ved nyansettelser.",
     startDate: "2022-01-01",
     endDate: "2022-06-01",
   },
@@ -21,6 +25,8 @@ export const tenures: ITenure[] = [
     id: 3,
     companyName: "POWER",
     workTitle: "Kundebehandler",
+    description:
+      "Kundebehandler hverdagen er en hektisk stilling, hvor jeg lærte å skape gode kundeopplevelser, utføre behovsanalyser, jobbe under press og koordinere mellom flere ledd i en organisasjon.",
     startDate: "2018-05-01",
     endDate: "2022-01-01",
   },
@@ -28,6 +34,8 @@ export const tenures: ITenure[] = [
     id: 4,
     companyName: "Ihlang Forvaltning",
     workTitle: "Anleggsarbeider",
+    description:
+      "Singling, perimetersikring og kontrollerte sprengninger av berg",
     startDate: "2018-04-01",
     endDate: "2018-05-01",
   },
@@ -35,6 +43,9 @@ export const tenures: ITenure[] = [
     id: 5,
     companyName: "Kristiania",
     workTitle: "Frontend- og mobilutvikling",
+    description:
+      "Front- og backend, DSA, C Programmering i Linux, databaser og mobilutvikling.",
+    isEducation: true,
     startDate: "2024-08-15",
     endDate: "2025-06-15",
   },
@@ -42,6 +53,9 @@ export const tenures: ITenure[] = [
     id: 6,
     companyName: "Kristiania",
     workTitle: "Frontend- og mobilutvikling",
+    description:
+      "Front- og backend, DSA, C Programmering i Linux, databaser og mobilutvikling.",
+    isEducation: true,
     startDate: "2025-08-15",
     endDate: "2026-06-15",
   },
@@ -49,6 +63,9 @@ export const tenures: ITenure[] = [
     id: 7,
     companyName: "Kristiania",
     workTitle: "Frontend- og mobilutvikling",
+    description:
+      "Front- og backend, DSA, C Programmering i Linux, databaser og mobilutvikling.",
+    isEducation: true,
     startDate: "2026-08-15",
     endDate: "2027-06-15",
   },

@@ -156,6 +156,33 @@ export const appStyles = {
   main: "flex-1",
 };
 
+export const heroStyles = {
+  section: "pt-14 pb-16 sm:pt-20 sm:pb-[88px]",
+  label: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  columns:
+    "mt-10 grid gap-10 md:mt-14 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-16",
+  lead: "max-w-[30ch] text-[19px] leading-[1.45] text-muted sm:text-[22px]",
+  emphasis: "font-semibold text-ink",
+  actions: "mt-8 flex flex-wrap gap-3",
+  summary: "self-end border-t border-line",
+  summaryRow:
+    "grid grid-cols-[96px_minmax(0,1fr)] gap-4 border-b border-line py-4",
+  summaryLabel: "pt-0.5 text-[13px] text-muted",
+  summaryValue: "text-base font-medium text-ink",
+  summaryDetail: "mt-0.5 block text-sm font-normal text-muted",
+};
+
+export const sectionStyles = {
+  band: "border-t border-line bg-band",
+  plain: "border-t border-line",
+  inner: "py-16 sm:py-[88px]",
+  heading:
+    "font-display text-[clamp(32px,3.6vw,50px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  headingRow: "mb-10 flex flex-wrap items-end justify-between gap-4 sm:mb-14",
+};
+
 export const notFoundStyles = {
   section: "py-24 sm:py-32",
   label: "text-[13px] font-medium text-accent-text",
@@ -193,60 +220,47 @@ export const glassStyles = {
 };
 
 export const timelineStyles = {
-  shell: "relative w-full bg-transparent",
-  axisDot:
-    "absolute rounded-full border border-line-strong bg-line-strong",
-  axisLine: "absolute w-px bg-line-strong",
-  axisDesktop: "hidden sm:block",
-  bubbleBase:
-    "relative grid shrink-0 place-items-center rounded-full border border-line-strong bg-surface transition-transform duration-300",
-  bubbleDesktop:
-    "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 ",
-  bubbleActive:
-    "-translate-y-2 scale-110 ring-2 ring-accent",
-  bubbleMobile: "hover:-translate-y-1 hover:scale-105",
-  textWrapper:
-    "absolute w-[190px] -translate-y-1/2 transition-transform duration-300 peer-hover:scale-125",
-  companyText: "text-base font-extralight leading-tight text-ink",
-  detailText: "text-base font-extralight leading-tight text-muted",
-  mobileDetailText: "text-base font-extralight leading-tight text-muted",
-  mobileList: "relative space-y-12 px-2 py-12 min-[380px]:px-4 sm:hidden",
-  mobileAxisDot:
-    "absolute top-14 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-line-strong bg-line-strong",
-  mobileAxisLine:
-    "absolute top-[70px] bottom-[18rem] left-1/2 w-px -translate-x-1/2 bg-line-strong",
-  mobileItem:
-    "relative z-10 grid grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] items-center gap-x-3 min-[380px]:gap-x-5",
-  mobileBubbleLeft: "col-start-1 justify-self-end",
-  mobileBubbleRight: "col-start-3 justify-self-start",
-  mobileTextLeft: "col-start-1 row-start-1 pr-1 text-right",
-  mobileTextRight: "col-start-3 row-start-1 pl-1 text-left",
-  loadingText: "relative py-16 text-center text-muted",
-  emptyText: "relative py-16 text-center text-muted",
-  contactBubble:
-    "rounded-full border border-dashed border-line-strong bg-transparent text-center text-ink transition-transform duration-300 hover:-translate-y-2 hover:scale-105 hover:border-accent-text ",
-  contactDesktop: "absolute flex flex-col items-center justify-center px-12",
-  contactMobile:
-    "mx-auto flex h-56 w-56 flex-col items-center justify-center px-10",
-  detailLayout:
-    "grid w-full grid-cols-1 gap-12 px-4 py-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.8fr)] lg:items-stretch lg:gap-16 lg:px-8 lg:py-16",
-  detailTimelineColumn: "min-w-0",
-  detailPanelColumn: "hidden min-w-0 lg:flex lg:items-start lg:self-stretch",
-  detailPanel:
-    "rounded-md bg-transparent px-7 py-8 backdrop-blur-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:max-w-[440px] lg:overflow-y-auto",
-  detailPanelHint: "text-xl font-extralight leading-relaxed text-muted",
-  detailPanelEyebrow:
-    "text-base font-extralight uppercase tracking-[0.18em] text-muted",
-  detailPanelTitle:
-    "mt-4 font-display text-5xl font-semibold tracking-[-0.045em] leading-none text-accent-text sm:text-6xl",
-  detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-ink",
-  detailPanelDuration: "mt-3 text-lg font-extralight text-muted",
-  detailPanelBody:
-    "mt-8 text-xl font-extralight leading-relaxed text-muted",
-  detailPanelInlineLink:
-    "mt-5 inline-flex max-w-full break-words text-lg font-[300] leading-relaxed text-accent-text underline underline-offset-4 transition-colors hover:text-ink",
-  detailPanelLink:
-    "mt-9 inline-flex border border-line-strong px-5 py-3 text-lg font-[300] text-accent-text no-underline transition-colors hover:border-ink hover:text-ink",
+  status: "py-16 text-center text-muted",
+  /* Below ~1100px the track scrolls sideways (interim until the phone layout is approved). */
+  scroller: "-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8",
+  track: "relative min-w-[1100px]",
+  axis: "absolute inset-x-0 h-px bg-line-strong",
+  ruler: "absolute inset-x-0 h-px bg-line-strong",
+  tick: "absolute h-2 w-px -translate-x-1/2 bg-line-strong",
+  tickLabel: "absolute font-mono text-xs text-muted",
+  today:
+    "absolute w-0 -translate-x-1/2 border-l border-dashed border-ink/60",
+  todayLabel:
+    "absolute top-0 left-2 whitespace-nowrap font-mono text-xs text-ink",
+  stem: "absolute w-px -translate-x-1/2 bg-line-strong",
+  stemSelected: "!bg-accent-text",
+  bar: "absolute h-1.5 rounded-full bg-line-strong",
+  barSelected: "!bg-accent-text",
+  bubble:
+    "absolute z-10 grid cursor-pointer place-items-center rounded-full border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text",
+  bubbleIdle: "border-line-strong bg-surface hover:border-ink",
+  bubbleSelected: "border-accent bg-accent",
+  logo: "pointer-events-none max-h-[46%] max-w-[64%] object-contain",
+  logoFallback: "px-2 text-center text-xs font-semibold",
+  nextBubble:
+    "absolute z-10 grid place-items-center rounded-full border border-dashed border-line-strong bg-bg font-display text-2xl font-semibold text-muted no-underline transition-colors hover:border-accent-text hover:text-accent-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text",
+  label: "absolute flex flex-col gap-0.5 leading-tight",
+  labelCompany: "text-sm font-semibold text-ink",
+  labelRole: "text-[13px] text-muted",
+  labelDuration: "font-mono text-xs text-muted",
+  labelSelected: "!text-accent-text",
+  panel:
+    "mt-8 grid gap-6 rounded-card border border-line bg-surface p-6 sm:p-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12",
+  panelDates: "font-mono text-[13px] text-accent-text",
+  panelCompany:
+    "mt-2 font-display text-[28px] font-semibold leading-none tracking-[-0.045em] text-ink sm:text-[34px]",
+  panelRole: "mt-2 text-lg text-muted",
+  panelFacts: "mt-5 flex items-baseline gap-3",
+  panelFactLabel: "text-[13px] text-muted",
+  panelFactValue: "font-mono text-sm text-ink",
+  panelBody: "text-base leading-[1.55] text-ink",
+  panelActions: "mt-6 flex flex-wrap items-center gap-x-5 gap-y-3",
+  panelLink: `text-sm font-medium text-accent-text underline underline-offset-4 hover:text-ink`,
 };
 
 export const showcaseStyles = {

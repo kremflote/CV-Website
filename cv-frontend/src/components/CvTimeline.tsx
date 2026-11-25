@@ -1,658 +1,320 @@
 import {
   useContext,
+  useLayoutEffect,
   useMemo,
+  useRef,
   useState,
-  type CSSProperties,
   type FC,
-  type ReactNode,
+  type PointerEvent,
 } from "react";
 import { Link } from "react-router-dom";
 import { TenureContext } from "../contexts/TenureContext";
 import type { ITenureContext } from "../interfaces/contexts/ITenureContext";
-import type { ITenure } from "../interfaces/ITenure";
-import {
-  companyMeta,
-  type CompanyKey,
-  pageStyles,
-  timelineStyles,
-} from "../styles/styles";
+import { buildTimelinePeriods, today, type TimelinePeriod } from "../utils/tenure";
+import { buttonStyles, timelineStyles as s } from "../styles/styles";
 
-type TimelineSide = "left" | "right";
-type TimelineStyle = CSSProperties & { "--timeline-x": string };
-
-const CONTACT_BUBBLE_SIZE = 224;
-const TIMELINE_START_DOT_TOP = 38;
-const TIMELINE_START_DOT_SIZE = 14;
 const KRISTIANIA_PROGRAM_URL =
   "https://www.kristiania.no/globalassets/programbeskrivelser/hoyskole/2024/seit/bachelor-i-informasjonsteknologi-frontend-og-mobilutvikling-kull-2024.pdf";
 
-interface TimelineMarker {
-  tenure: ITenure;
-  companyKey: CompanyKey;
-  textSide: TimelineSide;
-  durationMonths: number;
-  durationLabel: string;
-  top: number;
+/* The axis runs from January 2018 to January 2028: one year is 10% of the track. */
+const AXIS_START = new Date(2018, 0, 1).getTime();
+const AXIS_END = new Date(2028, 0, 1).getTime();
+const YEARS = Array.from({ length: 11 }, (_, index) => 2018 + index);
+
+/* Vertical layout of the track, in px. */
+const MAX_BUBBLE = 200;
+const MIN_BUBBLE = 56;
+const NEXT_BUBBLE = 72;
+const AXIS_Y = 28 + MAX_BUBBLE / 2;
+const LABEL_TOP = AXIS_Y + MAX_BUBBLE / 2 + 24;
+const LABEL_ROW_GAP = 76;
+const LABEL_WIDTH = 168;
+const RULER_Y = LABEL_TOP + LABEL_ROW_GAP + 96;
+const TRACK_HEIGHT = RULER_Y + 40;
+const DEFAULT_SELECTED_ROLE = "kundebehandler";
+
+const toFraction = (date: Date) =>
+  Math.min(1, Math.max(0, (date.getTime() - AXIS_START) / (AXIS_END - AXIS_START)));
+
+/** Diameter grows with duration by area, clamped to 56–200px. */
+const bubbleSize = (months: number, longest: number) =>
+  Math.round(
+    Math.min(MAX_BUBBLE, Math.max(MIN_BUBBLE, MAX_BUBBLE * Math.sqrt(months / longest))),
+  );
+
+interface PlacedItem {
+  key: string;
+  x: number;
   size: number;
+  labelLeft: number;
+  labelRow: number;
+  labelAlign: string;
 }
 
-interface CvTimelineProps {
-  showDetailPanel?: boolean;
-}
-
-const monthNames: Record<string, number> = {
-  januar: 0,
-  jan: 0,
-  februar: 1,
-  feb: 1,
-  mars: 2,
-  mar: 2,
-  april: 3,
-  apr: 3,
-  mai: 4,
-  juni: 5,
-  jun: 5,
-  juli: 6,
-  jul: 6,
-  august: 7,
-  aug: 7,
-  september: 8,
-  sep: 8,
-  oktober: 9,
-  okt: 9,
-  november: 10,
-  nov: 10,
-  desember: 11,
-  des: 11,
-};
-
-const parseTenureDate = (value: string): Date => {
-  const normalized = value.trim().toLowerCase();
-  const currentDate = new Date();
-
-  if (["present", "current", "now", "nå", "d.d.", "dd"].includes(normalized)) {
-    return currentDate;
-  }
-
-  const norwegianDate = normalized.match(
-    /^([a-zæøå]+)\s+(\d{4})$|^(\d{1,2})\.(\d{1,2})\.(\d{4})$/,
-  );
-
-  if (norwegianDate?.[1] && norwegianDate[2]) {
-    return new Date(
-      Number(norwegianDate[2]),
-      monthNames[norwegianDate[1]] ?? 0,
+/** Places labels in up to two rows so neighbouring labels never overlap. */
+const placeLabels = (items: { key: string; x: number; size: number }[], width: number) => {
+  const lastRight = [-Infinity, -Infinity];
+  return items.map<PlacedItem>((item) => {
+    const labelLeft = Math.min(
+      Math.max(item.x - LABEL_WIDTH / 2, 0),
+      width - LABEL_WIDTH,
     );
-  }
-
-  if (norwegianDate?.[3] && norwegianDate[4] && norwegianDate[5]) {
-    return new Date(
-      Number(norwegianDate[5]),
-      Number(norwegianDate[4]) - 1,
-      Number(norwegianDate[3]),
-    );
-  }
-
-  const parsedDate = new Date(value);
-  if (!Number.isNaN(parsedDate.getTime())) {
-    return parsedDate;
-  }
-
-  const year = normalized.match(/\d{4}/)?.[0];
-  return year ? new Date(Number(year), 0) : currentDate;
-};
-
-const getDurationMonths = (startDate: Date, endDate: Date): number => {
-  const yearDifference = endDate.getFullYear() - startDate.getFullYear();
-  const monthDifference = endDate.getMonth() - startDate.getMonth();
-  const calendarMonths = yearDifference * 12 + monthDifference;
-
-  if (calendarMonths > 0 && calendarMonths % 12 === 0) {
-    return calendarMonths;
-  }
-
-  const inclusiveMonths = calendarMonths + 1;
-
-  if (inclusiveMonths >= 10 && inclusiveMonths < 12) {
-    return 12;
-  }
-
-  return Math.max(1, inclusiveMonths);
-};
-
-const formatDuration = (months: number): string => {
-  if (months < 12) {
-    return `${months} mnd`;
-  }
-
-  const years = Math.floor(months / 12);
-  const remainingMonths = months % 12;
-
-  if (remainingMonths === 0) {
-    return `${years} år`;
-  }
-
-  return `${years} år og ${remainingMonths} mnd`;
-};
-
-const getCompanyKey = (companyName: string): CompanyKey => {
-  const normalizedCompanyName = companyName.toLowerCase();
-
-  if (normalizedCompanyName.includes("power")) return "power";
-  if (
-    normalizedCompanyName.includes("würth") ||
-    normalizedCompanyName.includes("wurth")
-  ) {
-    return "wurth";
-  }
-  if (normalizedCompanyName.includes("kristiania")) return "kristiania";
-  if (normalizedCompanyName.includes("ihlang")) return "ihlang";
-
-  return "default";
-};
-
-const getTextSide = (companyKey: CompanyKey, index: number): TimelineSide => {
-  if (companyKey === "wurth") return "right";
-  if (companyKey === "power" || companyKey === "kristiania") return "left";
-  if (companyKey === "ihlang") return "right";
-
-  return index % 2 === 0 ? "left" : "right";
-};
-
-const getMarkerSize = (
-  durationMonths: number,
-  longestDuration: number,
-  companyKey: CompanyKey,
-): number => {
-  const minSize = 78;
-  const maxSize = 214;
-  const scale = durationMonths / longestDuration;
-  const size = minSize + (maxSize - minSize) * scale;
-
-  if (companyKey === "ihlang") {
-    return Math.min(92, Math.round(size));
-  }
-
-  return Math.round(size);
-};
-
-const combineKristianiaTenures = (tenures: ITenure[]): ITenure[] => {
-  const kristianiaTenures = tenures.filter(
-    (tenure) => getCompanyKey(tenure.companyName) === "kristiania",
-  );
-
-  if (kristianiaTenures.length <= 1) {
-    return tenures;
-  }
-
-  const nonKristianiaTenures = tenures.filter(
-    (tenure) => getCompanyKey(tenure.companyName) !== "kristiania",
-  );
-  const sortedKristianiaTenures = [...kristianiaTenures].sort(
-    (a, b) =>
-      parseTenureDate(a.startDate).getTime() -
-      parseTenureDate(b.startDate).getTime(),
-  );
-  const uniqueTitles = [
-    ...new Set(
-      sortedKristianiaTenures
-        .map((tenure) => tenure.workTitle.trim())
-        .filter(Boolean),
-    ),
-  ];
-
-  return [
-    ...nonKristianiaTenures,
-    {
-      ...sortedKristianiaTenures[0],
-      companyName: "Kristiania",
-      workTitle: uniqueTitles.join(" / "),
-      startDate: sortedKristianiaTenures[0].startDate,
-      endDate:
-        sortedKristianiaTenures[sortedKristianiaTenures.length - 1].endDate,
-    },
-  ];
-};
-
-const buildMarkers = (tenures: ITenure[]): TimelineMarker[] => {
-  const tenuresWithDuration = combineKristianiaTenures(tenures)
-    .map((tenure) => {
-      const startDate = parseTenureDate(tenure.startDate);
-      const endDate = parseTenureDate(tenure.endDate);
-      const durationMonths = getDurationMonths(startDate, endDate);
-
-      return { tenure, startDate, durationMonths };
-    })
-    .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
-
-  const longestDuration = Math.max(
-    1,
-    ...tenuresWithDuration.map(({ durationMonths }) => durationMonths),
-  );
-
-  return tenuresWithDuration.map(({ tenure, durationMonths }, index) => {
-    const companyKey = getCompanyKey(tenure.companyName);
-
-    return {
-      tenure,
-      companyKey,
-      durationMonths,
-      durationLabel: formatDuration(durationMonths),
-      textSide: getTextSide(companyKey, index),
-      top: 72 + index * 178,
-      size: getMarkerSize(durationMonths, longestDuration, companyKey),
-    };
+    const row = labelLeft >= lastRight[0] + 8 ? 0 : 1;
+    lastRight[row] = labelLeft + LABEL_WIDTH;
+    const centred = Math.abs(labelLeft - (item.x - LABEL_WIDTH / 2)) < 1;
+    const labelAlign = centred
+      ? "items-center text-center"
+      : labelLeft === 0
+        ? "items-start text-left"
+        : "items-end text-right";
+    return { ...item, labelLeft, labelRow: row, labelAlign };
   });
 };
 
-const getExperienceNote = (marker: TimelineMarker): string => {
-  if (marker.companyKey === "power") {
-    const normalizedTitle = marker.tenure.workTitle.toLowerCase();
+const useElementWidth = <T extends HTMLElement>(fallback: number) => {
+  const ref = useRef<T>(null);
+  const [width, setWidth] = useState(fallback);
 
-    if (normalizedTitle.includes("assisterende")) {
-      return "Daglig drift av kundesenteret, oppfølgning av ansatte og deltok i rekrutteringsprosesser, intervju og vurdering av kandidater ved nyansettelser.";
-    }
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const update = () => setWidth(element.clientWidth || fallback);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [fallback]);
 
-    return "Kundebehandler hverdagen er en hektisk stilling, hvor jeg lærte å skape gode kundeopplevelser, utføre behovsanalyser, jobbe under press og koordinere mellom flere ledd i en organisasjon.";
-  }
-
-  if (marker.companyKey === "wurth") {
-    return "Her jobbet jeg i et nyetablert team: SK1. Konseptet var nytt i Würth, og vi var en liten avdeling med ansvar for en enorm kundeportefølje av bedriftskontoer vi skulle ivareta. Det ga meg erfaring innenfor relasjonsbygging og B2B salg.";
-  }
-
-  if (marker.companyKey === "kristiania") {
-    return "Front- og backend, DSA, C Programmering i Linux, databaser og mobilutvikling.";
-  }
-
-  if (marker.companyKey === "ihlang") {
-    return "Singling, perimetersikring og kontrollerte sprengninger av berg";
-  }
-
-  return "En erfaring som bidrar til helheten i profilen min.";
+  return [ref, width] as const;
 };
 
-const ExperienceDetailBody: FC<{ marker: TimelineMarker }> = ({ marker }) => (
-  <>
-    <p className={timelineStyles.detailPanelBody}>
-      {getExperienceNote(marker)}
-    </p>
-    {marker.companyKey === "kristiania" && (
-      <a
-        href={KRISTIANIA_PROGRAM_URL}
-        target="_blank"
-        rel="noreferrer"
-        className={timelineStyles.detailPanelInlineLink}
-      >
-        Se programbeskrivelse
-      </a>
-    )}
-  </>
+const ExternalIcon = () => (
+  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <path
+      d="M6 3h7v7M13 3 4 12"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
 );
 
-const LogoContent: FC<{ marker: TimelineMarker; size: number }> = ({
-  marker,
-  size,
-}) => {
-  const meta = companyMeta[marker.companyKey];
-  const logoImageClass = "max-h-[62%] max-w-[72%] object-contain";
-
-  if (meta.logoSrc) {
-    return (
-      <img
-        src={meta.logoSrc}
-        alt={meta.logoAlt ?? marker.tenure.companyName}
-        className={`logo-mono ${
-          marker.companyKey === "kristiania"
-            ? "max-h-[68%] max-w-[68%] object-contain"
-            : marker.companyKey === "ihlang"
-              ? "max-h-[76%] max-w-[76%] object-contain"
-              : logoImageClass
-        }`}
-      />
-    );
-  }
-
-  return (
-    <span
-      className="max-w-[72%] text-center font-black uppercase leading-none text-ink"
-      style={{ fontSize: Math.max(12, size * 0.12) }}
-    >
-      {marker.tenure.companyName}
-    </span>
-  );
-};
-
-const TimelineText: FC<{ marker: TimelineMarker }> = ({ marker }) => {
-  const style: CSSProperties = {
-    top: `${marker.top + marker.size / 2}px`,
-    [marker.textSide === "left" ? "right" : "left"]:
-      "calc(var(--timeline-x) + 18px)",
-  };
-
-  return (
-    <div
-      className={`${timelineStyles.textWrapper} ${
-        marker.textSide === "left"
-          ? "origin-right text-right"
-          : "origin-left text-left"
-      }`}
-      style={style}
-    >
-      <p className={timelineStyles.companyText}>{marker.tenure.companyName}</p>
-      <p className={timelineStyles.detailText}>{marker.tenure.workTitle}</p>
-      <p className={timelineStyles.detailText}>{marker.durationLabel}</p>
+const DetailPanel: FC<{ period: TimelinePeriod }> = ({ period }) => (
+  <div className={s.panel} id="timeline-detail" aria-live="polite">
+    <div>
+      <p className={s.panelDates}>{period.dateRangeLabel}</p>
+      <h3 className={s.panelCompany}>{period.company}</h3>
+      <p className={s.panelRole}>{period.role}</p>
+      <dl className={s.panelFacts}>
+        <dt className={s.panelFactLabel}>Varighet</dt>
+        <dd className={s.panelFactValue}>{period.durationLabel}</dd>
+      </dl>
     </div>
-  );
-};
-
-const TimelineBubbleLink: FC<{
-  marker: TimelineMarker;
-  className: string;
-  style: CSSProperties;
-  onActivate?: () => void;
-  children: ReactNode;
-}> = ({ marker, className, style, onActivate, children }) => {
-  const markerUrl = companyMeta[marker.companyKey].url;
-
-  if (!markerUrl) {
-    return (
-      <div
-        className={className}
-        style={style}
-        onMouseEnter={onActivate}
-        onFocus={onActivate}
-      >
-        {children}
+    <div>
+      {period.description && <p className={s.panelBody}>{period.description}</p>}
+      <div className={s.panelActions}>
+        {period.url && (
+          <a
+            href={period.url}
+            target="_blank"
+            rel="noreferrer"
+            className={`${buttonStyles.base} ${buttonStyles.outline} ${buttonStyles.small}`}
+          >
+            Besøk nettside <ExternalIcon />
+          </a>
+        )}
+        {period.companyKey === "kristiania" && (
+          <a
+            href={KRISTIANIA_PROGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className={s.panelLink}
+          >
+            Se programbeskrivelse
+          </a>
+        )}
       </div>
-    );
-  }
-
-  return (
-    <a
-      href={markerUrl}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={`Besok ${marker.tenure.companyName}`}
-      className={className}
-      style={style}
-      onMouseEnter={onActivate}
-      onFocus={onActivate}
-    >
-      {children}
-    </a>
-  );
-};
-
-const TimelineCircle: FC<{
-  marker: TimelineMarker;
-  isActive: boolean;
-  onActivate: () => void;
-}> = ({ marker, isActive, onActivate }) => {
-  const circleLeft =
-    marker.textSide === "left"
-      ? `calc(var(--timeline-x) + ${marker.companyKey === "power" ? 34 : 28}px)`
-      : `calc(var(--timeline-x) - ${marker.size + 26}px)`;
-
-  return (
-    <TimelineBubbleLink
-      marker={marker}
-      className={`${timelineStyles.bubbleBase} ${timelineStyles.bubbleDesktop} ${
-        isActive ? timelineStyles.bubbleActive : ""
-      }`}
-      onActivate={onActivate}
-      style={{
-        top: `${marker.top}px`,
-        left: circleLeft,
-        width: `${marker.size}px`,
-        height: `${marker.size}px`,
-        opacity: 0.58,
-      }}
-    >
-      <LogoContent marker={marker} size={marker.size} />
-    </TimelineBubbleLink>
-  );
-};
-
-const TimelineDesktopItem: FC<{
-  marker: TimelineMarker;
-  isActive: boolean;
-  onActivate: () => void;
-}> = ({ marker, isActive, onActivate }) => (
-  <div className="pointer-events-none absolute inset-0">
-    <TimelineCircle
-      marker={marker}
-      isActive={isActive}
-      onActivate={onActivate}
-    />
-    <TimelineText marker={marker} />
+    </div>
   </div>
 );
 
-const ExperienceDetailPanel: FC<{ marker?: TimelineMarker }> = ({ marker }) => {
-  if (!marker) {
-    return (
-      <aside className={timelineStyles.detailPanel}>
-        <p className={timelineStyles.detailPanelHint}>
-          Hold over et punkt i tidslinjen for å se mer.
-        </p>
-      </aside>
-    );
-  }
-
-  const meta = companyMeta[marker.companyKey];
-
-  return (
-    <aside className={timelineStyles.detailPanel}>
-      <p className={timelineStyles.detailPanelEyebrow}>
-        {marker.tenure.startDate} - {marker.tenure.endDate}
-      </p>
-      <h2 className={timelineStyles.detailPanelTitle}>
-        {marker.tenure.companyName}
-      </h2>
-      <p className={timelineStyles.detailPanelRole}>
-        {marker.tenure.workTitle}
-      </p>
-      <p className={timelineStyles.detailPanelDuration}>
-        Varighet: {marker.durationLabel}
-      </p>
-      <ExperienceDetailBody marker={marker} />
-      {meta.url && (
-        <a
-          href={meta.url}
-          target="_blank"
-          rel="noreferrer"
-          className={timelineStyles.detailPanelLink}
-        >
-          Besøk nettside
-        </a>
-      )}
-    </aside>
-  );
-};
-
-const ContactBubble: FC<{ top: number }> = ({ top }) => {
-  return (
-    <Link
-      to="/kontakt"
-      className={`${timelineStyles.contactDesktop} ${timelineStyles.contactBubble}`}
-      style={{
-        top: `${top}px`,
-        left: `calc(var(--timeline-x) - ${CONTACT_BUBBLE_SIZE / 2}px)`,
-        width: `${CONTACT_BUBBLE_SIZE}px`,
-        height: `${CONTACT_BUBBLE_SIZE}px`,
-      }}
-    >
-      <span className="whitespace-nowrap text-sm font-[300] leading-tight text-muted">
-        Kanskje du er
-        <br />
-        min neste arbeidsplass?
-      </span>
-    </Link>
-  );
-};
-
-const MobileTimelineBubble: FC<{
-  marker: TimelineMarker;
-  mobileSize: number;
-}> = ({ marker, mobileSize }) => {
-  return (
-    <TimelineBubbleLink
-      marker={marker}
-      className={`${timelineStyles.bubbleBase} ${timelineStyles.bubbleMobile}`}
-      style={{
-        width: `${mobileSize}px`,
-        height: `${mobileSize}px`,
-        opacity: 0.58,
-      }}
-    >
-      <LogoContent marker={marker} size={mobileSize} />
-    </TimelineBubbleLink>
-  );
-};
-
-const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
+const CvTimeline: FC = () => {
   const { tenures, tenureIsLoading, initError } = useContext(
     TenureContext,
   ) as ITenureContext;
-  const markers = useMemo(() => buildMarkers(tenures), [tenures]);
-  const [activeMarkerId, setActiveMarkerId] = useState<number | null>(null);
-  const activeMarker =
-    markers.find((marker) => marker.tenure.id === activeMarkerId) ?? markers[0];
-  const contactTop =
-    markers.length > 0
-      ? Math.max(...markers.map((marker) => marker.top + marker.size)) + 88
-      : 220;
-  const timelineHeight = Math.max(
-    720,
-    ...markers.map((marker) => marker.top + marker.size + 96),
-    contactTop + CONTACT_BUBBLE_SIZE + 96,
-  );
-  const timelineLineTop = TIMELINE_START_DOT_TOP + TIMELINE_START_DOT_SIZE;
-  const timelineLineHeight =
-    contactTop + CONTACT_BUBBLE_SIZE / 2 - timelineLineTop;
+  const periods = useMemo(() => buildTimelinePeriods(tenures), [tenures]);
+  const [trackRef, width] = useElementWidth<HTMLDivElement>(1176);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const timeline = (
-    <div
-      className={timelineStyles.shell}
-      style={
-        {
-          "--timeline-x": "50%",
-          minHeight: `${timelineHeight}px`,
-        } as TimelineStyle
-      }
-    >
-      <div
-        className={`${timelineStyles.axisDot} ${timelineStyles.axisDesktop}`}
-        style={{
-          top: `${TIMELINE_START_DOT_TOP}px`,
-          left: `calc(var(--timeline-x) - ${TIMELINE_START_DOT_SIZE / 2}px)`,
-          width: `${TIMELINE_START_DOT_SIZE}px`,
-          height: `${TIMELINE_START_DOT_SIZE}px`,
-        }}
-      />
-      <div
-        className={`${timelineStyles.axisLine} ${timelineStyles.axisDesktop}`}
-        style={{
-          top: `${timelineLineTop}px`,
-          left: "var(--timeline-x)",
-          height: `${timelineLineHeight}px`,
-        }}
-      />
+  const selected =
+    periods.find((period) => period.id === selectedId) ??
+    periods.find((period) => period.role.toLowerCase() === DEFAULT_SELECTED_ROLE) ??
+    periods[0];
 
-      {tenureIsLoading && (
-        <p className={timelineStyles.loadingText}>Laster...</p>
-      )}
+  const placed = useMemo(() => {
+    const longest = Math.max(1, ...periods.map((period) => period.months));
+    const items = periods.map((period) => ({
+      key: String(period.id),
+      x: ((toFraction(period.start) + toFraction(period.end)) / 2) * width,
+      size: bubbleSize(period.months, longest),
+    }));
+    const lastEnd = Math.max(...periods.map((period) => toFraction(period.end)));
+    items.push({
+      key: "next",
+      x: Math.min(((lastEnd + 1) / 2) * width, width - NEXT_BUBBLE / 2),
+      size: NEXT_BUBBLE,
+    });
+    return new Map(placeLabels(items, width).map((item) => [item.key, item]));
+  }, [periods, width]);
 
-      {initError && (
-        <p className={`relative py-16 text-center ${pageStyles.errorText}`}>
-          {initError}
-        </p>
-      )}
+  if (tenureIsLoading) return <p className={s.status}>Laster …</p>;
+  if (initError) return <p className={s.status}>{initError}</p>;
+  if (!selected) return null;
 
-      {!tenureIsLoading && !initError && markers.length === 0 && (
-        <p className={timelineStyles.emptyText}>
-          Ingen erfaring er lagt inn enda.
-        </p>
-      )}
+  const todayX = toFraction(today) * width;
+  const next = placed.get("next")!;
 
-      <div className="hidden sm:block">
-        {markers.map((marker) => (
-          <TimelineDesktopItem
-            key={marker.tenure.id}
-            marker={marker}
-            isActive={activeMarker?.tenure.id === marker.tenure.id}
-            onActivate={() => setActiveMarkerId(marker.tenure.id)}
-          />
-        ))}
-        {!tenureIsLoading && !initError && markers.length > 0 && (
-          <ContactBubble top={contactTop} />
-        )}
-      </div>
-
-      <div className={timelineStyles.mobileList}>
-        <span className={timelineStyles.mobileAxisDot} aria-hidden="true" />
-        <span className={timelineStyles.mobileAxisLine} aria-hidden="true" />
-        {markers.map((marker) => {
-          const mobileSize = Math.min(marker.size, 104);
-          const bubbleSide =
-            marker.textSide === "left"
-              ? timelineStyles.mobileBubbleRight
-              : timelineStyles.mobileBubbleLeft;
-          const textSide =
-            marker.textSide === "left"
-              ? timelineStyles.mobileTextLeft
-              : timelineStyles.mobileTextRight;
-
-          return (
-            <div
-              key={`${marker.tenure.id}-mobile`}
-              className={timelineStyles.mobileItem}
-            >
-              <div className={bubbleSide}>
-                <MobileTimelineBubble marker={marker} mobileSize={mobileSize} />
-              </div>
-              <div className={textSide}>
-                <p className={timelineStyles.companyText}>
-                  {marker.tenure.companyName}
-                </p>
-                <p className={timelineStyles.mobileDetailText}>
-                  {marker.tenure.workTitle}
-                </p>
-                <p className={timelineStyles.mobileDetailText}>
-                  {marker.durationLabel}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-        {!tenureIsLoading && !initError && markers.length > 0 && (
-          <Link
-            to="/kontakt"
-            className={`${timelineStyles.contactMobile} ${timelineStyles.contactBubble}`}
-          >
-            <span className="block text-base font-[300] leading-tight text-muted">
-              Kanskje du er min neste arbeidsplass?
-            </span>
-            <span className="mt-1 block text-xl font-[400] leading-tight text-accent-text">
-              Ta Kontakt
-            </span>
-          </Link>
-        )}
-      </div>
-    </div>
-  );
-
-  if (!showDetailPanel) {
-    return timeline;
-  }
+  const selectOnHover = (id: number) => (event: PointerEvent) => {
+    if (event.pointerType === "mouse") setSelectedId(id);
+  };
 
   return (
-    <section className={timelineStyles.detailLayout}>
-      <div className={timelineStyles.detailTimelineColumn}>{timeline}</div>
-      <div className={timelineStyles.detailPanelColumn}>
-        <ExperienceDetailPanel marker={activeMarker} />
+    <div>
+      <div className={s.scroller}>
+        <div
+          ref={trackRef}
+          className={s.track}
+          style={{ height: TRACK_HEIGHT }}
+        >
+          {/* Axis line through the bubbles, and the ruler with year ticks. */}
+          <div className={s.axis} style={{ top: AXIS_Y }} aria-hidden="true" />
+          <div className={s.ruler} style={{ top: RULER_Y }} aria-hidden="true" />
+          {YEARS.map((year, index) => {
+            const x = (index / (YEARS.length - 1)) * width;
+            const align =
+              index === 0 ? "translate-x-0" : index === YEARS.length - 1 ? "-translate-x-full" : "-translate-x-1/2";
+            return (
+              <div key={year} aria-hidden="true">
+                <span className={s.tick} style={{ left: x, top: RULER_Y }} />
+                <span className={`${s.tickLabel} ${align}`} style={{ left: x, top: RULER_Y + 14 }}>
+                  {year}
+                </span>
+              </div>
+            );
+          })}
+
+          {/* "I dag" marker. */}
+          <div className={s.today} style={{ left: todayX, top: 0, height: RULER_Y }} aria-hidden="true">
+            <span className={s.todayLabel}>I dag</span>
+          </div>
+
+          {periods.map((period) => {
+            const item = placed.get(String(period.id))!;
+            const isSelected = period.id === selected.id;
+            const labelTop = LABEL_TOP + item.labelRow * LABEL_ROW_GAP;
+            return (
+              <div key={period.id}>
+                {/* Stem from the axis to the label. */}
+                <span
+                  className={`${s.stem} ${isSelected ? s.stemSelected : ""}`}
+                  style={{ left: item.x, top: AXIS_Y, height: labelTop - AXIS_Y - 6 }}
+                  aria-hidden="true"
+                />
+                {/* Period bar on the ruler, from real start to real end. */}
+                <span
+                  className={`${s.bar} ${isSelected ? s.barSelected : ""}`}
+                  style={{
+                    left: toFraction(period.start) * width,
+                    width: Math.max(4, (toFraction(period.end) - toFraction(period.start)) * width),
+                    top: RULER_Y - 3,
+                  }}
+                  aria-hidden="true"
+                />
+                <button
+                  type="button"
+                  className={`${s.bubble} ${isSelected ? s.bubbleSelected : s.bubbleIdle}`}
+                  style={{
+                    left: item.x - item.size / 2,
+                    top: AXIS_Y - item.size / 2,
+                    width: item.size,
+                    height: item.size,
+                  }}
+                  aria-label={`${period.company}, ${period.role}, ${period.durationLabel}`}
+                  aria-pressed={isSelected}
+                  aria-controls="timeline-detail"
+                  onClick={() => setSelectedId(period.id)}
+                  onPointerEnter={selectOnHover(period.id)}
+                >
+                  {period.logoSrc ? (
+                    <img
+                      src={period.logoSrc}
+                      alt=""
+                      className={`${s.logo} ${isSelected ? "logo-mono-on-accent" : "logo-mono"}`}
+                    />
+                  ) : (
+                    <span className={s.logoFallback}>{period.company}</span>
+                  )}
+                </button>
+                <div
+                  className={`${s.label} ${item.labelAlign}`}
+                  style={{ left: item.labelLeft, top: labelTop, width: LABEL_WIDTH }}
+                  aria-hidden="true"
+                >
+                  <span className={`${s.labelCompany} ${isSelected ? s.labelSelected : ""}`}>
+                    {period.company}
+                  </span>
+                  <span className={`${s.labelRole} ${isSelected ? s.labelSelected : ""}`}>
+                    {period.role}
+                  </span>
+                  <span className={`${s.labelDuration} ${isSelected ? s.labelSelected : ""}`}>
+                    {period.durationLabel}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* The next workplace: links to the contact block. */}
+          <span
+            className={s.stem}
+            style={{
+              left: next.x,
+              top: AXIS_Y,
+              height: LABEL_TOP + next.labelRow * LABEL_ROW_GAP - AXIS_Y - 6,
+            }}
+            aria-hidden="true"
+          />
+          <Link
+            to={{ hash: "#kontakt" }}
+            className={s.nextBubble}
+            style={{
+              left: next.x - next.size / 2,
+              top: AXIS_Y - next.size / 2,
+              width: next.size,
+              height: next.size,
+            }}
+            aria-label="Deg? Neste arbeidsplass – ta kontakt"
+          >
+            ?
+          </Link>
+          <div
+            className={`${s.label} ${next.labelAlign}`}
+            style={{
+              left: next.labelLeft,
+              top: LABEL_TOP + next.labelRow * LABEL_ROW_GAP,
+              width: LABEL_WIDTH,
+            }}
+            aria-hidden="true"
+          >
+            <span className={s.labelCompany}>Deg?</span>
+            <span className={s.labelRole}>Neste arbeidsplass</span>
+          </div>
+        </div>
       </div>
-    </section>
+
+      <DetailPanel period={selected} />
+    </div>
   );
 };
 
