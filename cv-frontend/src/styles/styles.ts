@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react";
-
 export type CompanyKey =
   | "ihlang"
   | "power"
@@ -10,145 +8,90 @@ export type CompanyKey =
 export const companyMeta: Record<
   CompanyKey,
   {
-    color: string;
     logoSrc?: string;
     logoAlt?: string;
     url?: string;
   }
 > = {
   power: {
-    color: "#D46A2C",
     logoSrc: "/images/Power_logo.png",
     logoAlt: "POWER",
     url: "https://www.power.no/",
   },
   wurth: {
-    color: "#FFFFFF",
     logoSrc: "/images/wuerth-logo.svg",
     logoAlt: "Würth",
     url: "https://www.wuerth.no/no/forside.php",
   },
   kristiania: {
-    color: "#FFFFFF",
     logoSrc: "/images/kristiania_logo.png",
     logoAlt: "Kristiania",
     url: "https://www.kristiania.no/",
   },
   ihlang: {
-    color: "#242426",
     logoSrc: "/images/fjellsprengern.png",
     logoAlt: "Fjellsprengern Leif Ihlang AS",
     url: "https://www.fjellsprengern.no/",
   },
-  default: {
-    color: "#d9d4c8",
-  },
+  default: {},
 };
 
-export const colorPalette = {
-  surface: "#080808",
-  text: "#d9d4c8",
-  accent: "#E3CD9F",
-  panel: "#c3c5c4",
-  inverseText: "#111111",
-  pureWhite: "#ffffff",
-  pureBlack: "#000000",
-  error: "#ef4444",
-} as const;
-
-export const colorVariables = {
-  "--site-surface": colorPalette.surface,
-  "--site-text": colorPalette.text,
-  "--site-text-90": "rgba(217,212,200,0.9)",
-  "--site-text-88": "rgba(217,212,200,0.88)",
-  "--site-text-85": "rgba(217,212,200,0.85)",
-  "--site-text-80": "rgba(217,212,200,0.8)",
-  "--site-text-75": "rgba(217,212,200,0.75)",
-  "--site-text-70": "rgba(217,212,200,0.7)",
-  "--site-text-68": "rgba(217,212,200,0.68)",
-  "--site-text-65": "rgba(217,212,200,0.65)",
-  "--site-text-60": "rgba(217,212,200,0.6)",
-  "--site-text-55": "rgba(217,212,200,0.55)",
-  "--site-text-35": "rgba(217,212,200,0.35)",
-  "--site-accent": colorPalette.accent,
-  "--site-accent-90": "rgba(227,205,159,0.9)",
-  "--site-accent-75": "rgba(227,205,159,0.75)",
-  "--site-accent-70": "rgba(227,205,159,0.7)",
-  "--site-accent-55": "rgba(227,205,159,0.55)",
-  "--site-accent-30": "rgba(227,205,159,0.3)",
-  "--site-accent-25": "rgba(227,205,159,0.25)",
-  "--site-accent-20": "rgba(227,205,159,0.2)",
-  "--site-accent-18": "rgba(227,205,159,0.18)",
-  "--site-accent-16": "rgba(227,205,159,0.16)",
-  "--site-accent-10": "rgba(227,205,159,0.1)",
-  "--site-panel-26": "rgba(195,197,196,0.26)",
-  "--site-panel-18": "rgba(195,197,196,0.18)",
-  "--site-panel-14": "rgba(195,197,196,0.14)",
-  "--site-surface-95": "rgba(8,8,8,0.95)",
-  "--site-surface-35": "rgba(8,8,8,0.35)",
-  "--site-inverse": colorPalette.inverseText,
-  "--site-white": colorPalette.pureWhite,
-  "--site-white-80": "rgba(255,255,255,0.8)",
-  "--site-white-75": "rgba(255,255,255,0.75)",
-  "--site-white-65": "rgba(255,255,255,0.65)",
-  "--site-white-30": "rgba(255,255,255,0.3)",
-  "--site-white-15": "rgba(255,255,255,0.15)",
-  "--site-white-10": "rgba(255,255,255,0.1)",
-  "--site-white-04": "rgba(255,255,255,0.04)",
-  "--site-black": colorPalette.pureBlack,
-  "--site-black-75": "rgba(0,0,0,0.75)",
-  "--site-black-60": "rgba(0,0,0,0.6)",
-  "--site-black-45": "rgba(0,0,0,0.45)",
-  "--site-black-35": "rgba(0,0,0,0.35)",
-  "--site-black-30": "rgba(0,0,0,0.3)",
-  "--site-black-25": "rgba(0,0,0,0.25)",
-  "--site-error": colorPalette.error,
-  "--site-page-gradient":
-    "radial-gradient(ellipse 135% 105% at 0% 0%,rgba(255,255,255,0.11) 0%,rgba(255,255,255,0.08) 22%,rgba(255,255,255,0.045) 42%,rgba(255,255,255,0.018) 62%,rgba(255,255,255,0) 82%),linear-gradient(135deg,rgba(255,255,255,0.045) 0%,rgba(255,255,255,0.018) 34%,rgba(255,255,255,0) 72%)",
-} as CSSProperties;
-
+/*
+ * Colour classes mapped onto the theme tokens in src/index.css.
+ * Interim mapping for step 1 of the redesign; later steps replace the
+ * per-component styles below with the new layouts.
+ */
 const siteColorClasses = {
-  surfaceBg: "bg-[var(--site-surface)]",
-  surfaceBg35: "bg-[var(--site-surface-35)]",
-  surfaceBg95: "bg-[var(--site-surface-95)]",
-  text: "text-[var(--site-text)]",
-  text90: "text-[var(--site-text-90)]",
-  text88: "text-[var(--site-text-88)]",
-  text85: "text-[var(--site-text-85)]",
-  text80: "text-[var(--site-text-80)]",
-  text75: "text-[var(--site-text-75)]",
-  text70: "text-[var(--site-text-70)]",
-  text68: "text-[var(--site-text-68)]",
-  text65: "text-[var(--site-text-65)]",
-  text60: "text-[var(--site-text-60)]",
-  text55: "text-[var(--site-text-55)]",
-  textBorder35: "border-[var(--site-text-35)]",
-  accentText: "text-[var(--site-accent)]",
-  accentText70: "text-[var(--site-accent-70)]",
-  accentBg: "bg-[var(--site-accent)]",
-  accentBg18: "bg-[var(--site-accent-18)]",
-  accentBg10: "bg-[var(--site-accent-10)]",
-  accentBorder90: "border-[var(--site-accent-90)]",
-  accentBorder70: "border-[var(--site-accent-70)]",
-  accentBorder55: "border-[var(--site-accent-55)]",
-  accentBorder25: "border-[var(--site-accent-25)]",
-  accentBorder20: "border-[var(--site-accent-20)]",
-  panelBg18: "bg-[var(--site-panel-18)]",
-  panelBg14: "bg-[var(--site-panel-14)]",
-  inverseText: "text-[var(--site-inverse)]",
-  whiteText: "text-[var(--site-white)]",
-  whiteText80: "text-[var(--site-white-80)]",
-  whiteText75: "text-[var(--site-white-75)]",
-  whiteText65: "text-[var(--site-white-65)]",
-  whiteBorder15: "border-[var(--site-white-15)]",
-  whiteBg04: "bg-[var(--site-white-04)]",
-  whiteBg: "bg-[var(--site-white)]",
-  blackBg75: "bg-[var(--site-black-75)]",
-  blackBg25: "bg-[var(--site-black-25)]",
-  errorText: "text-[var(--site-error)]",
-  shadow35: "shadow-[var(--site-black-35)]",
-  shadow60: "shadow-[var(--site-black-60)]",
-  shadow30: "shadow-[var(--site-black-30)]",
+  surfaceBg: "bg-bg",
+  surfaceBg35: "bg-surface",
+  surfaceBg95: "bg-surface",
+  text: "text-ink",
+  text90: "text-ink",
+  text88: "text-ink",
+  text85: "text-ink",
+  text80: "text-ink",
+  text75: "text-muted",
+  text70: "text-muted",
+  text68: "text-muted",
+  text65: "text-muted",
+  text60: "text-muted",
+  text55: "text-muted",
+  textBorder35: "border-line-strong",
+  accentText: "text-accent-text",
+  accentText70: "text-accent-text",
+  accentBg: "bg-accent",
+  accentBg18: "bg-accent",
+  accentBg10: "bg-surface",
+  accentBorder90: "border-accent",
+  accentBorder70: "border-line-strong",
+  accentBorder55: "border-accent-text",
+  accentBorder25: "border-line-strong",
+  accentBorder20: "border-line",
+  panelBg18: "bg-surface border border-line",
+  panelBg14: "bg-surface border border-line",
+  inverseText: "text-accent-ink",
+  whiteText: "text-ink",
+  whiteText80: "text-ink",
+  whiteText75: "text-ink",
+  whiteText65: "text-muted",
+  whiteBorder15: "border-line",
+  whiteBg04: "bg-surface",
+  whiteBg: "bg-white",
+  blackBg75: "bg-black/60",
+  blackBg25: "bg-surface",
+  errorText: "text-accent-text",
+  shadow35: "",
+  shadow60: "",
+  shadow30: "",
+};
+
+export const themeToggleStyles = {
+  group:
+    "inline-flex items-center rounded-card border border-line-strong p-0.5 text-sm",
+  option:
+    "cursor-pointer rounded-[8px] px-3 py-1 font-medium leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  optionActive: "bg-ink text-bg",
+  optionIdle: "text-muted hover:text-ink",
 };
 
 export const pageStyles = {
@@ -157,11 +100,7 @@ export const pageStyles = {
 };
 
 export const inlineTextStyles = {
-  link: `text-[#E3CD9F] underline decoration-[#E3CD9F]/35 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60`,
-};
-
-export const fadeStyles = {
-  pageShell: "[background-image:var(--site-page-gradient)]",
+  link: `text-accent-text underline underline-offset-4 transition-colors hover:text-ink`,
 };
 
 export const standardPaletteClasses = {
@@ -178,17 +117,17 @@ export const headerStyles = {
     "relative z-10 mx-auto grid min-h-[460px] w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:h-full sm:grid-cols-[1fr_520px]",
   heroText: "pt-[72px] pb-16 sm:pt-[80px] sm:pb-0",
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
-  pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  quote: `mt-14 max-w-3xl pb-0 text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:pb-24 sm:text-2xl [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
-  nav: `fixed inset-x-0 top-0 z-50 bg-[#060606] shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
+  pageTitle: `mt-2 text-5xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
+  quote: `mt-14 max-w-3xl pb-0 text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:pb-24 sm:text-2xl [&_span]:font-[600] [&_span]:text-ink`,
+  nav: `fixed inset-x-0 top-0 z-50 bg-bg border-b border-line ${siteColorClasses.shadow30} backdrop-blur-md`,
   navInner:
-    "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-6 px-5",
+    "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-2 px-4 sm:gap-6 sm:px-5",
   navSpacer: "h-[72px]",
-  navList: `flex items-center justify-start gap-5 py-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
+  navList: `flex items-center justify-start gap-1 py-5 sm:gap-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
   navAction: "flex items-center justify-end py-5",
-  navLinkBase: `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-[var(--site-white)]`,
-  navLinkActive: `${siteColorClasses.accentBg} font-[600] !text-[var(--site-inverse)] hover:!text-[var(--site-inverse)]`,
-  navButton: `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-[var(--site-text)] hover:text-[var(--site-surface)]`,
+  navLinkBase: `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-ink`,
+  navLinkActive: `${siteColorClasses.accentBg} font-[600] !text-accent-ink hover:!text-accent-ink`,
+  navButton: `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-ink hover:text-bg`,
 };
 
 export const footerStyles = {
@@ -197,7 +136,7 @@ export const footerStyles = {
 };
 
 export const appStyles = {
-  shell: `relative min-h-screen overflow-x-clip ${siteColorClasses.surfaceBg} ${siteColorClasses.text} ${fadeStyles.pageShell}`,
+  shell: `relative min-h-screen overflow-x-clip ${siteColorClasses.surfaceBg} ${siteColorClasses.text}`,
   overlay: "relative flex min-h-screen flex-col",
   routeArea: "flex-1",
   contentBackground: "bg-transparent",
@@ -213,7 +152,7 @@ export const skillStyles = {
   tagBase:
     "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
   tagSelected: `${siteColorClasses.accentBorder90} ${siteColorClasses.accentBg18} ${siteColorClasses.accentText}`,
-  tagUnselected: `${siteColorClasses.textBorder35} bg-transparent ${siteColorClasses.text70} hover:border-[var(--site-accent-75)] hover:bg-[var(--site-accent-16)] hover:text-[var(--site-text)]`,
+  tagUnselected: `${siteColorClasses.textBorder35} bg-transparent ${siteColorClasses.text70} hover:border-ink hover:text-ink`,
   groupTitle: `mb-4 text-lg font-[600] ${siteColorClasses.text}`,
   descriptionPanel: "min-h-[660px]",
   descriptionContent: `border-t ${siteColorClasses.accentBorder55} px-0 pt-2`,
@@ -225,44 +164,44 @@ export const skillStyles = {
 };
 
 export const glassStyles = {
-  panel: `${siteColorClasses.panelBg14} shadow-2xl ${siteColorClasses.shadow35}`,
-  softPanel: `${siteColorClasses.surfaceBg35} shadow-xl ${siteColorClasses.shadow30}`,
-  title: `break-words text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
+  panel: `${siteColorClasses.panelBg14} ${siteColorClasses.shadow35}`,
+  softPanel: `${siteColorClasses.surfaceBg35} ${siteColorClasses.shadow30}`,
+  title: `break-words text-5xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
 };
 
 export const timelineStyles = {
   shell: "relative w-full bg-transparent",
   axisDot:
-    "absolute rounded-full border border-white/30 bg-white/35 shadow-lg shadow-black/20",
-  axisLine: "absolute w-px bg-white/25",
+    "absolute rounded-full border border-line-strong bg-line-strong",
+  axisLine: "absolute w-px bg-line-strong",
   axisDesktop: "hidden sm:block",
   bubbleBase:
-    "relative grid shrink-0 place-items-center rounded-full transition-transform duration-300",
+    "relative grid shrink-0 place-items-center rounded-full border border-line-strong bg-surface transition-transform duration-300",
   bubbleDesktop:
-    "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-black/40",
+    "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 ",
   bubbleActive:
-    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#E3CD9F]/55",
+    "-translate-y-2 scale-110 ring-2 ring-accent",
   bubbleMobile: "hover:-translate-y-1 hover:scale-105",
   textWrapper:
     "absolute w-[190px] -translate-y-1/2 transition-transform duration-300 peer-hover:scale-125",
-  companyText: "text-base font-extralight leading-tight text-white/90",
-  detailText: "text-base font-extralight leading-tight text-white/55",
-  mobileDetailText: "text-base font-extralight leading-tight text-white/60",
+  companyText: "text-base font-extralight leading-tight text-ink",
+  detailText: "text-base font-extralight leading-tight text-muted",
+  mobileDetailText: "text-base font-extralight leading-tight text-muted",
   mobileList: "relative space-y-12 px-2 py-12 min-[380px]:px-4 sm:hidden",
   mobileAxisDot:
-    "absolute top-14 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-white/30 bg-white/35 shadow-lg shadow-black/20",
+    "absolute top-14 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-line-strong bg-line-strong",
   mobileAxisLine:
-    "absolute top-[70px] bottom-[18rem] left-1/2 w-px -translate-x-1/2 bg-white/25",
+    "absolute top-[70px] bottom-[18rem] left-1/2 w-px -translate-x-1/2 bg-line-strong",
   mobileItem:
     "relative z-10 grid grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] items-center gap-x-3 min-[380px]:gap-x-5",
   mobileBubbleLeft: "col-start-1 justify-self-end",
   mobileBubbleRight: "col-start-3 justify-self-start",
   mobileTextLeft: "col-start-1 row-start-1 pr-1 text-right",
   mobileTextRight: "col-start-3 row-start-1 pl-1 text-left",
-  loadingText: "relative py-16 text-center text-white/65",
-  emptyText: "relative py-16 text-center text-white/65",
+  loadingText: "relative py-16 text-center text-muted",
+  emptyText: "relative py-16 text-center text-muted",
   contactBubble:
-    "rounded-full bg-[#050505]/72 text-center text-white transition-transform duration-300 hover:-translate-y-2 hover:scale-105 hover:bg-[#111111]/82 hover:shadow-2xl hover:shadow-black/40",
+    "rounded-full border border-dashed border-line-strong bg-transparent text-center text-ink transition-transform duration-300 hover:-translate-y-2 hover:scale-105 hover:border-accent-text ",
   contactDesktop: "absolute flex flex-col items-center justify-center px-12",
   contactMobile:
     "mx-auto flex h-56 w-56 flex-col items-center justify-center px-10",
@@ -271,53 +210,53 @@ export const timelineStyles = {
   detailTimelineColumn: "min-w-0",
   detailPanelColumn: "hidden min-w-0 lg:flex lg:items-start lg:self-stretch",
   detailPanel:
-    "rounded-md bg-transparent px-7 py-8 shadow-none backdrop-blur-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:max-w-[440px] lg:overflow-y-auto",
-  detailPanelHint: "text-xl font-extralight leading-relaxed text-[#d9d4c8]/65",
+    "rounded-md bg-transparent px-7 py-8 backdrop-blur-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:max-w-[440px] lg:overflow-y-auto",
+  detailPanelHint: "text-xl font-extralight leading-relaxed text-muted",
   detailPanelEyebrow:
-    "text-base font-extralight uppercase tracking-[0.18em] text-[#d9d4c8]/55",
+    "text-base font-extralight uppercase tracking-[0.18em] text-muted",
   detailPanelTitle:
-    "mt-4 text-5xl font-[400] leading-none text-[#E3CD9F] sm:text-6xl",
-  detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-white/88",
-  detailPanelDuration: "mt-3 text-lg font-extralight text-[#d9d4c8]/60",
+    "mt-4 font-display text-5xl font-semibold tracking-[-0.045em] leading-none text-accent-text sm:text-6xl",
+  detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-ink",
+  detailPanelDuration: "mt-3 text-lg font-extralight text-muted",
   detailPanelBody:
-    "mt-8 text-xl font-extralight leading-relaxed text-[#d9d4c8]/72",
+    "mt-8 text-xl font-extralight leading-relaxed text-muted",
   detailPanelInlineLink:
-    "mt-5 inline-flex max-w-full break-words text-lg font-[300] leading-relaxed text-[#E3CD9F] underline decoration-[#E3CD9F]/35 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60",
+    "mt-5 inline-flex max-w-full break-words text-lg font-[300] leading-relaxed text-accent-text underline underline-offset-4 transition-colors hover:text-ink",
   detailPanelLink:
-    "mt-9 inline-flex border border-[#E3CD9F]/30 px-5 py-3 text-lg font-[300] text-[#E3CD9F] no-underline transition-colors hover:border-[#E3CD9F]/70 hover:bg-[#E3CD9F]/10 hover:text-white",
+    "mt-9 inline-flex border border-line-strong px-5 py-3 text-lg font-[300] text-accent-text no-underline transition-colors hover:border-ink hover:text-ink",
 };
 
 export const showcaseStyles = {
-  card: `group relative cursor-pointer overflow-hidden rounded-md ${siteColorClasses.panelBg18} p-3 shadow-2xl ${siteColorClasses.shadow35} transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--site-panel-26)] hover:shadow-[var(--site-black-45)]`,
+  card: `group relative cursor-pointer overflow-hidden rounded-md ${siteColorClasses.panelBg18} p-3 ${siteColorClasses.shadow35} transition-all duration-300 hover:-translate-y-1 hover:border-line-strong`,
   cardImageFrame: "overflow-hidden rounded-[4px]",
   cardImage:
     "h-[280px] w-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100",
   cardTitle: `px-1 pt-4 pb-1 text-left text-3xl font-extralight leading-tight ${siteColorClasses.whiteText}`,
-  detailImageContained: `max-h-[720px] w-full max-w-full object-contain opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
+  detailImageContained: `max-h-[720px] w-full max-w-full object-contain opacity-90 ${siteColorClasses.shadow30}`,
   carouselButtonBase:
-    "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center shadow-lg backdrop-blur-md transition-colors",
-  carouselButton: `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:bg-[var(--site-white-10)] hover:text-[var(--site-white)]`,
+    "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center backdrop-blur-md transition-colors",
+  carouselButton: `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:text-accent-text`,
   description: `break-words text-lg font-extralight leading-relaxed ${siteColorClasses.whiteText65} sm:text-xl`,
   detailTextStack: "mt-10 max-w-4xl space-y-8 break-words",
   detailTextSection: "space-y-3",
   detailTextTitle: `break-words text-2xl font-[500] leading-tight ${siteColorClasses.accentText} sm:text-3xl`,
-  detailGradeA: "text-[#22e66f]",
-  detailGradeB: "text-[#7bd65f]",
-  githubLink: `mt-8 inline-flex max-w-full items-center gap-3 break-words border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
-  link: `${siteColorClasses.whiteText80} hover:text-[var(--site-white)]`,
+  detailGradeA: "text-accent-text",
+  detailGradeB: "text-accent-text",
+  githubLink: `mt-8 inline-flex max-w-full items-center gap-3 break-words border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline transition-all hover:border-line-strong`,
+  link: `${siteColorClasses.whiteText80} hover:text-ink`,
 };
 
 export const portfolioStyles = {
   section: "mb-24 px-5 py-16",
   categoryStack: "space-y-20",
-  categoryTitle: `mb-7 text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-5xl`,
+  categoryTitle: `mb-7 text-4xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-5xl`,
   grid: "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3",
 };
 
 export const cvModalStyles = {
   backdrop: `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-3 backdrop-blur-sm`,
-  panel: `relative max-h-[88vh] w-full max-w-[1760px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
-  closeButton: `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-[var(--site-accent)] hover:text-[var(--site-surface)]`,
+  panel: `relative max-h-[88vh] w-full max-w-[1760px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 ${siteColorClasses.shadow60} sm:p-6`,
+  closeButton: `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-accent hover:text-accent-ink`,
   contentGrid:
     "grid max-h-[calc(88vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(560px,1.2fr)_minmax(420px,0.8fr)] lg:pt-0",
   frame: `h-[74vh] min-h-[460px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(88vh-3rem)] lg:min-h-0`,
@@ -329,13 +268,13 @@ export const contactStyles = {
     "mb-20 min-h-[68vh] pt-32 pb-24 sm:mb-28 sm:min-h-[74vh] sm:pt-48 sm:pb-32",
   cardGrid:
     "mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8",
-  card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center shadow-2xl ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,
+  card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,
   action:
     "inline-flex max-w-full cursor-pointer items-center justify-center break-all px-4 py-3 text-base font-extralight no-underline transition-all duration-300 sm:px-6 sm:py-4 sm:text-xl",
   title: `text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
   body: `text-base font-extralight leading-relaxed ${siteColorClasses.text70} sm:text-xl`,
   iconEnvelope: `fas fa-envelope text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
   iconGithub: `fab fa-github text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
-  button: `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-[var(--site-accent-55)] hover:bg-[var(--site-accent-10)] hover:text-[var(--site-white)]`,
+  button: `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-ink hover:text-ink`,
   copiedText: `min-h-[1.75rem] text-base font-extralight transition-opacity duration-200 ${siteColorClasses.text65} sm:text-lg`,
 };

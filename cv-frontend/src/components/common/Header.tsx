@@ -1,6 +1,7 @@
 import { useState, type FC, type MouseEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import CvModal from "../CvModal";
+import ThemeToggle from "./ThemeToggle";
 import { headerStyles } from "../../styles/styles";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -64,7 +65,8 @@ const Header: FC = () => {
             </li>
           </ul>
 
-          <div className={headerStyles.navAction}>
+          <div className={`${headerStyles.navAction} gap-3`}>
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => setIsCvOpen(true)}

@@ -301,20 +301,20 @@ const LogoContent: FC<{ marker: TimelineMarker; size: number }> = ({
       <img
         src={meta.logoSrc}
         alt={meta.logoAlt ?? marker.tenure.companyName}
-        className={
+        className={`logo-mono ${
           marker.companyKey === "kristiania"
             ? "max-h-[68%] max-w-[68%] object-contain"
             : marker.companyKey === "ihlang"
               ? "max-h-[76%] max-w-[76%] object-contain"
               : logoImageClass
-        }
+        }`}
       />
     );
   }
 
   return (
     <span
-      className="max-w-[72%] text-center font-black uppercase leading-none text-black/75"
+      className="max-w-[72%] text-center font-black uppercase leading-none text-ink"
       style={{ fontSize: Math.max(12, size * 0.12) }}
     >
       {marker.tenure.companyName}
@@ -405,7 +405,6 @@ const TimelineCircle: FC<{
         left: circleLeft,
         width: `${marker.size}px`,
         height: `${marker.size}px`,
-        backgroundColor: companyMeta[marker.companyKey].color,
         opacity: 0.58,
       }}
     >
@@ -483,7 +482,7 @@ const ContactBubble: FC<{ top: number }> = ({ top }) => {
         height: `${CONTACT_BUBBLE_SIZE}px`,
       }}
     >
-      <span className="whitespace-nowrap text-sm font-[300] leading-tight text-white/70">
+      <span className="whitespace-nowrap text-sm font-[300] leading-tight text-muted">
         Kanskje du er
         <br />
         min neste arbeidsplass?
@@ -503,7 +502,6 @@ const MobileTimelineBubble: FC<{
       style={{
         width: `${mobileSize}px`,
         height: `${mobileSize}px`,
-        backgroundColor: companyMeta[marker.companyKey].color,
         opacity: 0.58,
       }}
     >
@@ -632,10 +630,10 @@ const CvTimeline: FC<CvTimelineProps> = ({ showDetailPanel = false }) => {
             to="/kontakt"
             className={`${timelineStyles.contactMobile} ${timelineStyles.contactBubble}`}
           >
-            <span className="block text-base font-[300] leading-tight text-white/70">
+            <span className="block text-base font-[300] leading-tight text-muted">
               Kanskje du er min neste arbeidsplass?
             </span>
-            <span className="mt-1 block text-xl font-[400] leading-tight text-[#E3CD9F]">
+            <span className="mt-1 block text-xl font-[400] leading-tight text-accent-text">
               Ta Kontakt
             </span>
           </Link>

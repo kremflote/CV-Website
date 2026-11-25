@@ -9,12 +9,12 @@ import {
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import ShowcasePage from "../pages/ShowcasePage";
-import { appStyles, colorVariables } from "../styles/styles";
+import { appStyles } from "../styles/styles";
 
 const AppRouting = () => {
   return (
     <BrowserRouter>
-      <div className={appStyles.shell} style={colorVariables}>
+      <div className={appStyles.shell}>
         <div className={appStyles.overlay}>
           <Header />
           <div className={appStyles.routeArea}>
