@@ -89,7 +89,7 @@ export const themeToggleStyles = {
   group:
     "inline-flex items-center rounded-card border border-line-strong p-0.5 text-sm",
   option:
-    "cursor-pointer rounded-[8px] px-3 py-1 font-medium leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+    "cursor-pointer rounded-[8px] px-2.5 py-1 sm:px-3 font-medium leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
   optionActive: "bg-ink text-bg",
   optionIdle: "text-muted hover:text-ink",
 };
@@ -109,41 +109,64 @@ export const standardPaletteClasses = {
   quietText: siteColorClasses.text55,
 };
 
+export const layoutStyles = {
+  /* Content container: max-width 1240px, 32px side padding (20px on phones). */
+  container: "mx-auto w-full max-w-[1240px] px-5 sm:px-8",
+  section: "border-t border-line py-16 sm:py-[88px]",
+};
+
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text";
+
+export const buttonStyles = {
+  base: `inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-card px-5 text-[15px] font-semibold leading-none no-underline transition-colors ${focusRing}`,
+  primary: "bg-accent text-accent-ink hover:bg-ink hover:text-bg",
+  outline: "border border-ink text-ink hover:bg-ink hover:text-bg",
+  small: "min-h-9 px-3.5 text-sm",
+};
+
 export const headerStyles = {
-  header: "relative",
-  hero:
-    "relative min-h-[460px] w-full overflow-visible bg-transparent px-5 sm:h-[460px] sm:overflow-hidden",
-  heroContent:
-    "relative z-10 mx-auto grid min-h-[460px] w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:h-full sm:grid-cols-[1fr_520px]",
-  heroText: "pt-[72px] pb-16 sm:pt-[80px] sm:pb-0",
+  // Hero styles are interim until the hero is rebuilt in step 3.
+  hero: "relative w-full px-5",
+  heroContent: "mx-auto w-full max-w-[1240px] sm:px-3",
+  heroText: "pt-16 pb-16 sm:pt-20",
   kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
   pageTitle: `mt-2 text-5xl font-display font-semibold tracking-[-0.045em] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  quote: `mt-14 max-w-3xl pb-0 text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:pb-24 sm:text-2xl [&_span]:font-[600] [&_span]:text-ink`,
-  nav: `fixed inset-x-0 top-0 z-50 bg-bg border-b border-line ${siteColorClasses.shadow30} backdrop-blur-md`,
+  quote: `mt-14 max-w-3xl text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:text-2xl [&_span]:font-[600] [&_span]:text-ink`,
+
+  nav: "sticky top-0 z-40 border-b border-line bg-bg",
   navInner:
-    "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-2 px-4 sm:gap-6 sm:px-5",
-  navSpacer: "h-[72px]",
-  navList: `flex items-center justify-start gap-1 py-5 sm:gap-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
-  navAction: "flex items-center justify-end py-5",
-  navLinkBase: `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-ink`,
-  navLinkActive: `${siteColorClasses.accentBg} font-[600] !text-accent-ink hover:!text-accent-ink`,
-  navButton: `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-ink hover:text-bg`,
+    "grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-0 pt-2.5 pb-1 md:grid-cols-[auto_1fr_auto] md:gap-x-10 md:pt-0 md:pb-0",
+  wordmark: `col-start-1 row-start-1 justify-self-start rounded-[4px] font-display text-[17px] min-[380px]:whitespace-nowrap font-semibold tracking-[-0.03em] text-ink no-underline sm:text-xl ${focusRing}`,
+  navList:
+    "col-span-2 row-start-2 -mx-2 flex items-center gap-1 overflow-x-auto md:col-span-1 md:col-start-2 md:row-start-1 md:mx-0 md:gap-2 md:py-0",
+  navLink: `inline-flex min-h-10 items-center border-b-2 border-transparent px-2 text-sm font-medium text-muted no-underline transition-colors hover:text-ink md:min-h-16 ${focusRing}`,
+  navLinkActive: "!border-accent-text !text-ink",
+  navActions: "flex items-center justify-end gap-2 sm:gap-3",
+  cvButton: "min-h-9 px-3.5 text-sm",
 };
 
 export const footerStyles = {
-  footer: `${standardPaletteClasses.background} py-8`,
-  signature: `text-center text-base ${standardPaletteClasses.quietText}`,
+  footer: "border-t border-line",
+  inner: "flex items-center justify-between py-8 text-sm text-muted",
 };
 
 export const appStyles = {
-  shell: `relative min-h-screen overflow-x-clip ${siteColorClasses.surfaceBg} ${siteColorClasses.text}`,
-  overlay: "relative flex min-h-screen flex-col",
-  routeArea: "flex-1",
-  contentBackground: "bg-transparent",
+  shell: "flex min-h-screen flex-col bg-bg text-ink",
+  main: "flex-1",
+};
+
+export const notFoundStyles = {
+  section: "py-24 sm:py-32",
+  label: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  body: "mt-6 max-w-[56ch] text-lg text-muted",
+  actions: "mt-10 flex flex-wrap gap-3",
 };
 
 export const homeStyles = {
-  shell: `relative min-h-screen bg-transparent ${siteColorClasses.accentText}`,
+  shell: "",
 };
 
 export const skillStyles = {
@@ -265,7 +288,7 @@ export const cvModalStyles = {
 
 export const contactStyles = {
   section:
-    "mb-20 min-h-[68vh] pt-32 pb-24 sm:mb-28 sm:min-h-[74vh] sm:pt-48 sm:pb-32",
+    "border-t border-line px-5 py-16 sm:py-[88px]",
   cardGrid:
     "mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8",
   card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,

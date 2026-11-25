@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { WideLayout } from "../components/common/WideLayout";
 import { contactStyles } from "../styles/styles";
 
 const email = "work@mariuskristensen.no";
 const githubUrl = "https://github.com/kremflote";
 
-const KontaktPage = () => {
+// Interim: the old contact page content, restyled as the Kontakt block in step 3.
+const ContactSection = () => {
   const [hasCopiedEmail, setHasCopiedEmail] = useState(false);
 
   const copyEmail = async () => {
@@ -14,8 +14,7 @@ const KontaktPage = () => {
   };
 
   return (
-    <WideLayout>
-      <section className={contactStyles.section}>
+    <section id="kontakt" aria-label="Kontakt" className={contactStyles.section}>
         <div className={contactStyles.cardGrid}>
           <div className={contactStyles.card}>
             <i className={contactStyles.iconEnvelope}></i>
@@ -62,9 +61,8 @@ const KontaktPage = () => {
             </p>
           </div>
         </div>
-      </section>
-    </WideLayout>
+    </section>
   );
 };
 
-export default KontaktPage;
+export default ContactSection;

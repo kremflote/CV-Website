@@ -66,6 +66,32 @@ body,
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Keep anchor targets clear of the sticky navbar (two rows on phones). */
+[id] {
+  scroll-margin-top: 112px;
+}
+
+@media (min-width: 768px) {
+  [id] {
+    scroll-margin-top: 72px;
+  }
+}
+
+/* Sections focused by the anchor links should not show a focus ring. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
 body {
   margin: 0;
   background-color: var(--color-bg);
