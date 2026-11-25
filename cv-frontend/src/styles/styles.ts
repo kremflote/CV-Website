@@ -36,55 +36,6 @@ export const companyMeta: Record<
   default: {},
 };
 
-/*
- * Colour classes mapped onto the theme tokens in src/index.css.
- * Interim mapping for step 1 of the redesign; later steps replace the
- * per-component styles below with the new layouts.
- */
-const siteColorClasses = {
-  surfaceBg: "bg-bg",
-  surfaceBg35: "bg-surface",
-  surfaceBg95: "bg-surface",
-  text: "text-ink",
-  text90: "text-ink",
-  text88: "text-ink",
-  text85: "text-ink",
-  text80: "text-ink",
-  text75: "text-muted",
-  text70: "text-muted",
-  text68: "text-muted",
-  text65: "text-muted",
-  text60: "text-muted",
-  text55: "text-muted",
-  textBorder35: "border-line-strong",
-  accentText: "text-accent-text",
-  accentText70: "text-accent-text",
-  accentBg: "bg-accent",
-  accentBg18: "bg-accent",
-  accentBg10: "bg-surface",
-  accentBorder90: "border-accent",
-  accentBorder70: "border-line-strong",
-  accentBorder55: "border-accent-text",
-  accentBorder25: "border-line-strong",
-  accentBorder20: "border-line",
-  panelBg18: "bg-surface border border-line",
-  panelBg14: "bg-surface border border-line",
-  inverseText: "text-accent-ink",
-  whiteText: "text-ink",
-  whiteText80: "text-ink",
-  whiteText75: "text-ink",
-  whiteText65: "text-muted",
-  whiteBorder15: "border-line",
-  whiteBg04: "bg-surface",
-  whiteBg: "bg-white",
-  blackBg75: "bg-black/60",
-  blackBg25: "bg-surface",
-  errorText: "text-accent-text",
-  shadow35: "",
-  shadow60: "",
-  shadow30: "",
-};
-
 export const themeToggleStyles = {
   group:
     "inline-flex items-center rounded-card border border-line-strong p-0.5 text-sm",
@@ -355,13 +306,26 @@ export const portfolioStyles = {
 };
 
 export const cvModalStyles = {
-  backdrop: `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-3 backdrop-blur-sm`,
-  panel: `relative max-h-[88vh] w-full max-w-[1760px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 ${siteColorClasses.shadow60} sm:p-6`,
-  closeButton: `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-accent hover:text-accent-ink`,
-  contentGrid:
-    "grid max-h-[calc(88vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(560px,1.2fr)_minmax(420px,0.8fr)] lg:pt-0",
-  frame: `h-[74vh] min-h-[460px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(88vh-3rem)] lg:min-h-0`,
-  skillPane: `min-h-0 overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
+  /* The backdrop is a neutral scrim; the handover has no token for it. */
+  dialog:
+    "m-auto h-[100dvh] max-h-none w-full max-w-none bg-transparent p-0 text-ink backdrop:bg-black/60 sm:h-[min(92dvh,1000px)] sm:w-[min(94vw,1400px)]",
+  panel:
+    "flex h-full flex-col overflow-hidden bg-surface sm:rounded-card sm:border sm:border-line",
+  header:
+    "flex items-center justify-between gap-4 border-b border-line px-4 py-3 sm:px-6",
+  title: "font-display text-xl font-semibold tracking-[-0.03em] text-ink",
+  headerActions: "flex items-center gap-2 sm:gap-4",
+  textLink:
+    "inline-flex min-h-11 items-center gap-1.5 px-2 text-sm font-medium text-accent-text underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  closeButton:
+    "grid h-11 w-11 cursor-pointer place-items-center rounded-card border border-line-strong text-ink transition-colors hover:border-ink hover:bg-ink hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  content:
+    "grid min-h-0 flex-1 content-start overflow-y-auto lg:grid-cols-[minmax(0,1.25fr)_minmax(360px,0.75fr)] lg:content-stretch lg:overflow-hidden",
+  /* Phone browsers rarely render a PDF inline; they get the "Åpne PDF" link instead. */
+  frame: "hidden h-[70dvh] w-full border-0 bg-white md:block lg:h-full",
+  skillPane:
+    "min-h-0 p-5 sm:p-6 md:border-t md:border-line lg:overflow-y-auto lg:border-t-0 lg:border-l",
+  paneTitle: "mb-6 text-[13px] font-medium text-muted",
 };
 
 export const contactStyles = {
