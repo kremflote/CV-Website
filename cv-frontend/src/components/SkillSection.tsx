@@ -2,135 +2,95 @@ import { useContext, useState, type FC } from "react";
 import { SkillContext } from "../contexts/SkillContext";
 import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
 import type { ISkill } from "../interfaces/ISkill";
-import { pageStyles, skillStyles } from "../styles/styles";
+import { skillStyles as s } from "../styles/styles";
 import { formatInlineLinks } from "./common/FormattedText";
 
-interface SkillTagProps {
-  label: string;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
 interface SkillSectionProps {
+  /** Called when an inline project link is followed (the CV modal closes itself). */
   onInternalLinkClick?: () => void;
+  /** "page": chips left, description right. "modal": stacked, for the CV modal's narrow pane. */
+  layout?: "page" | "modal";
 }
 
-const SkillTag: FC<SkillTagProps> = ({ label, isSelected, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`${skillStyles.tagBase} ${
-      isSelected ? skillStyles.tagSelected : skillStyles.tagUnselected
-    }`}
-  >
-    {label}
-  </button>
-);
+const groups = [
+  { category: "Programming Languages", title: "Programmeringsspråk" },
+  { category: "Technologies", title: "Teknologier" },
+];
 
-const formatDescription = (
-  description: string,
-  onInternalLinkClick?: () => void,
-) => {
-  const parts = description.split("Emnebeskrivelse:");
-
-  if (parts.length === 1) {
-    return (
-      <p className={skillStyles.descriptionStrong}>
-        {formatInlineLinks(description, onInternalLinkClick)}
-      </p>
-    );
-  }
+const SkillDescription: FC<{ skill: ISkill; onInternalLinkClick?: () => void }> = ({
+  skill,
+  onInternalLinkClick,
+}) => {
+  const [summary, courseText] = skill.description.split("Emnebeskrivelse:");
 
   return (
     <>
-      <p className={skillStyles.descriptionStrong}>
-        {formatInlineLinks(parts[0].trim(), onInternalLinkClick)}
+      <p className={s.descriptionText}>
+        {formatInlineLinks(summary.trim(), onInternalLinkClick)}
       </p>
-      <p className={skillStyles.descriptionText}>
-        <span className={skillStyles.descriptionLabel}>
-          Emnebeskrivelse:{" "}
-        </span>
-        {formatInlineLinks(parts[1].trim(), onInternalLinkClick)}
-      </p>
+      {courseText && (
+        <p className={s.descriptionSecondary}>
+          <span className={s.descriptionLabel}>Emnebeskrivelse: </span>
+          {formatInlineLinks(courseText.trim(), onInternalLinkClick)}
+        </p>
+      )}
     </>
   );
 };
 
-const SkillSection: FC<SkillSectionProps> = ({ onInternalLinkClick }) => {
-  const { skills, skillIsLoading, initError } = useContext(
-    SkillContext,
-  ) as ISkillContext;
-  const [selectedSkill, setSelectedSkill] = useState<ISkill | null>(null);
+const SkillSection: FC<SkillSectionProps> = ({ onInternalLinkClick, layout = "page" }) => {
+  const { skills, skillIsLoading, initError } = useContext(SkillContext) as ISkillContext;
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const handleClick = (skill: ISkill) => {
-    setSelectedSkill(selectedSkill?.id === skill.id ? null : skill);
-  };
+  if (skillIsLoading) return <p className={s.status}>Laster …</p>;
+  if (initError) return <p className={s.status}>{initError}</p>;
 
-  const programmingLanguages = skills.filter(
-    (s) => s.category === "Programming Languages",
-  );
-  const technologies = skills.filter((s) => s.category === "Technologies");
-
-  if (skillIsLoading) {
-    return <p className={skillStyles.loadingText}>Laster...</p>;
-  }
-
-  if (initError) {
-    return (
-      <p className={`mt-12 text-center ${pageStyles.errorText}`}>{initError}</p>
-    );
-  }
+  const grouped = groups
+    .map((group) => ({
+      ...group,
+      skills: skills.filter((skill) => skill.category === group.category),
+    }))
+    .filter((group) => group.skills.length > 0);
+  const selected =
+    skills.find((skill) => skill.id === selectedId) ?? grouped[0]?.skills[0];
+  const descriptionId = `skill-description-${layout}`;
 
   return (
-    <section className={skillStyles.shell}>
-      <div className={skillStyles.controlColumn}>
-        <div className="space-y-5">
-          <div>
-            <h3 className={skillStyles.groupTitle}>Programmeringsspråk</h3>
-            <div className="flex flex-wrap gap-3">
-              {programmingLanguages.map((skill) => (
-                <SkillTag
-                  key={skill.id}
-                  label={skill.skill_Name}
-                  isSelected={selectedSkill?.id === skill.id}
-                  onClick={() => handleClick(skill)}
-                />
-              ))}
+    <div className={layout === "page" ? s.pageLayout : s.modalLayout}>
+      <div className={s.groups}>
+        {grouped.map((group) => (
+          <div key={group.category}>
+            <h3 className={s.groupTitle}>{group.title}</h3>
+            <div className={s.chips}>
+              {group.skills.map((skill) => {
+                const isSelected = skill.id === selected?.id;
+                return (
+                  <button
+                    key={skill.id}
+                    type="button"
+                    aria-pressed={isSelected}
+                    aria-controls={descriptionId}
+                    onClick={() => setSelectedId(skill.id)}
+                    className={`${s.chip} ${isSelected ? s.chipSelected : s.chipIdle}`}
+                  >
+                    {skill.skill_Name}
+                  </button>
+                );
+              })}
             </div>
           </div>
-
-          <div>
-            <h3 className={skillStyles.groupTitle}>Teknologier</h3>
-            <div className="flex flex-wrap gap-3">
-              {technologies.map((skill) => (
-                <SkillTag
-                  key={skill.id}
-                  label={skill.skill_Name}
-                  isSelected={selectedSkill?.id === skill.id}
-                  onClick={() => handleClick(skill)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
 
-      <div className={skillStyles.descriptionPanel}>
-        <div className={skillStyles.descriptionContent}>
-          {selectedSkill ? (
-            <div className="space-y-5">
-              {formatDescription(
-                selectedSkill.description,
-                onInternalLinkClick,
-              )}
-            </div>
-          ) : (
-            <p className={skillStyles.emptyText}>
-              Trykk en knapp over for detaljer.
-            </p>
-          )}
+      {selected && (
+        <div id={descriptionId} className={s.description} aria-live="polite">
+          <h3 className={layout === "page" ? s.skillName : s.skillNameSmall}>
+            {selected.skill_Name}
+          </h3>
+          <SkillDescription skill={selected} onInternalLinkClick={onInternalLinkClick} />
         </div>
-      </div>
-    </section>
+      )}
+    </div>
   );
 };
 

@@ -1,66 +1,57 @@
-import { useState } from "react";
-import { contactStyles } from "../styles/styles";
+import { useEffect, useRef, useState } from "react";
+import { Container } from "./common/Container";
+import { ExternalIcon } from "./TimelineParts";
+import { contactStyles as s } from "../styles/styles";
 
 const email = "work@mariuskristensen.no";
 const githubUrl = "https://github.com/kremflote";
 
-// Interim: the old contact page content, restyled as the Kontakt block in step 3.
+const CopyIcon = () => (
+  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <rect x="5" y="5" width="8.5" height="8.5" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M10.5 5V3.5A1.5 1.5 0 0 0 9 2H3.5A1.5 1.5 0 0 0 2 3.5V9a1.5 1.5 0 0 0 1.5 1.5H5" stroke="currentColor" strokeWidth="1.5" />
+  </svg>
+);
+
+/** Full-width contact block at the bottom of the home page. */
 const ContactSection = () => {
-  const [hasCopiedEmail, setHasCopiedEmail] = useState(false);
+  const [status, setStatus] = useState("");
+  const resetTimer = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => window.clearTimeout(resetTimer.current), []);
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText(email);
-    setHasCopiedEmail(true);
+    try {
+      await navigator.clipboard.writeText(email);
+      setStatus("E-postadressen er kopiert.");
+    } catch {
+      // Clipboard access can be refused; fall back to the mail app.
+      window.location.href = `mailto:${email}`;
+      return;
+    }
+    window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setStatus(""), 4000);
   };
 
   return (
-    <section id="kontakt" aria-label="Kontakt" className={contactStyles.section}>
-        <div className={contactStyles.cardGrid}>
-          <div className={contactStyles.card}>
-            <i className={contactStyles.iconEnvelope}></i>
-            <h2 className={contactStyles.title}>E-post</h2>
-            <p className={contactStyles.body}>Ta gjerne kontakt.</p>
-
-            <button
-              type="button"
-              onClick={copyEmail}
-              className={`${contactStyles.action} ${contactStyles.button}`}
-            >
-              {email}
-            </button>
-
-            <p
-              className={`${contactStyles.copiedText} ${
-                hasCopiedEmail ? "opacity-100" : "opacity-0"
-              }`}
-              aria-live="polite"
-            >
-              E-post kopiert til utklippstavlen.
-            </p>
-          </div>
-
-          <div className={contactStyles.card}>
-            <i className={contactStyles.iconGithub}></i>
-            <h2 className={contactStyles.title}>GitHub</h2>
-            <p className={contactStyles.body}>Se prosjekter og kode.</p>
-
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={`${contactStyles.action} ${contactStyles.button}`}
-            >
-              github.com/kremflote
-            </a>
-
-            <p
-              className={`${contactStyles.copiedText} opacity-0`}
-              aria-hidden="true"
-            >
-              E-post kopiert til utklippstavlen.
-            </p>
-          </div>
+    <section id="kontakt" aria-labelledby="kontakt-title" className={s.section}>
+      <Container className={s.inner}>
+        <h2 id="kontakt-title" className={s.headline}>
+          Kanskje du er min neste arbeidsplass?
+        </h2>
+        <div className={s.actions}>
+          <button type="button" onClick={copyEmail} className={s.primary}>
+            {email} <CopyIcon />
+            <span className="sr-only"> – kopier e-postadressen</span>
+          </button>
+          <a href={githubUrl} target="_blank" rel="noreferrer" className={s.outline}>
+            GitHub <ExternalIcon />
+          </a>
         </div>
+        <p className={s.status} aria-live="polite">
+          {status}
+        </p>
+      </Container>
     </section>
   );
 };

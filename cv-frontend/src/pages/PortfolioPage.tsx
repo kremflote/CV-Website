@@ -70,7 +70,7 @@ const PortfolioPage = () => {
                 <h2 className={portfolioStyles.categoryTitle}>{title}</h2>
                 <div className={portfolioStyles.grid}>
                   {categoryShowcases.map((showcase) => (
-                    <ShowcaseCard key={showcase.id} {...showcase} />
+                    <ShowcaseCard key={showcase.id} showcase={showcase} />
                   ))}
                 </div>
               </section>

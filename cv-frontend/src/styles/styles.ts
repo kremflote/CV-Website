@@ -183,6 +183,30 @@ export const sectionStyles = {
   headingRow: "mb-10 flex flex-wrap items-end justify-between gap-4 sm:mb-14",
 };
 
+export const cardStyles = {
+  card: "group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-colors hover:border-line-strong has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text",
+  imageFrame: "relative aspect-[16/10] overflow-hidden border-b border-line bg-band",
+  image: "h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]",
+  grade:
+    "absolute top-3 left-3 rounded-chip bg-accent px-2.5 py-1 text-[13px] font-semibold text-accent-ink",
+  body: "flex flex-1 flex-col p-5 sm:p-6",
+  category: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-2 font-display text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink",
+  /* Stretched link: the ::after covers the whole card, so the card is one tab stop. */
+  link: "text-ink no-underline after:absolute after:inset-0 after:content-[''] focus-visible:outline-none",
+  description: "mt-2 line-clamp-2 text-[15px] leading-[1.5] text-muted",
+  chips: "mt-auto flex flex-wrap gap-1.5 pt-4",
+  chip: "rounded-chip border border-line-strong px-2 py-0.5 font-mono text-xs text-muted",
+};
+
+export const featuredStyles = {
+  status: "py-8 text-muted",
+  grid: "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+  allLink:
+    "inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-accent-text no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+};
+
 export const notFoundStyles = {
   section: "py-24 sm:py-32",
   label: "text-[13px] font-medium text-accent-text",
@@ -197,20 +221,24 @@ export const homeStyles = {
 };
 
 export const skillStyles = {
-  shell: `grid grid-cols-1 content-start gap-3 ${standardPaletteClasses.accentText}`,
-  controlColumn: "min-w-0",
-  tagBase:
-    "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
-  tagSelected: `${siteColorClasses.accentBorder90} ${siteColorClasses.accentBg18} ${siteColorClasses.accentText}`,
-  tagUnselected: `${siteColorClasses.textBorder35} bg-transparent ${siteColorClasses.text70} hover:border-ink hover:text-ink`,
-  groupTitle: `mb-4 text-lg font-[600] ${siteColorClasses.text}`,
-  descriptionPanel: "min-h-[660px]",
-  descriptionContent: `border-t ${siteColorClasses.accentBorder55} px-0 pt-2`,
-  descriptionStrong: `text-lg font-[300] leading-relaxed ${siteColorClasses.text88}`,
-  descriptionText: `text-base font-[300] leading-relaxed ${siteColorClasses.text68}`,
-  descriptionLabel: `font-[600] ${siteColorClasses.text}`,
-  loadingText: `mt-8 text-center ${siteColorClasses.text60}`,
-  emptyText: `text-base font-[300] leading-relaxed ${siteColorClasses.text55}`,
+  status: "py-8 text-muted",
+  pageLayout:
+    "grid gap-10 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-16",
+  modalLayout: "grid gap-8",
+  groups: "space-y-8",
+  groupTitle: "mb-3 text-[13px] font-medium text-muted",
+  chips: "flex flex-wrap gap-2",
+  chip: "min-h-10 cursor-pointer rounded-chip border px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  chipIdle: "border-line-strong bg-transparent text-ink hover:border-ink",
+  chipSelected: "border-accent bg-accent text-accent-ink",
+  description: "self-start border-t-2 border-accent-text pt-5",
+  skillName:
+    "font-display text-[28px] font-semibold leading-none tracking-[-0.045em] text-ink sm:text-[34px]",
+  skillNameSmall:
+    "font-display text-2xl font-semibold leading-none tracking-[-0.045em] text-ink",
+  descriptionText: "mt-4 text-lg leading-[1.55] text-ink",
+  descriptionSecondary: "mt-4 text-base leading-[1.55] text-muted",
+  descriptionLabel: "font-semibold text-ink",
 };
 
 export const glassStyles = {
@@ -317,17 +345,14 @@ export const cvModalStyles = {
 };
 
 export const contactStyles = {
-  section:
-    "border-t border-line px-5 py-16 sm:py-[88px]",
-  cardGrid:
-    "mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8",
-  card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,
-  action:
-    "inline-flex max-w-full cursor-pointer items-center justify-center break-all px-4 py-3 text-base font-extralight no-underline transition-all duration-300 sm:px-6 sm:py-4 sm:text-xl",
-  title: `text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  body: `text-base font-extralight leading-relaxed ${siteColorClasses.text70} sm:text-xl`,
-  iconEnvelope: `fas fa-envelope text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
-  iconGithub: `fab fa-github text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
-  button: `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-ink hover:text-ink`,
-  copiedText: `min-h-[1.75rem] text-base font-extralight transition-opacity duration-200 ${siteColorClasses.text65} sm:text-lg`,
+  section: "bg-contact-bg text-contact-ink",
+  inner: "py-20 sm:py-28",
+  headline:
+    "max-w-[16ch] font-display text-[clamp(36px,5vw,72px)] font-semibold leading-none tracking-[-0.045em]",
+  actions: "mt-10 flex flex-wrap gap-3",
+  primary:
+    "inline-flex min-h-12 max-w-full cursor-pointer items-center gap-2.5 rounded-card bg-contact-btn-bg px-5 text-[15px] font-semibold break-all text-contact-btn-ink transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contact-ink",
+  outline:
+    "inline-flex min-h-12 items-center gap-2 rounded-card border border-contact-ink px-5 text-[15px] font-semibold text-contact-ink no-underline transition-colors hover:bg-contact-ink hover:text-contact-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contact-ink",
+  status: "mt-4 min-h-6 text-sm",
 };

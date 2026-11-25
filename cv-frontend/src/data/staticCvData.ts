@@ -169,6 +169,8 @@ export const showcases: IShowcase[] = [
   {
     id: 1,
     title: "Anime Database",
+    tech: ["Kotlin", "Jetpack Compose", "Retrofit", "Room"],
+    featured: true,
     description:
       "Android-applikasjon utviklet i Kotlin hvor brukeren kan utforske, søke etter og organisere anime-serier ved hjelp av Jikan API.",
     details: [
@@ -220,6 +222,8 @@ export const showcases: IShowcase[] = [
   {
     id: 2,
     title: "SportsWorld",
+    tech: ["React", "TypeScript", ".NET", "SQLite"],
+    featured: true,
     description:
       "Full-stack prosjekt med frontend og backend hvor brukeren kan utføre CRUD-operasjoner gjennom et brukervennlig grensesnitt.",
     details: [
@@ -259,6 +263,8 @@ export const showcases: IShowcase[] = [
   {
     id: 8,
     title: "Matflote",
+    tech: ["React", "TypeScript", "C#", ".NET"],
+    featured: true,
     description:
       "Personlig verktøy for middagsplanlegging, kokebok, handleliste og lokal matdata.",
     details: [
@@ -299,6 +305,7 @@ export const showcases: IShowcase[] = [
   {
     id: 4,
     title: "Raspberry Pi Home Server",
+    tech: ["Docker Compose", "Tailscale", "Cloudflare", "Nginx"],
     description:
       "Dokumentasjon og konfigurasjon for min personlige Raspberry Pi-hjemmeserver, bygget for og med Docker Compose, Tailscale, Cloudflare og Nginx Proxy Manager.",
     details: [
@@ -340,6 +347,7 @@ export const showcases: IShowcase[] = [
   {
     id: 3,
     title: "Catfish",
+    tech: ["Unity", "C#"],
     description:
       "Konseptet er co-op fishing horror med boat og cat management. Så langt har jeg implementert et rudimentært grid-basert inventory system, en first-person controller, fungerende co-op med Fishnet og starten av en fungerende båt.",
     image: "catfish-1.jpg",
@@ -351,6 +359,7 @@ export const showcases: IShowcase[] = [
   {
     id: 5,
     title: "C Exam 2026",
+    tech: ["C", "Linux", "POSIX threads"],
     description:
       "Eksamensbesvarelse i C utviklet og testet i Debian 10 Linux på VMware Pro.",
     details: [
@@ -434,6 +443,7 @@ export const showcases: IShowcase[] = [
   {
     id: 7,
     title: "Python Exam 2026",
+    tech: ["Python", "NumPy", "Pandas", "Matplotlib"],
     description:
       "Eksamensprosjekt i Python med fem oppgaver innen programmering, numeriske beregninger og dataanalyse.",
     details: [

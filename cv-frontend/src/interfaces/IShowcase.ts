@@ -11,4 +11,8 @@ export interface IShowcase {
   images?: string[];
   gitHub_Link: string;
   category?: "work" | "personal" | "kristiania" | string;
+  /** Technology chips on the card. Interim until they come from GitHub topics. */
+  tech?: string[];
+  /** Shown on the home page's Prosjekter section. */
+  featured?: boolean;
 }
