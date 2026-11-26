@@ -1,100 +1,66 @@
-import { useState, type FC, type MouseEvent } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { useState, type FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import CvModal from "../CvModal";
-import { headerStyles } from "../../styles/styles";
+import ThemeToggle from "./ThemeToggle";
+import { Container } from "./Container";
+import { buttonStyles, headerStyles } from "../../styles/styles";
 
-const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-  `${headerStyles.navLinkBase} ${isActive ? headerStyles.navLinkActive : ""}`;
+const siteName = "Marius Kristensen";
 
-const homeTitle = "Marius Kristensen";
+const navItems = [
+  { hash: "erfaring", label: "Erfaring" },
+  { hash: "ferdigheter", label: "Ferdigheter" },
+  { hash: "prosjekter", label: "Prosjekter" },
+  { hash: "kontakt", label: "Kontakt" },
+] as const;
+
+const isProjectPath = (pathname: string) =>
+  pathname.startsWith("/portfolio") || pathname.startsWith("/showcase");
 
 const Header: FC = () => {
   const { pathname } = useLocation();
   const [isCvOpen, setIsCvOpen] = useState(false);
-  const isHomePage = pathname === "/";
-  const preventCurrentPageNavigation =
-    (targetPath: string) => (event: MouseEvent<HTMLAnchorElement>) => {
-      if (pathname === targetPath) {
-        event.preventDefault();
-      }
-    };
 
   return (
-    <header className={headerStyles.header}>
-      <nav className={headerStyles.nav} aria-label="Hovednavigasjon">
-        <div className={headerStyles.navInner}>
+    <header className={headerStyles.nav}>
+      <Container>
+        <nav className={headerStyles.navInner} aria-label="Hovednavigasjon">
+          <Link to="/" className={headerStyles.wordmark}>
+            {siteName}
+          </Link>
+
           <ul className={headerStyles.navList}>
-            <li>
-              <NavLink
-                to="/"
-                preventScrollReset
-                onClick={preventCurrentPageNavigation("/")}
-                className={navLinkClass}
-                aria-label="Hjem"
-              >
-                <i className="fas fa-house inline sm:!hidden"></i>
-                <span className="hidden sm:inline">Hjem</span>
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="/portfolio"
-                preventScrollReset
-                onClick={preventCurrentPageNavigation("/portfolio")}
-                className={navLinkClass}
-                aria-label="Portfolio"
-              >
-                <i className="fas fa-briefcase inline sm:!hidden"></i>
-                <span className="hidden sm:inline">Portfolio</span>
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink
-                to="/kontakt"
-                preventScrollReset
-                onClick={preventCurrentPageNavigation("/kontakt")}
-                className={navLinkClass}
-                aria-label="Kontakt"
-              >
-                <i className="fas fa-envelope inline sm:!hidden"></i>
-                <span className="hidden sm:inline">Kontakt</span>
-              </NavLink>
-            </li>
+            {navItems.map(({ hash, label }) => {
+              const isActive = hash === "prosjekter" && isProjectPath(pathname);
+              return (
+                <li key={hash}>
+                  <Link
+                    to={{ pathname: "/", hash: `#${hash}` }}
+                    className={`${headerStyles.navLink} ${
+                      isActive ? headerStyles.navLinkActive : ""
+                    }`}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
-          <div className={headerStyles.navAction}>
+          <div className={`${headerStyles.navActions} md:col-start-3 md:row-start-1 row-start-1 col-start-2`}>
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => setIsCvOpen(true)}
-              className={headerStyles.navButton}
-              aria-label="Åpne CV"
+              className={`${buttonStyles.base} ${buttonStyles.primary} ${headerStyles.cvButton}`}
+              aria-haspopup="dialog"
             >
-              <i className="fas fa-file-lines inline sm:!hidden"></i>
-              <span className="hidden sm:inline">CV</span>
-              <i className="fas fa-arrow-up-right-from-square text-base"></i>
+              CV
             </button>
           </div>
-        </div>
-      </nav>
-      <div className={headerStyles.navSpacer} aria-hidden="true" />
-
-      {isHomePage && (
-        <section className={headerStyles.hero}>
-          <div className={headerStyles.heroContent}>
-            <div className={headerStyles.heroText}>
-              <p className={headerStyles.kicker}>Digital Cv</p>
-              <h1 className={headerStyles.pageTitle}>{homeTitle}</h1>
-              <p className={headerStyles.quote}>
-                En <span>nystartet utvikler</span> og tidligere kundebehandler
-                <br />
-                med <span>bakgrunn i salg og relasjonsbygging.</span>
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
+        </nav>
+      </Container>
 
       <CvModal isOpen={isCvOpen} onClose={() => setIsCvOpen(false)} />
     </header>

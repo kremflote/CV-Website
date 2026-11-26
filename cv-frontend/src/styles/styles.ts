@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react";
-
 export type CompanyKey =
   | "ihlang"
   | "power"
@@ -10,332 +8,341 @@ export type CompanyKey =
 export const companyMeta: Record<
   CompanyKey,
   {
-    color: string;
     logoSrc?: string;
     logoAlt?: string;
     url?: string;
   }
 > = {
   power: {
-    color: "#D46A2C",
     logoSrc: "/images/Power_logo.png",
     logoAlt: "POWER",
     url: "https://www.power.no/",
   },
   wurth: {
-    color: "#FFFFFF",
     logoSrc: "/images/wuerth-logo.svg",
     logoAlt: "Würth",
     url: "https://www.wuerth.no/no/forside.php",
   },
   kristiania: {
-    color: "#FFFFFF",
     logoSrc: "/images/kristiania_logo.png",
     logoAlt: "Kristiania",
     url: "https://www.kristiania.no/",
   },
   ihlang: {
-    color: "#242426",
     logoSrc: "/images/fjellsprengern.png",
     logoAlt: "Fjellsprengern Leif Ihlang AS",
     url: "https://www.fjellsprengern.no/",
   },
-  default: {
-    color: "#d9d4c8",
-  },
+  default: {},
 };
 
-export const colorPalette = {
-  surface: "#080808",
-  text: "#d9d4c8",
-  accent: "#E3CD9F",
-  panel: "#c3c5c4",
-  inverseText: "#111111",
-  pureWhite: "#ffffff",
-  pureBlack: "#000000",
-  error: "#ef4444",
-} as const;
-
-export const colorVariables = {
-  "--site-surface": colorPalette.surface,
-  "--site-text": colorPalette.text,
-  "--site-text-90": "rgba(217,212,200,0.9)",
-  "--site-text-88": "rgba(217,212,200,0.88)",
-  "--site-text-85": "rgba(217,212,200,0.85)",
-  "--site-text-80": "rgba(217,212,200,0.8)",
-  "--site-text-75": "rgba(217,212,200,0.75)",
-  "--site-text-70": "rgba(217,212,200,0.7)",
-  "--site-text-68": "rgba(217,212,200,0.68)",
-  "--site-text-65": "rgba(217,212,200,0.65)",
-  "--site-text-60": "rgba(217,212,200,0.6)",
-  "--site-text-55": "rgba(217,212,200,0.55)",
-  "--site-text-35": "rgba(217,212,200,0.35)",
-  "--site-accent": colorPalette.accent,
-  "--site-accent-90": "rgba(227,205,159,0.9)",
-  "--site-accent-75": "rgba(227,205,159,0.75)",
-  "--site-accent-70": "rgba(227,205,159,0.7)",
-  "--site-accent-55": "rgba(227,205,159,0.55)",
-  "--site-accent-30": "rgba(227,205,159,0.3)",
-  "--site-accent-25": "rgba(227,205,159,0.25)",
-  "--site-accent-20": "rgba(227,205,159,0.2)",
-  "--site-accent-18": "rgba(227,205,159,0.18)",
-  "--site-accent-16": "rgba(227,205,159,0.16)",
-  "--site-accent-10": "rgba(227,205,159,0.1)",
-  "--site-panel-26": "rgba(195,197,196,0.26)",
-  "--site-panel-18": "rgba(195,197,196,0.18)",
-  "--site-panel-14": "rgba(195,197,196,0.14)",
-  "--site-surface-95": "rgba(8,8,8,0.95)",
-  "--site-surface-35": "rgba(8,8,8,0.35)",
-  "--site-inverse": colorPalette.inverseText,
-  "--site-white": colorPalette.pureWhite,
-  "--site-white-80": "rgba(255,255,255,0.8)",
-  "--site-white-75": "rgba(255,255,255,0.75)",
-  "--site-white-65": "rgba(255,255,255,0.65)",
-  "--site-white-30": "rgba(255,255,255,0.3)",
-  "--site-white-15": "rgba(255,255,255,0.15)",
-  "--site-white-10": "rgba(255,255,255,0.1)",
-  "--site-white-04": "rgba(255,255,255,0.04)",
-  "--site-black": colorPalette.pureBlack,
-  "--site-black-75": "rgba(0,0,0,0.75)",
-  "--site-black-60": "rgba(0,0,0,0.6)",
-  "--site-black-45": "rgba(0,0,0,0.45)",
-  "--site-black-35": "rgba(0,0,0,0.35)",
-  "--site-black-30": "rgba(0,0,0,0.3)",
-  "--site-black-25": "rgba(0,0,0,0.25)",
-  "--site-error": colorPalette.error,
-  "--site-page-gradient":
-    "radial-gradient(ellipse 135% 105% at 0% 0%,rgba(255,255,255,0.11) 0%,rgba(255,255,255,0.08) 22%,rgba(255,255,255,0.045) 42%,rgba(255,255,255,0.018) 62%,rgba(255,255,255,0) 82%),linear-gradient(135deg,rgba(255,255,255,0.045) 0%,rgba(255,255,255,0.018) 34%,rgba(255,255,255,0) 72%)",
-} as CSSProperties;
-
-const siteColorClasses = {
-  surfaceBg: "bg-[var(--site-surface)]",
-  surfaceBg35: "bg-[var(--site-surface-35)]",
-  surfaceBg95: "bg-[var(--site-surface-95)]",
-  text: "text-[var(--site-text)]",
-  text90: "text-[var(--site-text-90)]",
-  text88: "text-[var(--site-text-88)]",
-  text85: "text-[var(--site-text-85)]",
-  text80: "text-[var(--site-text-80)]",
-  text75: "text-[var(--site-text-75)]",
-  text70: "text-[var(--site-text-70)]",
-  text68: "text-[var(--site-text-68)]",
-  text65: "text-[var(--site-text-65)]",
-  text60: "text-[var(--site-text-60)]",
-  text55: "text-[var(--site-text-55)]",
-  textBorder35: "border-[var(--site-text-35)]",
-  accentText: "text-[var(--site-accent)]",
-  accentText70: "text-[var(--site-accent-70)]",
-  accentBg: "bg-[var(--site-accent)]",
-  accentBg18: "bg-[var(--site-accent-18)]",
-  accentBg10: "bg-[var(--site-accent-10)]",
-  accentBorder90: "border-[var(--site-accent-90)]",
-  accentBorder70: "border-[var(--site-accent-70)]",
-  accentBorder55: "border-[var(--site-accent-55)]",
-  accentBorder25: "border-[var(--site-accent-25)]",
-  accentBorder20: "border-[var(--site-accent-20)]",
-  panelBg18: "bg-[var(--site-panel-18)]",
-  panelBg14: "bg-[var(--site-panel-14)]",
-  inverseText: "text-[var(--site-inverse)]",
-  whiteText: "text-[var(--site-white)]",
-  whiteText80: "text-[var(--site-white-80)]",
-  whiteText75: "text-[var(--site-white-75)]",
-  whiteText65: "text-[var(--site-white-65)]",
-  whiteBorder15: "border-[var(--site-white-15)]",
-  whiteBg04: "bg-[var(--site-white-04)]",
-  whiteBg: "bg-[var(--site-white)]",
-  blackBg75: "bg-[var(--site-black-75)]",
-  blackBg25: "bg-[var(--site-black-25)]",
-  errorText: "text-[var(--site-error)]",
-  shadow35: "shadow-[var(--site-black-35)]",
-  shadow60: "shadow-[var(--site-black-60)]",
-  shadow30: "shadow-[var(--site-black-30)]",
-};
-
-export const pageStyles = {
-  errorText: siteColorClasses.errorText,
-  loadingText: `text-center text-xl font-extralight ${siteColorClasses.whiteText65}`,
+export const themeToggleStyles = {
+  group:
+    "inline-flex items-center rounded-card border border-line-strong p-0.5 text-sm",
+  option:
+    "cursor-pointer rounded-[8px] px-2.5 py-1 sm:px-3 font-medium leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  optionActive: "bg-ink text-bg",
+  optionIdle: "text-muted hover:text-ink",
 };
 
 export const inlineTextStyles = {
-  link: `text-[#E3CD9F] underline decoration-[#E3CD9F]/35 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60`,
+  link: `text-accent-text underline underline-offset-4 transition-colors hover:text-ink`,
 };
 
-export const fadeStyles = {
-  pageShell: "[background-image:var(--site-page-gradient)]",
+export const layoutStyles = {
+  /* Content container: max-width 1240px, 32px side padding (20px on phones). */
+  container: "mx-auto w-full max-w-[1240px] px-5 sm:px-8",
+  section: "border-t border-line py-16 sm:py-[88px]",
 };
 
-export const standardPaletteClasses = {
-  background: siteColorClasses.surfaceBg,
-  accentText: siteColorClasses.text,
-  quietText: siteColorClasses.text55,
+const focusRing =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text";
+
+export const buttonStyles = {
+  base: `inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-card px-5 text-[15px] font-semibold leading-none no-underline transition-colors ${focusRing}`,
+  primary: "bg-accent text-accent-ink hover:bg-ink hover:text-bg",
+  outline: "border border-ink text-ink hover:bg-ink hover:text-bg",
+  small: "min-h-9 px-3.5 text-sm",
 };
 
 export const headerStyles = {
-  header: "relative",
-  hero:
-    "relative min-h-[460px] w-full overflow-visible bg-transparent px-5 sm:h-[460px] sm:overflow-hidden",
-  heroContent:
-    "relative z-10 mx-auto grid min-h-[460px] w-full max-w-[1800px] grid-cols-1 items-start gap-12 px-5 sm:h-full sm:grid-cols-[1fr_520px]",
-  heroText: "pt-[72px] pb-16 sm:pt-[80px] sm:pb-0",
-  kicker: `text-3xl font-[200] leading-none ${siteColorClasses.text90}`,
-  pageTitle: `mt-2 text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  quote: `mt-14 max-w-3xl pb-0 text-xl font-[200] italic leading-snug ${siteColorClasses.text85} sm:mt-20 sm:pb-24 sm:text-2xl [&_span]:font-[600] [&_span]:text-[var(--site-white)]`,
-  nav: `fixed inset-x-0 top-0 z-50 bg-[#060606] shadow-lg ${siteColorClasses.shadow30} backdrop-blur-md`,
+  nav: "sticky top-0 z-40 border-b border-line bg-bg",
   navInner:
-    "mx-auto flex w-full max-w-[1800px] items-center justify-between gap-6 px-5",
-  navSpacer: "h-[72px]",
-  navList: `flex items-center justify-start gap-5 py-5 text-2xl font-[300] ${siteColorClasses.accentText}`,
-  navAction: "flex items-center justify-end py-5",
-  navLinkBase: `flex h-8 min-w-11 items-center justify-center rounded-[6px] px-1.5 leading-none ${siteColorClasses.accentText} no-underline transition-colors hover:text-[var(--site-white)]`,
-  navLinkActive: `${siteColorClasses.accentBg} font-[600] !text-[var(--site-inverse)] hover:!text-[var(--site-inverse)]`,
-  navButton: `flex h-8 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-[6px] border-0 ${siteColorClasses.accentBg} px-3 text-2xl font-[500] leading-none ${siteColorClasses.inverseText} transition-colors hover:bg-[var(--site-text)] hover:text-[var(--site-surface)]`,
+    "grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-0 pt-2.5 pb-1 md:grid-cols-[auto_1fr_auto] md:gap-x-10 md:pt-0 md:pb-0",
+  wordmark: `col-start-1 row-start-1 justify-self-start rounded-[4px] font-display text-[17px] min-[380px]:whitespace-nowrap font-semibold tracking-[-0.03em] text-ink no-underline sm:text-xl ${focusRing}`,
+  navList:
+    "col-span-2 row-start-2 -mx-2 flex items-center gap-1 overflow-x-auto md:col-span-1 md:col-start-2 md:row-start-1 md:mx-0 md:gap-2 md:py-0",
+  navLink: `inline-flex min-h-10 items-center border-b-2 border-transparent px-2 text-sm font-medium text-muted no-underline transition-colors hover:text-ink md:min-h-16 ${focusRing}`,
+  navLinkActive: "!border-accent-text !text-ink",
+  navActions: "flex items-center justify-end gap-2 sm:gap-3",
+  cvButton: "min-h-9 px-3.5 text-sm",
 };
 
 export const footerStyles = {
-  footer: `${standardPaletteClasses.background} py-8`,
-  signature: `text-center text-base ${standardPaletteClasses.quietText}`,
+  footer: "border-t border-line",
+  inner: "flex items-center justify-between py-8 text-sm text-muted",
 };
 
 export const appStyles = {
-  shell: `relative min-h-screen overflow-x-clip ${siteColorClasses.surfaceBg} ${siteColorClasses.text} ${fadeStyles.pageShell}`,
-  overlay: "relative flex min-h-screen flex-col",
-  routeArea: "flex-1",
-  contentBackground: "bg-transparent",
+  shell: "flex min-h-screen flex-col bg-bg text-ink",
+  main: "flex-1",
 };
 
-export const homeStyles = {
-  shell: `relative min-h-screen bg-transparent ${siteColorClasses.accentText}`,
+export const heroStyles = {
+  section: "pt-14 pb-16 sm:pt-20 sm:pb-[88px]",
+  label: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  columns:
+    "mt-10 grid gap-10 md:mt-14 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:gap-16",
+  lead: "max-w-[30ch] text-[19px] leading-[1.45] text-muted sm:text-[22px]",
+  emphasis: "font-semibold text-ink",
+  actions: "mt-8 flex flex-wrap gap-3",
+  summary: "self-end border-t border-line",
+  summaryRow:
+    "grid grid-cols-[96px_minmax(0,1fr)] gap-4 border-b border-line py-4",
+  summaryLabel: "pt-0.5 text-[13px] text-muted",
+  summaryValue: "text-base font-medium text-ink",
+  summaryDetail: "mt-0.5 block text-sm font-normal text-muted",
+};
+
+export const sectionStyles = {
+  band: "border-t border-line bg-band",
+  plain: "border-t border-line",
+  inner: "py-16 sm:py-[88px]",
+  heading:
+    "font-display text-[clamp(32px,3.6vw,50px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  headingRow: "mb-10 flex flex-wrap items-end justify-between gap-4 sm:mb-14",
+};
+
+export const cardStyles = {
+  card: "group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-colors hover:border-line-strong has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text",
+  imageFrame: "relative aspect-[16/10] overflow-hidden border-b border-line bg-band",
+  image: "h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]",
+  imagePlaceholder:
+    "grid h-full place-items-center p-6 text-center font-display text-2xl font-semibold tracking-[-0.03em] text-muted",
+  grade:
+    "absolute top-3 left-3 rounded-chip bg-accent px-2.5 py-1 text-[13px] font-semibold text-accent-ink",
+  body: "flex flex-1 flex-col p-5 sm:p-6",
+  category: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-2 font-display text-2xl font-semibold leading-tight tracking-[-0.03em] text-ink",
+  /* Stretched link: the ::after covers the whole card, so the card is one tab stop. */
+  link: "text-ink no-underline after:absolute after:inset-0 after:content-[''] focus-visible:outline-none",
+  description: "mt-2 line-clamp-2 text-[15px] leading-[1.5] text-muted",
+  chips: "mt-auto flex flex-wrap gap-1.5 pt-4",
+  chip: "rounded-chip border border-line-strong px-2 py-0.5 font-mono text-xs text-muted",
+};
+
+export const featuredStyles = {
+  status: "py-8 text-muted",
+  inlineLink: "text-accent-text underline underline-offset-4 hover:text-ink",
+  grid: "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+  allLink:
+    "inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-accent-text no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+};
+
+export const galleryStyles = {
+  gallery: "mt-10",
+  frame: "aspect-[16/10] overflow-hidden rounded-card border border-line bg-band",
+  image: "h-full w-full",
+  imageCover: "object-cover object-top",
+  imageContain: "object-contain",
+  controls:
+    "mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
+  thumbs: "-m-1 flex gap-2 overflow-x-auto p-1",
+  thumb:
+    "h-14 w-[88px] shrink-0 cursor-pointer overflow-hidden rounded-chip border-2 bg-band transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  thumbActive: "border-accent-text",
+  thumbIdle: "border-transparent opacity-70 hover:opacity-100",
+  thumbImage: "h-full w-full object-cover object-top",
+  counterRow: "flex items-center gap-3 self-end sm:self-auto",
+  counter: "min-w-[96px] text-center font-mono text-[13px] text-muted",
+  arrow:
+    "grid h-10 w-10 cursor-pointer place-items-center rounded-card border border-line-strong text-ink transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+};
+
+export const projectStyles = {
+  status: "py-16 text-muted",
+  header: "pt-10 pb-10 sm:pt-14",
+  back: "inline-flex min-h-11 items-center gap-2 text-sm font-medium text-muted no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  category: "mt-6 text-[13px] font-medium text-accent-text",
+  titleRow:
+    "mt-3 grid gap-6 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:items-end md:gap-12",
+  title:
+    "font-display text-[clamp(40px,6vw,80px)] font-semibold leading-none tracking-[-0.045em] text-ink break-words",
+  lead: "text-lg leading-[1.5] text-muted md:pb-1",
+  facts:
+    "flex flex-col gap-5 border-y border-line py-5 sm:flex-row sm:items-center sm:justify-between",
+  factList: "flex flex-wrap gap-x-10 gap-y-4",
+  factLabel: "text-[13px] text-muted",
+  factValue: "mt-0.5 text-base font-medium text-ink",
+  body: "mt-14 grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16",
+  main: "min-w-0 space-y-12",
+  section: "max-w-[68ch]",
+  sectionTitle:
+    "flex items-center gap-3 font-display text-[28px] font-semibold leading-tight tracking-[-0.03em] text-ink",
+  gradeBadge:
+    "inline-block rounded-chip bg-accent px-2.5 py-0.5 font-sans text-sm font-semibold tracking-normal text-accent-ink",
+  paragraph: "mt-4 text-base leading-[1.55] text-ink break-words",
+  list: "mt-4 border-t border-line",
+  listItem:
+    "grid grid-cols-[40px_minmax(0,1fr)] gap-2 border-b border-line py-3.5 text-base leading-[1.55] text-ink break-words",
+  listNumber: "pt-0.5 font-mono text-[13px] text-accent-text",
+  subheading: "mt-6 text-base font-semibold leading-snug text-ink",
+  bullets:
+    "mt-3 list-disc space-y-1.5 pl-5 text-base leading-[1.55] text-ink marker:text-accent-text",
+  sidebar:
+    "self-start space-y-8 rounded-card border border-line bg-surface p-6 lg:sticky lg:top-24",
+  sidebarTitle: "text-[13px] font-medium text-muted",
+  chips: "mt-3 flex flex-wrap gap-1.5",
+  chip: "rounded-chip border border-line-strong px-2 py-0.5 font-mono text-xs text-ink",
+  links: "mt-3 space-y-2",
+  link: "inline-flex items-center gap-1.5 text-[15px] font-medium text-accent-text underline underline-offset-4 hover:text-ink",
+  pager: "mt-20 mb-16 grid grid-cols-2 gap-4 border-t border-line pt-8",
+  pagerLink:
+    "flex min-w-0 flex-col gap-1 rounded-card p-2 -m-2 no-underline focus-visible:outline-2 focus-visible:outline-accent-text",
+  pagerNext: "col-start-2 items-end text-right",
+  pagerLabel: "text-[13px] text-muted",
+  pagerTitle:
+    "font-display text-lg font-semibold tracking-[-0.03em] text-ink sm:text-2xl",
+};
+
+export const notFoundStyles = {
+  section: "py-24 sm:py-32",
+  label: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  body: "mt-6 max-w-[56ch] text-lg text-muted",
+  actions: "mt-10 flex flex-wrap gap-3",
 };
 
 export const skillStyles = {
-  shell: `grid grid-cols-1 content-start gap-3 ${standardPaletteClasses.accentText}`,
-  controlColumn: "min-w-0",
-  tagBase:
-    "cursor-pointer border px-4 py-2 text-base font-[300] tracking-normal transition-all duration-300",
-  tagSelected: `${siteColorClasses.accentBorder90} ${siteColorClasses.accentBg18} ${siteColorClasses.accentText}`,
-  tagUnselected: `${siteColorClasses.textBorder35} bg-transparent ${siteColorClasses.text70} hover:border-[var(--site-accent-75)] hover:bg-[var(--site-accent-16)] hover:text-[var(--site-text)]`,
-  groupTitle: `mb-4 text-lg font-[600] ${siteColorClasses.text}`,
-  descriptionPanel: "min-h-[660px]",
-  descriptionContent: `border-t ${siteColorClasses.accentBorder55} px-0 pt-2`,
-  descriptionStrong: `text-lg font-[300] leading-relaxed ${siteColorClasses.text88}`,
-  descriptionText: `text-base font-[300] leading-relaxed ${siteColorClasses.text68}`,
-  descriptionLabel: `font-[600] ${siteColorClasses.text}`,
-  loadingText: `mt-8 text-center ${siteColorClasses.text60}`,
-  emptyText: `text-base font-[300] leading-relaxed ${siteColorClasses.text55}`,
-};
-
-export const glassStyles = {
-  panel: `${siteColorClasses.panelBg14} shadow-2xl ${siteColorClasses.shadow35}`,
-  softPanel: `${siteColorClasses.surfaceBg35} shadow-xl ${siteColorClasses.shadow30}`,
-  title: `break-words text-5xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-7xl`,
+  status: "py-8 text-muted",
+  pageLayout:
+    "grid gap-10 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-16",
+  modalLayout: "grid gap-8",
+  groups: "space-y-8",
+  groupTitle: "mb-3 text-[13px] font-medium text-muted",
+  chips: "flex flex-wrap gap-2",
+  chip: "min-h-10 cursor-pointer rounded-chip border px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  chipIdle: "border-line-strong bg-transparent text-ink hover:border-ink",
+  chipSelected: "border-accent bg-accent text-accent-ink",
+  description: "self-start border-t-2 border-accent-text pt-5",
+  skillName:
+    "font-display text-[28px] font-semibold leading-none tracking-[-0.045em] text-ink sm:text-[34px]",
+  skillNameSmall:
+    "font-display text-2xl font-semibold leading-none tracking-[-0.045em] text-ink",
+  descriptionText: "mt-4 text-lg leading-[1.55] text-ink",
+  descriptionSecondary: "mt-4 text-base leading-[1.55] text-muted",
+  descriptionLabel: "font-semibold text-ink",
 };
 
 export const timelineStyles = {
-  shell: "relative w-full bg-transparent",
-  axisDot:
-    "absolute rounded-full border border-white/30 bg-white/35 shadow-lg shadow-black/20",
-  axisLine: "absolute w-px bg-white/25",
-  axisDesktop: "hidden sm:block",
-  bubbleBase:
-    "relative grid shrink-0 place-items-center rounded-full transition-transform duration-300",
-  bubbleDesktop:
-    "peer pointer-events-auto absolute hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-black/40",
-  bubbleActive:
-    "-translate-y-2 scale-110 shadow-2xl shadow-black/45 ring-2 ring-[#E3CD9F]/55",
-  bubbleMobile: "hover:-translate-y-1 hover:scale-105",
-  textWrapper:
-    "absolute w-[190px] -translate-y-1/2 transition-transform duration-300 peer-hover:scale-125",
-  companyText: "text-base font-extralight leading-tight text-white/90",
-  detailText: "text-base font-extralight leading-tight text-white/55",
-  mobileDetailText: "text-base font-extralight leading-tight text-white/60",
-  mobileList: "relative space-y-12 px-2 py-12 min-[380px]:px-4 sm:hidden",
-  mobileAxisDot:
-    "absolute top-14 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border border-white/30 bg-white/35 shadow-lg shadow-black/20",
-  mobileAxisLine:
-    "absolute top-[70px] bottom-[18rem] left-1/2 w-px -translate-x-1/2 bg-white/25",
-  mobileItem:
-    "relative z-10 grid grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] items-center gap-x-3 min-[380px]:gap-x-5",
-  mobileBubbleLeft: "col-start-1 justify-self-end",
-  mobileBubbleRight: "col-start-3 justify-self-start",
-  mobileTextLeft: "col-start-1 row-start-1 pr-1 text-right",
-  mobileTextRight: "col-start-3 row-start-1 pl-1 text-left",
-  loadingText: "relative py-16 text-center text-white/65",
-  emptyText: "relative py-16 text-center text-white/65",
-  contactBubble:
-    "rounded-full bg-[#050505]/72 text-center text-white transition-transform duration-300 hover:-translate-y-2 hover:scale-105 hover:bg-[#111111]/82 hover:shadow-2xl hover:shadow-black/40",
-  contactDesktop: "absolute flex flex-col items-center justify-center px-12",
-  contactMobile:
-    "mx-auto flex h-56 w-56 flex-col items-center justify-center px-10",
-  detailLayout:
-    "grid w-full grid-cols-1 gap-12 px-4 py-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.8fr)] lg:items-stretch lg:gap-16 lg:px-8 lg:py-16",
-  detailTimelineColumn: "min-w-0",
-  detailPanelColumn: "hidden min-w-0 lg:flex lg:items-start lg:self-stretch",
-  detailPanel:
-    "rounded-md bg-transparent px-7 py-8 shadow-none backdrop-blur-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:max-w-[440px] lg:overflow-y-auto",
-  detailPanelHint: "text-xl font-extralight leading-relaxed text-[#d9d4c8]/65",
-  detailPanelEyebrow:
-    "text-base font-extralight uppercase tracking-[0.18em] text-[#d9d4c8]/55",
-  detailPanelTitle:
-    "mt-4 text-5xl font-[400] leading-none text-[#E3CD9F] sm:text-6xl",
-  detailPanelRole: "mt-5 text-2xl font-[300] leading-snug text-white/88",
-  detailPanelDuration: "mt-3 text-lg font-extralight text-[#d9d4c8]/60",
-  detailPanelBody:
-    "mt-8 text-xl font-extralight leading-relaxed text-[#d9d4c8]/72",
-  detailPanelInlineLink:
-    "mt-5 inline-flex max-w-full break-words text-lg font-[300] leading-relaxed text-[#E3CD9F] underline decoration-[#E3CD9F]/35 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60",
-  detailPanelLink:
-    "mt-9 inline-flex border border-[#E3CD9F]/30 px-5 py-3 text-lg font-[300] text-[#E3CD9F] no-underline transition-colors hover:border-[#E3CD9F]/70 hover:bg-[#E3CD9F]/10 hover:text-white",
-};
-
-export const showcaseStyles = {
-  card: `group relative cursor-pointer overflow-hidden rounded-md ${siteColorClasses.panelBg18} p-3 shadow-2xl ${siteColorClasses.shadow35} transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--site-panel-26)] hover:shadow-[var(--site-black-45)]`,
-  cardImageFrame: "overflow-hidden rounded-[4px]",
-  cardImage:
-    "h-[280px] w-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100",
-  cardTitle: `px-1 pt-4 pb-1 text-left text-3xl font-extralight leading-tight ${siteColorClasses.whiteText}`,
-  detailImageContained: `max-h-[720px] w-full max-w-full object-contain opacity-90 shadow-2xl ${siteColorClasses.shadow30}`,
-  carouselButtonBase:
-    "absolute top-1/2 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center shadow-lg backdrop-blur-md transition-colors",
-  carouselButton: `border ${siteColorClasses.whiteBorder15} ${siteColorClasses.blackBg25} ${siteColorClasses.whiteText75} hover:bg-[var(--site-white-10)] hover:text-[var(--site-white)]`,
-  description: `break-words text-lg font-extralight leading-relaxed ${siteColorClasses.whiteText65} sm:text-xl`,
-  detailTextStack: "mt-10 max-w-4xl space-y-8 break-words",
-  detailTextSection: "space-y-3",
-  detailTextTitle: `break-words text-2xl font-[500] leading-tight ${siteColorClasses.accentText} sm:text-3xl`,
-  detailGradeA: "text-[#22e66f]",
-  detailGradeB: "text-[#7bd65f]",
-  githubLink: `mt-8 inline-flex max-w-full items-center gap-3 break-words border ${siteColorClasses.whiteBorder15} ${siteColorClasses.whiteBg04} px-5 py-3 text-lg font-extralight no-underline backdrop-blur-[41.5px] transition-all hover:border-[var(--site-white-30)] hover:bg-[var(--site-white-10)]`,
-  link: `${siteColorClasses.whiteText80} hover:text-[var(--site-white)]`,
+  status: "py-16 text-center text-muted",
+  mobileOnly: "md:hidden",
+  desktopOnly: "hidden md:block",
+  /* Phone layout (CvTimelineMobile). */
+  mList:
+    "relative before:absolute before:top-8 before:bottom-8 before:left-[52px] before:w-px before:bg-line-strong",
+  mRow: "relative grid min-h-[72px] w-full cursor-pointer grid-cols-[104px_minmax(0,1fr)_auto] items-center gap-3 py-2.5 text-left text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  mBubbleCell: "relative z-10 grid place-items-center",
+  mBubble: "grid place-items-center rounded-full border transition-colors",
+  mNextBubble:
+    "border-dashed border-line-strong bg-band font-display text-xl font-semibold text-muted",
+  mText: "flex min-w-0 flex-col gap-0.5 leading-tight",
+  mCompany: "text-[15px] font-semibold text-ink",
+  mRole: "text-[13px] text-muted",
+  mChevron: "text-muted transition-transform",
+  mPanel:
+    "mb-3 relative z-10 min-[380px]:ml-[116px] rounded-card border border-line bg-surface p-4",
+  /* Below ~1100px the track scrolls sideways (interim until the phone layout is approved). */
+  scroller: "-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8",
+  track: "relative min-w-[1100px]",
+  axis: "absolute inset-x-0 h-px bg-line-strong",
+  ruler: "absolute inset-x-0 h-px bg-line-strong",
+  tick: "absolute h-2 w-px -translate-x-1/2 bg-line-strong",
+  tickLabel: "absolute font-mono text-xs text-muted",
+  today:
+    "absolute w-0 -translate-x-1/2 border-l border-dashed border-ink/60",
+  todayLabel:
+    "absolute top-0 left-2 whitespace-nowrap font-mono text-xs text-ink",
+  stem: "absolute w-px -translate-x-1/2 bg-line-strong",
+  stemSelected: "!bg-accent-text",
+  bar: "absolute h-1.5 rounded-full bg-line-strong",
+  barSelected: "!bg-accent-text",
+  bubble:
+    "absolute z-10 grid cursor-pointer place-items-center rounded-full border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text",
+  bubbleIdle: "border-line-strong bg-surface hover:border-ink",
+  bubbleSelected: "border-accent bg-accent",
+  logo: "pointer-events-none max-h-[46%] max-w-[64%] object-contain",
+  logoFallback: "px-2 text-center text-xs font-semibold",
+  nextBubble:
+    "absolute z-10 grid place-items-center rounded-full border border-dashed border-line-strong bg-bg font-display text-2xl font-semibold text-muted no-underline transition-colors hover:border-accent-text hover:text-accent-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text",
+  label: "absolute flex flex-col gap-0.5 leading-tight",
+  labelCompany: "text-sm font-semibold text-ink",
+  labelRole: "text-[13px] text-muted",
+  labelDuration: "font-mono text-xs text-muted",
+  labelSelected: "!text-accent-text",
+  panel:
+    "mt-8 grid gap-6 rounded-card border border-line bg-surface p-6 sm:p-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12",
+  panelDates: "font-mono text-[13px] text-accent-text",
+  panelCompany:
+    "mt-2 font-display text-[28px] font-semibold leading-none tracking-[-0.045em] text-ink sm:text-[34px]",
+  panelRole: "mt-2 text-lg text-muted",
+  panelFacts: "mt-5 flex items-baseline gap-3",
+  panelFactLabel: "text-[13px] text-muted",
+  panelFactValue: "font-mono text-sm text-ink",
+  panelBody: "text-base leading-[1.55] text-ink",
+  panelActions: "mt-6 flex flex-wrap items-center gap-x-5 gap-y-3",
+  panelLink: `text-sm font-medium text-accent-text underline underline-offset-4 hover:text-ink`,
 };
 
 export const portfolioStyles = {
-  section: "mb-24 px-5 py-16",
-  categoryStack: "space-y-20",
-  categoryTitle: `mb-7 text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-5xl`,
-  grid: "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3",
+  header: "pt-14 pb-12 sm:pt-20 sm:pb-16",
+  label: "text-[13px] font-medium text-accent-text",
+  title:
+    "mt-3 font-display text-[clamp(40px,7.2vw,104px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  intro: "mt-6 max-w-[56ch] text-lg text-muted",
+  status: "py-8 text-muted",
+  group: "border-t border-line py-12 sm:py-16",
+  groupTitle:
+    "mb-8 flex items-baseline gap-3 font-display text-[clamp(28px,3vw,40px)] font-semibold leading-none tracking-[-0.045em] text-ink",
+  count: "font-mono text-sm font-normal tracking-normal text-muted",
 };
 
 export const cvModalStyles = {
-  backdrop: `fixed inset-0 z-50 flex items-center justify-center ${siteColorClasses.blackBg75} px-4 py-3 backdrop-blur-sm`,
-  panel: `relative max-h-[88vh] w-full max-w-[1760px] overflow-hidden ${siteColorClasses.surfaceBg} p-4 shadow-2xl ${siteColorClasses.shadow60} sm:p-6`,
-  closeButton: `absolute right-3 top-3 z-10 flex h-10 w-10 cursor-pointer items-center justify-center border ${siteColorClasses.accentBorder70} ${siteColorClasses.surfaceBg95} text-xl font-[500] ${siteColorClasses.accentText} transition-colors hover:bg-[var(--site-accent)] hover:text-[var(--site-surface)]`,
-  contentGrid:
-    "grid max-h-[calc(88vh-2rem)] min-h-0 grid-cols-1 gap-6 overflow-hidden pt-12 lg:grid-cols-[minmax(560px,1.2fr)_minmax(420px,0.8fr)] lg:pt-0",
-  frame: `h-[74vh] min-h-[460px] w-full ${siteColorClasses.whiteBg} lg:h-[calc(88vh-3rem)] lg:min-h-0`,
-  skillPane: `min-h-0 overflow-y-auto border-t ${siteColorClasses.accentBorder20} pt-6 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0`,
+  /* The backdrop is a neutral scrim; the handover has no token for it. */
+  dialog:
+    "m-auto h-[100dvh] max-h-none w-full max-w-none bg-transparent p-0 text-ink backdrop:bg-black/60 sm:h-[min(92dvh,1000px)] sm:w-[min(94vw,1400px)]",
+  panel:
+    "flex h-full flex-col overflow-hidden bg-surface sm:rounded-card sm:border sm:border-line",
+  header:
+    "flex items-center justify-between gap-4 border-b border-line px-4 py-3 sm:px-6",
+  title: "font-display text-xl font-semibold tracking-[-0.03em] text-ink",
+  headerActions: "flex items-center gap-2 sm:gap-4",
+  textLink:
+    "inline-flex min-h-11 items-center gap-1.5 px-2 text-sm font-medium text-accent-text underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  closeButton:
+    "grid h-11 w-11 cursor-pointer place-items-center rounded-card border border-line-strong text-ink transition-colors hover:border-ink hover:bg-ink hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+  content:
+    "grid min-h-0 flex-1 content-start overflow-y-auto lg:grid-cols-[minmax(0,1.25fr)_minmax(360px,0.75fr)] lg:content-stretch lg:overflow-hidden",
+  /* Phone browsers rarely render a PDF inline; they get the "Åpne PDF" link instead. */
+  frame: "hidden h-[70dvh] w-full border-0 bg-white md:block lg:h-full",
+  skillPane:
+    "min-h-0 p-5 sm:p-6 md:border-t md:border-line lg:overflow-y-auto lg:border-t-0 lg:border-l",
+  paneTitle: "mb-6 text-[13px] font-medium text-muted",
 };
 
 export const contactStyles = {
-  section:
-    "mb-20 min-h-[68vh] pt-32 pb-24 sm:mb-28 sm:min-h-[74vh] sm:pt-48 sm:pb-32",
-  cardGrid:
-    "mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8",
-  card: `mx-auto flex w-full max-w-[420px] flex-col items-center justify-center gap-4 rounded-md ${siteColorClasses.panelBg18} px-6 py-7 text-center shadow-2xl ${siteColorClasses.shadow35} sm:aspect-square sm:max-w-[540px] sm:gap-8 sm:px-14 sm:py-16`,
-  action:
-    "inline-flex max-w-full cursor-pointer items-center justify-center break-all px-4 py-3 text-base font-extralight no-underline transition-all duration-300 sm:px-6 sm:py-4 sm:text-xl",
-  title: `text-4xl font-[300] leading-none ${siteColorClasses.accentText} sm:text-6xl`,
-  body: `text-base font-extralight leading-relaxed ${siteColorClasses.text70} sm:text-xl`,
-  iconEnvelope: `fas fa-envelope text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
-  iconGithub: `fab fa-github text-4xl ${siteColorClasses.accentText70} sm:text-6xl`,
-  button: `border ${siteColorClasses.accentBorder25} bg-transparent ${siteColorClasses.text85} hover:border-[var(--site-accent-55)] hover:bg-[var(--site-accent-10)] hover:text-[var(--site-white)]`,
-  copiedText: `min-h-[1.75rem] text-base font-extralight transition-opacity duration-200 ${siteColorClasses.text65} sm:text-lg`,
+  section: "bg-contact-bg text-contact-ink",
+  inner: "py-20 sm:py-28",
+  headline:
+    "max-w-[16ch] font-display text-[clamp(36px,5vw,72px)] font-semibold leading-none tracking-[-0.045em]",
+  actions: "mt-10 flex flex-wrap gap-3",
+  primary:
+    "inline-flex min-h-12 max-w-full cursor-pointer items-center gap-2.5 rounded-card bg-contact-btn-bg px-5 text-[15px] font-semibold break-all text-contact-btn-ink transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contact-ink",
+  outline:
+    "inline-flex min-h-12 items-center gap-2 rounded-card border border-contact-ink px-5 text-[15px] font-semibold text-contact-ink no-underline transition-colors hover:bg-contact-ink hover:text-contact-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-contact-ink",
+  status: "mt-4 min-h-6 text-sm",
 };

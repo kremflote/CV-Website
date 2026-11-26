@@ -1,84 +1,51 @@
 import { useContext } from "react";
-import { WideLayout } from "../components/common/WideLayout";
+import { Container } from "../components/common/Container";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import ShowcaseCard from "../components/ShowcaseCard";
-import type { IShowcase } from "../interfaces/IShowcase";
-import { pageStyles, portfolioStyles } from "../styles/styles";
-
-type ShowcaseCategory = "work" | "personal" | "kristiania";
-
-const categoryOrder: { key: ShowcaseCategory; title: string }[] = [
-  { key: "work", title: "Work" },
-  { key: "personal", title: "Sideprosjekter" },
-  { key: "kristiania", title: "Kristiania" },
-];
-
-const academicPattern =
-  /kristiania|eksamen|exam|pgr|pg\d|bachelor|frontend|mobil|algoritm|datastruktur|java|linux|semester|database/i;
-
-const getShowcaseCategory = (showcase: IShowcase): ShowcaseCategory => {
-  const category = showcase.category?.toLowerCase();
-
-  if (
-    category === "work" ||
-    category === "personal" ||
-    category === "kristiania"
-  ) {
-    return category;
-  }
-
-  const searchableText = `${showcase.title} ${showcase.description}`;
-  return academicPattern.test(searchableText) ? "kristiania" : "personal";
-};
-
-const groupShowcasesByCategory = (showcases: IShowcase[]) =>
-  showcases.reduce<Record<ShowcaseCategory, IShowcase[]>>(
-    (groups, showcase) => {
-      const category = getShowcaseCategory(showcase);
-      groups[category].push(showcase);
-      return groups;
-    },
-    { work: [], personal: [], kristiania: [] },
-  );
+import { EmptyPortfolio } from "../components/FeaturedProjects";
+import { categoryLabels, groupShowcases } from "../utils/showcase";
+import { featuredStyles, portfolioStyles as s } from "../styles/styles";
 
 const PortfolioPage = () => {
-  const { showcases, showcaseIsLoading, initError } =
-    useContext(ShowcaseContext)!;
-  const groupedShowcases = groupShowcasesByCategory(showcases);
+  const { showcases, showcaseIsLoading, initError } = useContext(ShowcaseContext)!;
+  const groups = groupShowcases(showcases);
 
   return (
-    <WideLayout>
-      <section className={portfolioStyles.section}>
-        {showcaseIsLoading && (
-          <p className={pageStyles.loadingText}>Loading...</p>
-        )}
+    <Container>
+      <header className={s.header}>
+        <p className={s.label}>Portefølje</p>
+        <h1 className={s.title}>Prosjekter</h1>
+        <p className={s.intro}>
+          Sideprosjekter og eksamensoppgaver fra studiet, gruppert etter type.
+        </p>
+      </header>
 
-        {initError && (
-          <p className={`text-center ${pageStyles.errorText}`}>{initError}</p>
-        )}
+      {showcaseIsLoading && <p className={s.status}>Laster …</p>}
+      {initError && <p className={s.status}>{initError}</p>}
+      {!showcaseIsLoading && !initError && groups.length === 0 && (
+        <section className={s.group}>
+          <EmptyPortfolio />
+        </section>
+      )}
 
-        <div className={portfolioStyles.categoryStack}>
-          {categoryOrder.map(({ key, title }) => {
-            const categoryShowcases = groupedShowcases[key];
-
-            if (categoryShowcases.length === 0) {
-              return null;
-            }
-
-            return (
-              <section key={key}>
-                <h2 className={portfolioStyles.categoryTitle}>{title}</h2>
-                <div className={portfolioStyles.grid}>
-                  {categoryShowcases.map((showcase) => (
-                    <ShowcaseCard key={showcase.id} {...showcase} />
-                  ))}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-      </section>
-    </WideLayout>
+      {groups.map(({ category, showcases: items }) => (
+        <section
+          key={category}
+          aria-labelledby={`kategori-${category}`}
+          className={s.group}
+        >
+          <h2 id={`kategori-${category}`} className={s.groupTitle}>
+            {categoryLabels[category].plural}
+            <span className={s.count}>{items.length}</span>
+          </h2>
+          <div className={featuredStyles.grid}>
+            {items.map((showcase) => (
+              <ShowcaseCard key={showcase.id} showcase={showcase} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </Container>
   );
 };
 
