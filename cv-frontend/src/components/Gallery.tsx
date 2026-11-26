@@ -1,5 +1,6 @@
 import { useState, type FC, type KeyboardEvent, type SyntheticEvent } from "react";
 import { galleryStyles as s } from "../styles/styles";
+import { imageSrc } from "../utils/showcase";
 
 interface GalleryProps {
   images: string[];
@@ -19,7 +20,7 @@ const Gallery: FC<GalleryProps> = ({ images, title, version }) => {
   if (images.length === 0) return null;
 
   const current = Math.min(index, images.length - 1);
-  const src = (image: string, i: number) => `/images/${image}?v=${version}-${i}`;
+  const src = (image: string, i: number) => imageSrc(image, `${version}-${i}`);
   const go = (next: number) => setIndex((next + images.length) % images.length);
 
   // Portrait phone screenshots would lose most of their content to a 16:10 crop; show them whole.

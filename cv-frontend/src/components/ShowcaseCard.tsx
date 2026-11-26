@@ -6,6 +6,7 @@ import {
   getShowcaseCategory,
   getShowcaseGrade,
   getThumbnailSrc,
+  showcasePath,
 } from "../utils/showcase";
 import { cardStyles as s } from "../styles/styles";
 
@@ -17,14 +18,20 @@ const ShowcaseCard: FC<{ showcase: IShowcase }> = ({ showcase }) => {
   return (
     <article className={s.card}>
       <div className={s.imageFrame}>
-        <img src={getThumbnailSrc(showcase)} alt="" className={s.image} loading="lazy" />
+        {showcase.image_Thumbnail ? (
+          <img src={getThumbnailSrc(showcase)} alt="" className={s.image} loading="lazy" />
+        ) : (
+          <span className={s.imagePlaceholder} aria-hidden="true">
+            {showcase.title}
+          </span>
+        )}
         {grade && <span className={s.grade}>Karakter {grade}</span>}
       </div>
       <div className={s.body}>
         <p className={s.category}>{category}</p>
         <h3 className={s.title}>
           {/* The link covers the whole card; see cardStyles.link. */}
-          <Link to={`/showcase/${showcase.id}`} className={s.link}>
+          <Link to={showcasePath(showcase)} className={s.link}>
             {showcase.title}
           </Link>
         </h3>

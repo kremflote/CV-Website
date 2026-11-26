@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --configLoader runner",
+    "portfolio": "node scripts/fetch-portfolio.mjs",
+    "prebuild": "node scripts/fetch-portfolio.mjs",
     "build": "tsc -b && vite build --configLoader runner",
     "lint": "eslint .",
     "preview": "vite preview"

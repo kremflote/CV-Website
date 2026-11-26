@@ -14,7 +14,9 @@ import {
   getShowcaseCategory,
   getShowcaseGrade,
   listSectionPattern,
+  matchesShowcaseParam,
   orderShowcases,
+  showcasePath,
 } from "../utils/showcase";
 import { buttonStyles, projectStyles as s } from "../styles/styles";
 
@@ -24,7 +26,7 @@ const ShowcasePage = () => {
   const { skills } = useContext(SkillContext) as ISkillContext;
 
   const ordered = useMemo(() => orderShowcases(showcases), [showcases]);
-  const position = ordered.findIndex((showcase) => showcase.id === Number(id));
+  const position = ordered.findIndex((showcase) => matchesShowcaseParam(showcase, id ?? ""));
   const showcase = ordered[position];
 
   if (showcaseIsLoading) {
@@ -131,7 +133,7 @@ const ShowcasePage = () => {
             {sections.map((section) => (
               <section key={section.title} className={s.section}>
                 <h2 className={s.sectionTitle}>{section.title}</h2>
-                {listSectionPattern.test(section.title.trim()) ? (
+                {section.list || listSectionPattern.test(section.title.trim()) ? (
                   <ol className={s.list}>
                     {section.body.map((item, i) => (
                       <li key={item} className={s.listItem}>
@@ -188,7 +190,7 @@ const ShowcasePage = () => {
 
         <nav className={s.pager} aria-label="Andre prosjekter">
           {previous ? (
-            <Link to={`/showcase/${previous.id}`} className={s.pagerLink}>
+            <Link to={showcasePath(previous)} className={s.pagerLink}>
               <span className={s.pagerLabel}>← Forrige prosjekt</span>
               <span className={s.pagerTitle}>{previous.title}</span>
             </Link>
@@ -196,7 +198,7 @@ const ShowcasePage = () => {
             <span />
           )}
           {next && (
-            <Link to={`/showcase/${next.id}`} className={`${s.pagerLink} ${s.pagerNext}`}>
+            <Link to={showcasePath(next)} className={`${s.pagerLink} ${s.pagerNext}`}>
               <span className={s.pagerLabel}>Neste prosjekt →</span>
               <span className={s.pagerTitle}>{next.title}</span>
             </Link>

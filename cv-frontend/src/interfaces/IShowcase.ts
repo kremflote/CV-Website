@@ -1,19 +1,31 @@
+export interface IShowcaseSection {
+  title: string;
+  body: string[];
+  /** Render the body as a numbered list. */
+  list?: boolean;
+}
+
 export interface IShowcase {
-  id: number;
+  /** Legacy numeric id (old /showcase/8 links) or the repository name. */
+  id: number | string;
+  /** Repository name; used in project URLs when present. */
+  slug?: string;
   title: string;
   description: string;
-  details?: {
-    title: string;
-    body: string[];
-  }[];
+  details?: IShowcaseSection[];
+  /** File name in /public/images, or a full URL. */
   image: string;
   image_Thumbnail: string;
   images?: string[];
   gitHub_Link: string;
   category?: "work" | "personal" | "kristiania" | string;
-  /** Technology chips on the card. Interim until they come from GitHub topics. */
+  /** Technology chips (GitHub topics). */
   tech?: string[];
-  /** Last push to the repository (ISO date). Filled in from GitHub in step 6. */
+  /** Primary language reported by GitHub. */
+  language?: string | null;
+  /** Grade letter, when the project was graded. */
+  grade?: string;
+  /** Last push to the repository (ISO date). */
   updatedAt?: string;
   /** Shown on the home page's Prosjekter section. */
   featured?: boolean;

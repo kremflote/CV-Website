@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Container } from "../components/common/Container";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import ShowcaseCard from "../components/ShowcaseCard";
+import { EmptyPortfolio } from "../components/FeaturedProjects";
 import { categoryLabels, groupShowcases } from "../utils/showcase";
 import { featuredStyles, portfolioStyles as s } from "../styles/styles";
 
@@ -21,6 +22,11 @@ const PortfolioPage = () => {
 
       {showcaseIsLoading && <p className={s.status}>Laster …</p>}
       {initError && <p className={s.status}>{initError}</p>}
+      {!showcaseIsLoading && !initError && groups.length === 0 && (
+        <section className={s.group}>
+          <EmptyPortfolio />
+        </section>
+      )}
 
       {groups.map(({ category, showcases: items }) => (
         <section

@@ -1,1 +1,6 @@
+# /kontakt was a page; it is now the contact block on the home page.
+/kontakt /#kontakt 301
+/kontakt/ /#kontakt 301
+
+# Single-page app: every other path is served by index.html.
 /* /index.html 200

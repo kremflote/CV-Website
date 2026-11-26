@@ -21,18 +21,33 @@ export const getShowcaseCategory = (showcase: IShowcase): ShowcaseCategory => {
     : "personal";
 };
 
-/** The grade letter from a "Karakter A" detail section, if there is one. */
+/** The grade letter: from the data, or from a "Karakter A" detail section. */
 export const getShowcaseGrade = (showcase: IShowcase): string | null => {
+  if (showcase.grade) return showcase.grade;
   const section = showcase.details?.find((detail) =>
     /^karakter\s+[a-f]\b/i.test(detail.title.trim()),
   );
   return section ? section.title.trim().slice(-1).toUpperCase() : null;
 };
 
-const thumbnailVersion = "20260529";
+const imageVersion = "20260529";
+
+/** Local file names live in /public/images; GitHub screenshots are full URLs. */
+export const imageSrc = (image: string, cacheKey: string | number = "") =>
+  /^(https?:)?\/\//.test(image) || image.startsWith("/")
+    ? image
+    : `/images/${image}?v=${cacheKey}-${imageVersion}`;
 
 export const getThumbnailSrc = (showcase: IShowcase) =>
-  `/images/${showcase.image_Thumbnail}?v=${showcase.id}-${thumbnailVersion}`;
+  imageSrc(showcase.image_Thumbnail, showcase.id);
+
+/** Project URL: the repository name when there is one, else the legacy id. */
+export const showcasePath = (showcase: IShowcase) =>
+  `/showcase/${encodeURIComponent(showcase.slug ?? String(showcase.id))}`;
+
+/** Matches both /showcase/<repository name> and legacy /showcase/8 links. */
+export const matchesShowcaseParam = (showcase: IShowcase, param: string) =>
+  String(showcase.id) === param || showcase.slug?.toLowerCase() === param.toLowerCase();
 
 export const categoryOrder: ShowcaseCategory[] = ["work", "personal", "kristiania"];
 
@@ -53,8 +68,8 @@ export const orderShowcases = (showcases: IShowcase[]) =>
 export const listSectionPattern = /^(funksjoner|teknologi|arkitektur|tjenester)$/i;
 
 /**
- * Main language for the facts strip: the first technology that is one of
- * the programming languages in the skills list. Interim until it comes from GitHub.
+ * Main language for the facts strip: GitHub's primary language, or else the
+ * first technology that is one of the programming languages in the skills list.
  */
 export const getMainLanguage = (showcase: IShowcase, languages: string[]) =>
-  showcase.tech?.find((tech) => languages.includes(tech)) ?? null;
+  showcase.language ?? showcase.tech?.find((tech) => languages.includes(tech)) ?? null;

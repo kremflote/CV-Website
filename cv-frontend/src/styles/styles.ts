@@ -119,6 +119,8 @@ export const cardStyles = {
   card: "group relative flex flex-col overflow-hidden rounded-card border border-line bg-surface transition-colors hover:border-line-strong has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text",
   imageFrame: "relative aspect-[16/10] overflow-hidden border-b border-line bg-band",
   image: "h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]",
+  imagePlaceholder:
+    "grid h-full place-items-center p-6 text-center font-display text-2xl font-semibold tracking-[-0.03em] text-muted",
   grade:
     "absolute top-3 left-3 rounded-chip bg-accent px-2.5 py-1 text-[13px] font-semibold text-accent-ink",
   body: "flex flex-1 flex-col p-5 sm:p-6",
@@ -134,6 +136,7 @@ export const cardStyles = {
 
 export const featuredStyles = {
   status: "py-8 text-muted",
+  inlineLink: "text-accent-text underline underline-offset-4 hover:text-ink",
   grid: "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
   allLink:
     "inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-accent-text no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
