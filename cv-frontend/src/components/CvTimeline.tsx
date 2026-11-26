@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { TenureContext } from "../contexts/TenureContext";
 import type { ITenureContext } from "../interfaces/contexts/ITenureContext";
-import { buildTimelinePeriods, today, type TimelinePeriod } from "../utils/tenure";
+import { buildTimelinePeriods, type TimelinePeriod } from "../utils/tenure";
 import { timelineStyles as s } from "../styles/styles";
 import { PeriodActions } from "./TimelineParts";
 import CvTimelineMobile from "./CvTimelineMobile";
@@ -34,6 +34,17 @@ const DEFAULT_SELECTED_ROLE = "kundebehandler";
 
 const toFraction = (date: Date) =>
   Math.min(1, Math.max(0, (date.getTime() - AXIS_START) / (AXIS_END - AXIS_START)));
+
+/* Gaps of up to this many days between one period's end and the next one's start
+   (for example a month between two jobs) are closed on the ruler. */
+const MAX_CLOSED_GAP_DAYS = 62;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const getBarEnd = (period: TimelinePeriod, next?: TimelinePeriod) => {
+  if (!next) return period.end;
+  const gapDays = (next.start.getTime() - period.end.getTime()) / DAY_MS;
+  return gapDays > 0 && gapDays <= MAX_CLOSED_GAP_DAYS ? next.start : period.end;
+};
 
 /** Diameter grows with duration by area, clamped to 56–200px. */
 const bubbleSize = (months: number, longest: number) =>
@@ -138,7 +149,6 @@ const CvTimeline: FC = () => {
   if (initError) return <p className={s.status}>{initError}</p>;
   if (!selected) return null;
 
-  const todayX = toFraction(today) * width;
   const next = placed.get("next")!;
 
   const selectOnHover = (id: number) => (event: PointerEvent) => {
@@ -174,13 +184,9 @@ const CvTimeline: FC = () => {
             );
           })}
 
-          {/* "I dag" marker. */}
-          <div className={s.today} style={{ left: todayX, top: 0, height: RULER_Y }} aria-hidden="true">
-            <span className={s.todayLabel}>I dag</span>
-          </div>
-
-          {periods.map((period) => {
+          {periods.map((period, index) => {
             const item = placed.get(String(period.id))!;
+            const barEnd = getBarEnd(period, periods[index + 1]);
             const isSelected = period.id === selected.id;
             const labelTop = LABEL_TOP + item.labelRow * LABEL_ROW_GAP;
             return (
@@ -191,12 +197,12 @@ const CvTimeline: FC = () => {
                   style={{ left: item.x, top: AXIS_Y, height: labelTop - AXIS_Y - 6 }}
                   aria-hidden="true"
                 />
-                {/* Period bar on the ruler, from real start to real end. */}
+                {/* Period bar on the ruler, from start to end (short gaps to the next period closed). */}
                 <span
                   className={`${s.bar} ${isSelected ? s.barSelected : ""}`}
                   style={{
                     left: toFraction(period.start) * width,
-                    width: Math.max(4, (toFraction(period.end) - toFraction(period.start)) * width),
+                    width: Math.max(4, (toFraction(barEnd) - toFraction(period.start)) * width),
                     top: RULER_Y - 3,
                   }}
                   aria-hidden="true"
