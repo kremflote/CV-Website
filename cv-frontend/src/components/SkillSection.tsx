@@ -84,8 +84,12 @@ const SkillSection: FC<SkillSectionProps> = ({ onInternalLinkClick, layout = "pa
 
       {/* Every description is stacked in the same grid cell and only the selected
           one is visible, so the area keeps the height of the longest one and the
-          rule below it (and the rest of the page) never moves. */}
-      <div id={descriptionId} className={s.description} aria-live="polite">
+          rest of the page never moves. */}
+      <div
+        id={descriptionId}
+        className={`${s.description} ${layout === "modal" ? s.descriptionModalRule : ""}`}
+        aria-live="polite"
+      >
         {skills.map((skill) => {
           const isSelected = skill.id === selected?.id;
           return (

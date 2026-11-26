@@ -228,8 +228,10 @@ export const skillStyles = {
   chip: "min-h-10 cursor-pointer rounded-chip border px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
   chipIdle: "border-line-strong bg-transparent text-ink hover:border-ink",
   chipSelected: "border-accent bg-accent text-accent-ink",
-  /* The descriptions share one grid cell; the accent rule sits under them. */
-  description: "grid self-start border-b-2 border-accent-text pb-6",
+  /* The descriptions share one grid cell, so the area keeps the height of the longest. */
+  description: "grid self-start",
+  /* The CV modal keeps an accent rule under the descriptions; the home page has none. */
+  descriptionModalRule: "border-b-2 border-accent-text pb-6",
   descriptionItem: "[grid-area:1/1]",
   skillName:
     "font-display text-[28px] font-semibold leading-none tracking-[-0.045em] text-ink sm:text-[34px]",
