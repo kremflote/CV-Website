@@ -40,10 +40,10 @@ const fromGenerated = (project: GeneratedProject): IShowcase => ({
 });
 
 /**
- * GitHub decides which projects exist (public + topic "portfolio"). While a
- * project still has a local entry, its text, images, category, grade and id
- * come from there; GitHub supplies the description when it has one, the
- * topics, language, last update and link.
+ * GitHub decides which projects exist (public + topic "portfolio"). When a
+ * project also has a local entry, its text, category, grade and id come from
+ * there; GitHub supplies the description when it has one, the topics,
+ * language, last update, link, and the screenshots when portfolio.json lists any.
  */
 const mergeWithLocal = (project: GeneratedProject, local: LocalProject): IShowcase => {
   const fromGitHub = fromGenerated(project);
@@ -58,6 +58,13 @@ const mergeWithLocal = (project: GeneratedProject, local: LocalProject): IShowca
     updatedAt: project.updatedAt,
     gitHub_Link: project.url,
     featured: local.featured ?? project.featured,
+    ...(project.images.length > 0
+      ? {
+          image: fromGitHub.image,
+          image_Thumbnail: fromGitHub.image_Thumbnail,
+          images: project.images,
+        }
+      : {}),
   };
 };
 

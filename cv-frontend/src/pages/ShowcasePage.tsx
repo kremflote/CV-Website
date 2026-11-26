@@ -6,6 +6,7 @@ import { ExternalIcon } from "../components/TimelineParts";
 import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import { SkillContext } from "../contexts/SkillContext";
 import type { ISkillContext } from "../interfaces/contexts/ISkillContext";
+import type { IShowcase } from "../interfaces/IShowcase";
 import { formatInlineLinks } from "../components/common/FormattedText";
 import NotFoundPage from "./NotFoundPage";
 import {
@@ -19,6 +20,60 @@ import {
   showcasePath,
 } from "../utils/showcase";
 import { buttonStyles, projectStyles as s } from "../styles/styles";
+
+type Section = NonNullable<IShowcase["details"]>[number];
+
+/** A section's body: a numbered list, or paragraphs with runs of bullet points as lists. */
+const SectionBody = ({ section }: { section: Section }) => {
+  const isNumberedList =
+    section.list || (!section.kinds && listSectionPattern.test(section.title.trim()));
+
+  if (isNumberedList) {
+    return (
+      <ol className={s.list}>
+        {section.body.map((item, i) => (
+          <li key={item} className={s.listItem}>
+            <span className={s.listNumber} aria-hidden="true">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span>{formatInlineLinks(item)}</span>
+          </li>
+        ))}
+      </ol>
+    );
+  }
+
+  // Group consecutive bullet points into one list.
+  const groups: { kind: "p" | "li" | "h"; items: string[] }[] = [];
+  section.body.forEach((text, i) => {
+    const kind = section.kinds?.[i] ?? "p";
+    const last = groups[groups.length - 1];
+    if (kind === "li" && last?.kind === "li") last.items.push(text);
+    else groups.push({ kind, items: [text] });
+  });
+
+  return (
+    <>
+      {groups.map((group, i) =>
+        group.kind === "li" ? (
+          <ul key={i} className={s.bullets}>
+            {group.items.map((item) => (
+              <li key={item}>{formatInlineLinks(item)}</li>
+            ))}
+          </ul>
+        ) : group.kind === "h" ? (
+          <h3 key={i} className={s.subheading}>
+            {formatInlineLinks(group.items[0])}
+          </h3>
+        ) : (
+          <p key={i} className={s.paragraph}>
+            {formatInlineLinks(group.items[0])}
+          </p>
+        ),
+      )}
+    </>
+  );
+};
 
 const ShowcasePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -133,24 +188,7 @@ const ShowcasePage = () => {
             {sections.map((section) => (
               <section key={section.title} className={s.section}>
                 <h2 className={s.sectionTitle}>{section.title}</h2>
-                {section.list || listSectionPattern.test(section.title.trim()) ? (
-                  <ol className={s.list}>
-                    {section.body.map((item, i) => (
-                      <li key={item} className={s.listItem}>
-                        <span className={s.listNumber} aria-hidden="true">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span>{formatInlineLinks(item)}</span>
-                      </li>
-                    ))}
-                  </ol>
-                ) : (
-                  section.body.map((paragraph) => (
-                    <p key={paragraph} className={s.paragraph}>
-                      {formatInlineLinks(paragraph)}
-                    </p>
-                  ))
-                )}
+                <SectionBody section={section} />
               </section>
             ))}
           </div>

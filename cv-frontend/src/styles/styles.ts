@@ -189,6 +189,9 @@ export const projectStyles = {
   listItem:
     "grid grid-cols-[40px_minmax(0,1fr)] gap-2 border-b border-line py-3.5 text-base leading-[1.55] text-ink break-words",
   listNumber: "pt-0.5 font-mono text-[13px] text-accent-text",
+  subheading: "mt-6 text-base font-semibold leading-snug text-ink",
+  bullets:
+    "mt-3 list-disc space-y-1.5 pl-5 text-base leading-[1.55] text-ink marker:text-accent-text",
   sidebar:
     "self-start space-y-8 rounded-card border border-line bg-surface p-6 lg:sticky lg:top-24",
   sidebarTitle: "text-[13px] font-medium text-muted",

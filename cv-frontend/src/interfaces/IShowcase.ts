@@ -3,6 +3,8 @@ export interface IShowcaseSection {
   body: string[];
   /** Render the body as a numbered list. */
   list?: boolean;
+  /** For mixed sections: paragraph ("p"), bullet point ("li") or sub-heading ("h") per entry. */
+  kinds?: ("p" | "li" | "h")[];
 }
 
 export interface IShowcase {

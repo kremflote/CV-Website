@@ -162,6 +162,9 @@ export const parseReadme = (markdown, repo, options = {}) => {
   let current = { title: "Oversikt", blocks: [] };
   let paragraph = [];
   let inCode = false;
+  // Text after a "---" rule is left out until the next heading of any level:
+  // that is usually a footer such as "Avsluttende eksamen, 2025".
+  let afterRule = false;
 
   const flushParagraph = () => {
     const text = cleanInline(paragraph.join(" "), repo);
@@ -192,13 +195,22 @@ export const parseReadme = (markdown, repo, options = {}) => {
       if (level === 2) {
         flushSection();
         current = { title, blocks: [] };
+        afterRule = false;
         continue;
       }
       // Deeper headings become a short paragraph inside the current section.
       flushParagraph();
+      afterRule = false;
       if (title) current.blocks.push({ type: "p", text: title, heading: true });
       continue;
     }
+
+    if (/^\s*(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) {
+      flushParagraph();
+      afterRule = true;
+      continue;
+    }
+    if (afterRule) continue;
 
     const item = line.match(/^\s*(?:[-*+]|\d+[.)])\s+(.*)$/);
     if (item) {
@@ -237,10 +249,16 @@ export const parseReadme = (markdown, repo, options = {}) => {
       const blocks = section.blocks.filter(
         (block, index, all) => !(block.heading && (!all[index + 1] || all[index + 1].heading)),
       );
+      const allItems = blocks.length > 0 && blocks.every((block) => block.type === "li");
+      const mixed = blocks.some((block) => block.type === "li" || block.heading);
       return {
         title: section.title,
         body: blocks.map((block) => block.text),
-        ...(blocks.length > 0 && blocks.every((block) => block.type === "li") ? { list: true } : {}),
+        ...(allItems ? { list: true } : {}),
+        // Mixed content: marks each entry as paragraph, bullet point or sub-heading.
+        ...(!allItems && mixed
+          ? { kinds: blocks.map((block) => (block.heading ? "h" : block.type)) }
+          : {}),
       };
     })
     .filter((section) => section.body.length > 0);
