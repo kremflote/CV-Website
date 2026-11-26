@@ -4,7 +4,8 @@ import { ShowcaseContext } from "../contexts/ShowcaseContext";
 import ShowcaseCard from "./ShowcaseCard";
 import { featuredStyles as s } from "../styles/styles";
 
-const FEATURED_COUNT = 3;
+/** Repositories shown on the frontpage, in this order. */
+const FEATURED_REPOS = ["Matflote", "JobSearcher", "homeserver-config"];
 
 const FeaturedProjects: FC = () => {
   const { showcases, showcaseIsLoading, initError } = useContext(ShowcaseContext)!;
@@ -13,11 +14,11 @@ const FeaturedProjects: FC = () => {
   if (initError) return <p className={s.status}>{initError}</p>;
   if (showcases.length === 0) return <EmptyPortfolio />;
 
-  // Projects marked as featured first, then fill up with the rest.
-  const featured = [
-    ...showcases.filter((showcase) => showcase.featured),
-    ...showcases.filter((showcase) => !showcase.featured),
-  ].slice(0, FEATURED_COUNT);
+  // Only repositories that are published to the portfolio can be shown.
+  const featured = FEATURED_REPOS.flatMap((repo) =>
+    showcases.filter((showcase) => showcase.slug?.toLowerCase() === repo.toLowerCase()),
+  );
+  if (featured.length === 0) return <EmptyPortfolio />;
 
   return (
     <div className={s.grid}>
