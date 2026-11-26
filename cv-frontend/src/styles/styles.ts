@@ -228,7 +228,9 @@ export const skillStyles = {
   chip: "min-h-10 cursor-pointer rounded-chip border px-3.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
   chipIdle: "border-line-strong bg-transparent text-ink hover:border-ink",
   chipSelected: "border-accent bg-accent text-accent-ink",
-  description: "self-start border-t-2 border-accent-text pt-5",
+  /* The descriptions share one grid cell; the accent rule sits under them. */
+  description: "grid self-start border-b-2 border-accent-text pb-6",
+  descriptionItem: "[grid-area:1/1]",
   skillName:
     "font-display text-[28px] font-semibold leading-none tracking-[-0.045em] text-ink sm:text-[34px]",
   skillNameSmall:
@@ -256,20 +258,17 @@ export const timelineStyles = {
   mChevron: "text-muted transition-transform",
   mPanel:
     "mb-3 relative z-10 min-[380px]:ml-[116px] rounded-card border border-line bg-surface p-4",
-  /* Below ~1100px the track scrolls sideways (interim until the phone layout is approved). */
+  /* Between the phone layout (below 768px) and ~1100px the track scrolls sideways. */
   scroller: "-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8",
   track: "relative min-w-[1100px]",
   axis: "absolute inset-x-0 h-px bg-line-strong",
   ruler: "absolute inset-x-0 h-px bg-line-strong",
   tick: "absolute h-2 w-px -translate-x-1/2 bg-line-strong",
   tickLabel: "absolute font-mono text-xs text-muted",
-  today:
-    "absolute w-0 -translate-x-1/2 border-l border-dashed border-ink/60",
-  todayLabel:
-    "absolute top-0 left-2 whitespace-nowrap font-mono text-xs text-ink",
   stem: "absolute w-px -translate-x-1/2 bg-line-strong",
   stemSelected: "!bg-accent-text",
-  bar: "absolute h-1.5 rounded-full bg-line-strong",
+  /* Square ends, so bars of consecutive periods join into one line. */
+  bar: "absolute h-1.5 bg-line-strong",
   barSelected: "!bg-accent-text",
   bubble:
     "absolute z-10 grid cursor-pointer place-items-center rounded-full border transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-text",
@@ -331,7 +330,6 @@ export const cvModalStyles = {
   frame: "hidden h-[70dvh] w-full border-0 bg-white md:block lg:h-full",
   skillPane:
     "min-h-0 p-5 sm:p-6 md:border-t md:border-line lg:overflow-y-auto lg:border-t-0 lg:border-l",
-  paneTitle: "mb-6 text-[13px] font-medium text-muted",
 };
 
 export const contactStyles = {

@@ -7,11 +7,13 @@ import { buttonStyles, headerStyles } from "../../styles/styles";
 
 const siteName = "Marius Kristensen";
 
+/* Erfaring, Ferdigheter and Kontakt jump to sections of the home page;
+   Prosjekter opens the portfolio page. */
 const navItems = [
-  { hash: "erfaring", label: "Erfaring" },
-  { hash: "ferdigheter", label: "Ferdigheter" },
-  { hash: "prosjekter", label: "Prosjekter" },
-  { hash: "kontakt", label: "Kontakt" },
+  { key: "erfaring", to: { pathname: "/", hash: "#erfaring" }, label: "Erfaring" },
+  { key: "ferdigheter", to: { pathname: "/", hash: "#ferdigheter" }, label: "Ferdigheter" },
+  { key: "prosjekter", to: { pathname: "/portfolio" }, label: "Prosjekter" },
+  { key: "kontakt", to: { pathname: "/", hash: "#kontakt" }, label: "Kontakt" },
 ] as const;
 
 const isProjectPath = (pathname: string) =>
@@ -30,12 +32,12 @@ const Header: FC = () => {
           </Link>
 
           <ul className={headerStyles.navList}>
-            {navItems.map(({ hash, label }) => {
-              const isActive = hash === "prosjekter" && isProjectPath(pathname);
+            {navItems.map(({ key, to, label }) => {
+              const isActive = key === "prosjekter" && isProjectPath(pathname);
               return (
-                <li key={hash}>
+                <li key={key}>
                   <Link
-                    to={{ pathname: "/", hash: `#${hash}` }}
+                    to={to}
                     className={`${headerStyles.navLink} ${
                       isActive ? headerStyles.navLinkActive : ""
                     }`}

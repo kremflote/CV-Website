@@ -82,14 +82,26 @@ const SkillSection: FC<SkillSectionProps> = ({ onInternalLinkClick, layout = "pa
         ))}
       </div>
 
-      {selected && (
-        <div id={descriptionId} className={s.description} aria-live="polite">
-          <h3 className={layout === "page" ? s.skillName : s.skillNameSmall}>
-            {selected.skill_Name}
-          </h3>
-          <SkillDescription skill={selected} onInternalLinkClick={onInternalLinkClick} />
-        </div>
-      )}
+      {/* Every description is stacked in the same grid cell and only the selected
+          one is visible, so the area keeps the height of the longest one and the
+          rule below it (and the rest of the page) never moves. */}
+      <div id={descriptionId} className={s.description} aria-live="polite">
+        {skills.map((skill) => {
+          const isSelected = skill.id === selected?.id;
+          return (
+            <div
+              key={skill.id}
+              className={`${s.descriptionItem} ${isSelected ? "" : "invisible"}`}
+              aria-hidden={!isSelected}
+            >
+              <h3 className={layout === "page" ? s.skillName : s.skillNameSmall}>
+                {skill.skill_Name}
+              </h3>
+              <SkillDescription skill={skill} onInternalLinkClick={onInternalLinkClick} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -69,10 +69,7 @@ const CvModal: FC<CvModalProps> = ({ isOpen, onClose }) => {
           </header>
           <div className={s.content}>
             <iframe src={CV_PDF} className={s.frame} title="CV som PDF" />
-            <section className={s.skillPane} aria-labelledby="cv-skills-title">
-              <h3 id="cv-skills-title" className={s.paneTitle}>
-                Ferdigheter
-              </h3>
+            <section className={s.skillPane} aria-label="Ferdigheter">
               <SkillSection onInternalLinkClick={onClose} layout="modal" />
             </section>
           </div>
