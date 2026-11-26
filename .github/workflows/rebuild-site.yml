@@ -1,7 +1,15 @@
-# Rebuilds the site on Cloudflare Pages once a day, so projects tagged or
-# untagged with the GitHub topic "portfolio" show up without a new commit.
+# Keeps the portfolio up to date once a day:
+#
+# 1. Fetches the projects from GitHub (public repositories with the topic
+#    "portfolio") and commits cv-frontend/src/data/generated/portfolio.json to
+#    main when they changed. That file is the fallback a build uses if it
+#    cannot reach GitHub; the script leaves it untouched when nothing changed,
+#    so there is no daily commit.
+# 2. Calls the Cloudflare Pages deploy hook, so the live site is rebuilt with
+#    fresh data even when nothing was committed.
+#
 # Run it by hand from the Actions tab ("Daily site rebuild" > Run workflow)
-# right after tagging a repository.
+# right after tagging or untagging a repository.
 #
 # Needs the repository secret CLOUDFLARE_DEPLOY_HOOK_URL (the deploy hook URL
 # from Cloudflare Pages > Settings > Builds > Deploy hooks).
@@ -24,10 +32,47 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  trigger-deploy-hook:
+  refresh-and-rebuild:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      # If GitHub cannot be reached, this step fails and nothing is committed;
+      # the deploy hook below still runs.
+      - name: Fetch the portfolio from GitHub
+        id: fetch
+        continue-on-error: true
+        working-directory: cv-frontend
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PORTFOLIO_STRICT: "1"
+        run: node scripts/fetch-portfolio.mjs
+
+      - name: Commit the portfolio if it changed
+        if: steps.fetch.outcome == 'success'
+        run: |
+          file=cv-frontend/src/data/generated/portfolio.json
+          if git diff --quiet -- "$file"; then
+            echo "Portfolio unchanged, nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$file"
+          git commit -m "Update generated portfolio from GitHub"
+          git push origin HEAD:main
+
       - name: Trigger Cloudflare Pages build
         env:
           DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}
@@ -43,3 +88,9 @@ jobs:
             echo "::error::The deploy hook request failed (HTTP $status)."
             exit 1
           fi
+
+      - name: Report a failed fetch
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "::error::Fetching the portfolio from GitHub failed; the site was rebuilt with the committed portfolio.json."
+          exit 1

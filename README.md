@@ -69,8 +69,8 @@ topic **`portfolio`**. Private repositories never appear.
   its own). It makes one GitHub API request to list the repositories, and reads each README and
   `portfolio.json` from raw.githubusercontent.com. It writes `src/data/generated/portfolio.json`.
 - If GitHub cannot be reached or the rate limit is hit, the build keeps the committed
-  `portfolio.json`, so the site never loses its projects. Commit a fresh copy now and then:
-  `npm run portfolio` locally, then commit `src/data/generated/portfolio.json`.
+  `portfolio.json`, so the site never loses its projects. The daily workflow keeps that file
+  current; `npm run portfolio` updates it locally too.
 - The API allows 60 unauthenticated requests per hour per IP address. An optional
   `GITHUB_TOKEN` build variable (a fine-grained token with public repository read-only
   access and no permissions) raises that. Never commit a token.
@@ -84,9 +84,11 @@ Cloudflare Pages builds on every push. Settings: root directory `cv-frontend`,
 build command `npm run build`, output directory `dist`.
 `public/_redirects` serves the single-page app and redirects `/kontakt` to `/#kontakt`.
 
-**Daily rebuild.** Pages only rebuilds on push, so `.github/workflows/rebuild-site.yml` calls a
-Cloudflare deploy hook every day at 04:17 UTC and can be run by hand from the Actions tab.
-It needs the repository secret `CLOUDFLARE_DEPLOY_HOOK_URL`:
+**Daily rebuild.** Pages only rebuilds on push, so `.github/workflows/rebuild-site.yml` runs every
+day at 04:17 UTC and can be run by hand from the Actions tab. It fetches the portfolio from GitHub,
+commits `cv-frontend/src/data/generated/portfolio.json` to `main` when the projects changed (the
+fallback for builds that cannot reach GitHub; no commit when nothing changed), and then calls a
+Cloudflare deploy hook so the site is rebuilt. It needs the repository secret `CLOUDFLARE_DEPLOY_HOOK_URL`:
 
 1. Cloudflare dashboard → **Workers & Pages** → the project → **Settings → Builds → Add deploy hook**.
    Name it `daily-portfolio-rebuild` and choose the production branch (`main`). Copy the URL.
