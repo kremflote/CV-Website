@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@500..700&display=swap");
+/* Fonts (Inter, Sora, JetBrains Mono) are loaded from index.html. */
 @import "tailwindcss";
-@import "@fortawesome/fontawesome-free/css/all.min.css";
 
 /* Dark mode follows the data-theme attribute set in index.html, not the media query. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
