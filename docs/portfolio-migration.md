@@ -1,7 +1,7 @@
 # Portfolio migration
 
-Status: `portfolio.json` and screenshots have been added to all seven project
-repositories, each on the branch `claude/portfolio-metadata` with a pull request.
+Status: `portfolio.json` and screenshots have been added to the project
+repositories below, each on the branch `claude/portfolio-metadata` with a pull request.
 
 | Project | Repository | Text on the site comes from |
 |---|---|---|
@@ -12,6 +12,7 @@ repositories, each on the branch `claude/portfolio-metadata` with a pull request
 | Python Exam 2026 | `kremflote/PGR107-Python-Exam-2026` | README (Norwegian) |
 | Matflote | `kremflote/Matflote` | `cv-frontend/src/data/localProjects.ts` (the README stays English) |
 | Raspberry Pi Home Server | `kremflote/homeserver-config` | `cv-frontend/src/data/localProjects.ts` (the README stays English) |
+| JobSearcher | `kremflote/JobSearcher` | README (Norwegian); screenshots from the dashboard in mock mode |
 
 Each `portfolio.json` sets the title, the card description, the category, the grade,
 whether the project is featured, `legacyId` (keeps old `/showcase/<number>` links working),
@@ -20,8 +21,8 @@ the screenshots and which README sections to show. Screenshots are in `docs/port
 
 ## Remaining steps (on GitHub, in this order)
 
-1. Merge the `claude/portfolio-metadata` pull request in each of the seven repositories.
-2. Add the topic `portfolio` to each of the seven repositories (gear icon next to **About**),
+1. Merge the `claude/portfolio-metadata` pull request in each repository.
+2. Add the topic `portfolio` to each repository (gear icon next to **About**),
    plus technology topics for the chips, for example:
    - PGR208: `kotlin`, `jetpack-compose`, `retrofit`, `room`
    - DS3103: `react`, `typescript`, `dotnet`, `sqlite`
@@ -30,6 +31,7 @@ the screenshots and which README sections to show. Screenshots are in `docs/port
    - PG3401: `c`, `linux`, `posix-threads`
    - PG4200: `java`
    - PGR107: `python`, `numpy`, `pandas`, `matplotlib`
+   - JobSearcher: `python`, `fastapi`, `react`, `typescript`, `sqlite`
 3. Merge the CV-Website pull request. Its build fetches the projects.
 4. Run `npm run portfolio` in `cv-frontend/` and commit `src/data/generated/portfolio.json`,
    so later builds have a fallback if GitHub cannot be reached.
