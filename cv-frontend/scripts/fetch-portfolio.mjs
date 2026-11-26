@@ -74,6 +74,17 @@ const TOPIC_NAMES = {
   room: "Room",
   "entity-framework-core": "EF Core",
   "posix-threads": "POSIX threads",
+  fastapi: "FastAPI",
+  openrouter: "OpenRouter",
+  deepseek: "DeepSeek",
+  pwa: "PWA",
+  playwright: "Playwright",
+  pytest: "pytest",
+  vitest: "Vitest",
+  "github-actions": "GitHub Actions",
+  "cloudflare-pages": "Cloudflare Pages",
+  llm: "LLM",
+  ai: "AI",
 };
 
 const log = (message) => console.log(`[portfolio] ${message}`);
